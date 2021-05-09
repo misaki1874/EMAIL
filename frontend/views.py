@@ -59,6 +59,14 @@ def register(request):
     useremail = username+'@skyfall.icu'
     con = connectdb()
     cursor = con.cursor()
+    sql = "SELECT COUNT(*) FROM user where user_name = '%s'"
+    data = (username,)
+    cursor.execute(sql%data)
+    result = cursor.fetchone()
+    userNum = result[0]
+    if userNum > 0:  # 用户已存在
+        return JsonResponse({"message": "用户名已被占用"})
+
     sql = "INSERT INTO user(user_name,user_code,user_email,smtp_state,pop_state) VALUES('%s','%s','%s','%s','%s')"
     data = (username,password,useremail,"1","1")  # 默认可以收发邮件
     cursor.execute(sql%data)
