@@ -1,10 +1,49 @@
+import pymysql
+from django.http import JsonResponse
 from django.shortcuts import render
 from .models import User
 # Create your views here.
 
+# 数据库连接
+def connectdb():
+    config = {
+        'host': '127.0.0.1',
+        'port': 3306,
+        'user': 'root',
+        'password': 'root',
+        'database': 'maildb',
+        'charset': 'utf8',
+    }
+    con = pymysql.connect(**config)
+    return con
+
 def Login(request):
     return render(request,'Login.html')
 
+# 用户认证
+def user_identified(request):
+    email = request.POST.get('email',None)
+    password = request.POST.get('password',None)
+    con = connectdb()
+    cursor = con.cursor()
+    sql = "SELECT user_code FROM user where user_email = '%s'"
+    data = (email,)
+    cursor.execute(sql%data)
+    try:
+        result = cursor.fetchone()
+        code = result[0]
+    except IndexError:  # 无记录 不存在该用户
+        return 0
+    cursor.close()
+    con.close()
+    # 密码验证
+    if code == password:
+        return JsonResponse({"message": "登陆成功"})
+    else:
+        return JsonResponse({"message": "邮箱或密码输入错误"})
+
+
+# 注册
 def SignUp(request):
     return render(request,'SignUp.html')
 
