@@ -25,4 +25,5 @@ urlpatterns = [
     path('GET_test/',views.GET_test),
     path('POST_test/',views.POST_test),
     path('POST/',views.POST),
+    path('user_identified/', views.user_identified)
 ]

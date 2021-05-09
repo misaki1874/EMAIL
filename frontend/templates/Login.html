@@ -59,7 +59,8 @@
                                     <h3 class="card-header h4">LOGIN</h3>
                                     <div class="card-block">
                                         <!-- <form action="index.html" method="post"> -->
-                                        <form>
+                                        <form name="login">
+                                            {% csrf_token %}
                                             <div class="form-group">
                                                 <label class="sr-only" for="frontend_login_email">Email</label>
                                                 <input type="email" class="form-control" id="frontend_login_email"
@@ -71,12 +72,14 @@
                                                     placeholder="Password" />
                                             </div>
                                             <div align="left">
-                                                <button type="submit" id="login" class="btn btn-app btn-block"
-                                                    style="width: 45%;float: left;">Login</button>
+                                                <input type="button" id=login value='Login' class="btn btn-app btn-block" style="width: 45%;float: left;">
+                                                <!-- <button type="submit" id="login" class="btn btn-app btn-block"
+                                                    style="width: 45%;float: left;">Login</button> -->
                                             </div>
                                             <div align="right">
-                                                <button type="submit" class="btn btn-app btn-block"
-                                                    style="width: 45%;">Sign Up</button>
+                                                <a href="/SignUp"><input type="button" value='SignUp' class="btn btn-app btn-block" style="width: 45%;"></a>
+                                                <!-- <button type="submit" class="btn btn-app btn-block" onclick="window.location.href = 'https://www.baidu.com/'"
+                                                    style="width: 45%;">Sign Up</button> -->
                                             </div>
                                         </form>
                                     </div>
@@ -124,22 +127,28 @@
             var email = document.getElementById('frontend_login_email').value;
             var password = document.getElementById('frontend_login_password').value;
             alert(email + password);
-            if (email != "" && password != "") {
+            if (email != "" || password != "") {
                 $.ajax({
                     type: 'POST',
-                    url: '',
+                    url: '/user_identified/',
                     // async: false,
                     data: {
                         email: email,
-                        password: password
+                        password: password,
+                        csrfmiddlewaretoken:'{{ csrf_token }}'
                     },
                     success: function (data) {
-                        alert(data);
-                        if(data.return=="登陆成功") window.location.href="/index";
+                        alert(data.message);
+                        if(data.message=="登陆成功") window.location.href="/index";
                     }
                 })
             }
+            
         })
+
+        // register() {
+        //     window.location.href="SignUp.html";
+        // }
     </script>
 
 </body>
