@@ -171,7 +171,6 @@ class Migration(migrations.Migration):
                 ('user_email', models.CharField(blank=True, max_length=32, null=True)),
                 ('smtp_state', models.CharField(blank=True, max_length=1, null=True)),
                 ('pop_state', models.CharField(blank=True, max_length=1, null=True)),
-                ('port', models.IntegerField(blank=True, null=True)),
             ],
             options={
                 'db_table': 'user',

@@ -153,7 +153,6 @@ class User(models.Model):
     smtp_state = models.CharField(max_length=1, blank=True, 
 null=True)
     pop_state = models.CharField(max_length=1, blank=True, null=True)
-    port = models.IntegerField(blank=True, null=True)       
 
     class Meta:
         managed = False
