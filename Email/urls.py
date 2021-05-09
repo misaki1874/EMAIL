@@ -22,8 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Login),
     path('SignUp/', views.SignUp),
+    path('Index/', views.Index),
     path('GET_test/',views.GET_test),
     path('POST_test/',views.POST_test),
     path('POST/',views.POST),
-    path('user_identified/', views.user_identified)
+    path('userIdentified/', views.user_identified)
 ]

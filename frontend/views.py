@@ -47,6 +47,9 @@ def user_identified(request):
 def SignUp(request):
     return render(request,'SignUp.html')
 
+def Index(request):
+    return render(request,'Index.html')
+
 def GET_test(request):
     # 渲染这个页面 并返回到前端
     return render(request,'GET_test.html')

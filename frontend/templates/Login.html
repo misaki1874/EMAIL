@@ -64,20 +64,20 @@
                                             <div class="form-group">
                                                 <label class="sr-only" for="frontend_login_email">Email</label>
                                                 <input type="email" class="form-control" id="frontend_login_email"
-                                                    placeholder="Email" />
+                                                    placeholder="邮箱" />
                                             </div>
                                             <div class="form-group">
                                                 <label class="sr-only" for="frontend_login_password">Password</label>
                                                 <input type="password" class="form-control" id="frontend_login_password"
-                                                    placeholder="Password" />
+                                                    placeholder="密码" />
                                             </div>
                                             <div align="left">
-                                                <input type="button" id=login value='Login' class="btn btn-app btn-block" style="width: 45%;float: left;">
+                                                <input type="button" id=login value='登录' class="btn btn-app btn-block" style="width: 45%;float: left;">
                                                 <!-- <button type="submit" id="login" class="btn btn-app btn-block"
                                                     style="width: 45%;float: left;">Login</button> -->
                                             </div>
                                             <div align="right">
-                                                <a href="/SignUp"><input type="button" value='SignUp' class="btn btn-app btn-block" style="width: 45%;"></a>
+                                                <a href="/SignUp"><input type="button" value='注册' class="btn btn-app btn-block" style="width: 45%;"></a>
                                                 <!-- <button type="submit" class="btn btn-app btn-block" onclick="window.location.href = 'https://www.baidu.com/'"
                                                     style="width: 45%;">Sign Up</button> -->
                                             </div>
@@ -126,11 +126,11 @@
         $("#login").click(function () {
             var email = document.getElementById('frontend_login_email').value;
             var password = document.getElementById('frontend_login_password').value;
-            alert(email + password);
+            // alert(email + password);
             if (email != "" || password != "") {
                 $.ajax({
                     type: 'POST',
-                    url: '/user_identified/',
+                    url: '/userIdentified/',
                     // async: false,
                     data: {
                         email: email,
@@ -139,16 +139,12 @@
                     },
                     success: function (data) {
                         alert(data.message);
-                        if(data.message=="登陆成功") window.location.href="/index";
+                        if(data.message=="登陆成功") window.location.href="/Index";
                     }
                 })
             }
             
         })
-
-        // register() {
-        //     window.location.href="SignUp.html";
-        // }
     </script>
 
 </body>
