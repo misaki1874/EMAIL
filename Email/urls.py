@@ -20,6 +20,8 @@ from frontend import views
 urlpatterns = [
     # 地址+vue中的url
     path('admin/', admin.site.urls),
+    path('', views.Login),
+    path('SignUp/', views.SignUp),
     path('GET_test/',views.GET_test),
     path('POST_test/',views.POST_test),
     path('POST/',views.POST),

@@ -95,7 +95,7 @@ DATABASES = {
         'HOST': '127.0.0.1',  # 数据库地址，本机 ip 地址 127.0.0.1
         'PORT': 3306,  # 端口
         'USER': 'root',  # 数据库用户
-        'PASSWORD': 'xxsql',  # 数据库密码
+        'PASSWORD': 'root',  # 数据库密码
     }
 }
 
@@ -140,3 +140,15 @@ USE_TZ = True
 
 # 静态文件目录
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = [
+    ("css",os.path.join(STATIC_ROOT, 'css')),
+    ("js",os.path.join(STATIC_ROOT, 'js')),
+    ("img",os.path.join(STATIC_ROOT, 'img')),
+    ("fonts",os.path.join(STATIC_ROOT, 'fonts')),
+
+]
+
+

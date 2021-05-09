@@ -2,6 +2,12 @@ from django.shortcuts import render
 from .models import User
 # Create your views here.
 
+def Login(request):
+    return render(request,'Login.html')
+
+def SignUp(request):
+    return render(request,'SignUp.html')
+
 def GET_test(request):
     # 渲染这个页面 并返回到前端
     return render(request,'GET_test.html')
