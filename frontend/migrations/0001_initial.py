@@ -144,8 +144,10 @@ class Migration(migrations.Migration):
                 ('email_to', models.CharField(blank=True, max_length=32, null=True)),
                 ('email_subject', models.CharField(blank=True, max_length=64, null=True)),
                 ('email_cont', models.CharField(blank=True, max_length=1024, null=True)),
-                ('time', models.DateField(blank=True, null=True)),
+                ('send_time', models.DateTimeField(blank=True, null=True)),
                 ('email_size', models.IntegerField(blank=True, null=True)),
+                ('del_flag', models.CharField(max_length=1, blank=True, null=True)),
+                ('del_time', models.DateTimeField(blank=True, null=True)),
             ],
             options={
                 'db_table': 'email',

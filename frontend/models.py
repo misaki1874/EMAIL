@@ -129,8 +129,10 @@ class Email(models.Model):
     email_to = models.CharField(max_length=32, blank=True, null=True)
     email_subject = models.CharField(max_length=64, blank=True, null=True)
     email_cont = models.CharField(max_length=1024, blank=True, null=True)
-    time = models.DateField(blank=True, null=True)
-    email_size = models.IntegerField(blank=True, null=True) 
+    send_time = models.DateTimeField(blank=True, null=True)
+    email_size = models.IntegerField(blank=True, null=True)
+    del_flag = models.CharField(max_length=1, blank=True, null=True)
+    del_time = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
