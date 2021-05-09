@@ -1,119 +1,147 @@
 <!DOCTYPE html>
 <html class="app-ui">
 
-    <head>
-        <!-- Meta -->
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<head>
+    <!-- Meta -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-        <!-- Document title -->
-        <title>Frontend - Login</title>
+    <!-- Document title -->
+    <title>Frontend - Login</title>
 
-        <meta name="description" content="AppUI - Frontend Template & UI Framework" />
-        <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="AppUI - Frontend Template & UI Framework" />
+    <meta name="robots" content="noindex, nofollow" />
 
-        <!-- Favicons -->
-        <link rel="apple-touch-icon" href="../../static/img/favicons/apple-touch-icon.png" />
-        <link rel="icon" href="../../static/img/favicons/favicon.ico" />
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="../../static/img/favicons/apple-touch-icon.png" />
+    <link rel="icon" href="../../static/img/favicons/favicon.ico" />
 
-        <!-- Google fonts -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
+    <!-- Google fonts -->
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
 
-        <!-- AppUI CSS stylesheets -->
-        <link rel="stylesheet" id="css-font-awesome" href="../../static/css/font-awesome.css" />
-        <link rel="stylesheet" id="css-ionicons" href="../../static/css/ionicons.css" />
-        <link rel="stylesheet" id="css-bootstrap" href="../../static/css/bootstrap.css" />
-        <link rel="stylesheet" id="css-app" href="../../static/css/app.css" />
-        <link rel="stylesheet" id="css-app-custom" href="../../static/css/app-custom.css" />
-        <!-- End Stylesheets -->
-    </head>
+    <!-- AppUI CSS stylesheets -->
+    <link rel="stylesheet" id="css-font-awesome" href="../../static/css/font-awesome.css" />
+    <link rel="stylesheet" id="css-ionicons" href="../../static/css/ionicons.css" />
+    <link rel="stylesheet" id="css-bootstrap" href="../../static/css/bootstrap.css" />
+    <link rel="stylesheet" id="css-app" href="../../static/css/app.css" />
+    <link rel="stylesheet" id="css-app-custom" href="../../static/css/app-custom.css" />
+    <!-- End Stylesheets -->
+</head>
 
-    <body class="app-ui">
-        <div class="app-layout-canvas">
-            <div class="app-layout-container">
+<body class="app-ui">
+    <div class="app-layout-canvas">
+        <div class="app-layout-container">
 
-                <main class="app-layout-content">
+            <main class="app-layout-content">
 
-                    <!-- Page header -->
-                    <div class="page-header bg-green bg-inverse">
-                        <div class="container" style="height:100px">
-                            <!-- Section Content -->
-                            <div class="p-y-lg text-center">
-                                <h1 class="display-2">邮箱登录</h1>
-                                <!-- <p class="text-muted">Unlimited ideas. Unlimited power. Unlimited joy. Unlimited opportunities.</p> -->
-                            </div>
-                            <!-- End Section Content -->
+                <!-- Page header -->
+                <div class="page-header bg-green bg-inverse">
+                    <div class="container" style="height:100px">
+                        <!-- Section Content -->
+                        <div class="p-y-lg text-center">
+                            <h1 class="display-2">邮箱登录</h1>
+                            <!-- <p class="text-muted">Unlimited ideas. Unlimited power. Unlimited joy. Unlimited opportunities.</p> -->
                         </div>
+                        <!-- End Section Content -->
                     </div>
-                    <!-- End Page header -->
+                </div>
+                <!-- End Page header -->
 
-                    <!-- Page content -->
-                    <div class="page-content">
-                        <div class="container">
-                            <div class="row">
-                                <!-- Login card -->
-                                <div class="col-md-6" style="left:25%;">
-                                    <div class="card">
-                                        <h3 class="card-header h4">LOGIN</h3>
-                                        <div class="card-block">
-                                            <form action="index.html" method="post">
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="frontend_login_email">Email</label>
-                                                    <input type="email" class="form-control" id="frontend_login_email" placeholder="Email" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="frontend_login_password">Password</label>
-                                                    <input type="password" class="form-control" id="frontend_login_password" placeholder="Password" />
-                                                </div>
-                                                <div align="left">
-                                                    <button type="submit" class="btn btn-app btn-block" style="width: 45%;float: left;">Login</button>
-                                                </div>
-                                                <div align="right">
-                                                    <button type="submit" class="btn btn-app btn-block" style="width: 45%;">Sign Up</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <!-- .card-block -->
+                <!-- Page content -->
+                <div class="page-content">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Login card -->
+                            <div class="col-md-6" style="left:25%;">
+                                <div class="card">
+                                    <h3 class="card-header h4">LOGIN</h3>
+                                    <div class="card-block">
+                                        <!-- <form action="index.html" method="post"> -->
+                                        <form>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="frontend_login_email">Email</label>
+                                                <input type="email" class="form-control" id="frontend_login_email"
+                                                    placeholder="Email" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="frontend_login_password">Password</label>
+                                                <input type="password" class="form-control" id="frontend_login_password"
+                                                    placeholder="Password" />
+                                            </div>
+                                            <div align="left">
+                                                <button type="submit" id="login" class="btn btn-app btn-block"
+                                                    style="width: 45%;float: left;">Login</button>
+                                            </div>
+                                            <div align="right">
+                                                <button type="submit" class="btn btn-app btn-block"
+                                                    style="width: 45%;">Sign Up</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <!-- .card -->
+                                    <!-- .card-block -->
                                 </div>
-                                <!-- .col-md-6 -->
-                                <!-- End login -->
-
+                                <!-- .card -->
                             </div>
-                            <!-- .row -->
+                            <!-- .col-md-6 -->
+                            <!-- End login -->
+
                         </div>
-                        <!-- .container -->
+                        <!-- .row -->
                     </div>
-                    <!-- End page content -->
+                    <!-- .container -->
+                </div>
+                <!-- End page content -->
 
-                </main>
+            </main>
 
-                <footer class="app-layout-footer" style="position:fixed;bottom:0;">
-                    <div class="container p-y-md">
-                        <div class="pull-right hidden-sm hidden-xs">
-                        </div>
-                        <div class="pull-left text-center text-md-left">
-                            AppUI &copy; <span class="js-year-copy"></span>
-                        </div>
+            <footer class="app-layout-footer" style="position:fixed;bottom:0;">
+                <div class="container p-y-md">
+                    <div class="pull-right hidden-sm hidden-xs">
                     </div>
-                </footer>
+                    <div class="pull-left text-center text-md-left">
+                        AppUI &copy; <span class="js-year-copy"></span>
+                    </div>
+                </div>
+            </footer>
 
-            </div>
-            <!-- .app-layout-container -->
         </div>
-        <!-- .app-layout-canvas -->
+        <!-- .app-layout-container -->
+    </div>
+    <!-- .app-layout-canvas -->
 
-        <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
-        <script src="../../static/js/core/jquery.min.js"></script>
-        <script src="../../static/js/core/bootstrap.min.js"></script>
-        <script src="../../static/js/core/jquery.slimscroll.min.js"></script>
-        <script src="../../static/js/core/jquery.scrollLock.min.js"></script>
-        <script src="../../static/js/core/jquery.placeholder.min.js"></script>
-        <script src="../../static/js/app.js"></script>
-        <script src="../../static/js/app-custom.js"></script>
+    <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
+    <script src="../../static/js/core/jquery.min.js"></script>
+    <script src="../../static/js/core/bootstrap.min.js"></script>
+    <script src="../../static/js/core/jquery.slimscroll.min.js"></script>
+    <script src="../../static/js/core/jquery.scrollLock.min.js"></script>
+    <script src="../../static/js/core/jquery.placeholder.min.js"></script>
+    <script src="../../static/js/app.js"></script>
+    <script src="../../static/js/app-custom.js"></script>
+    <script>
+        $("#login").click(function () {
+            var email = document.getElementById('frontend_login_email').value;
+            var password = document.getElementById('frontend_login_password').value;
+            alert(email + password);
+            if (email != "" && password != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: '',
+                    // async: false,
+                    data: {
+                        email: email,
+                        password: password
+                    },
+                    success: function (data) {
+                        alert(data);
+                        if(data.return=="登陆成功") window.location.href="/index";
+                    }
+                })
+            }
+        })
+    </script>
 
-    </body>
+</body>
 
 </html>
