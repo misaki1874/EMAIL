@@ -17,23 +17,28 @@ def connectdb():
     con = pymysql.connect(**config)
     return con
 
+# 登录页面
 def Login(request):
     return render(request,'Login.html')
 
-# 用户认证
+# 登录认证
 def user_identified(request):
     email = request.POST.get('email',None)
     password = request.POST.get('password',None)
     con = connectdb()
     cursor = con.cursor()
-    sql = "SELECT user_code FROM user where user_email = '%s'"
+    sql = "SELECT COUNT(*) FROM user where user_email = '%s'"
     data = (email,)
     cursor.execute(sql%data)
-    try:
-        result = cursor.fetchone()
-        code = result[0]
-    except IndexError:  # 无记录 不存在该用户
-        return 0
+    result = cursor.fetchone()
+    userNum = result[0]
+    if userNum == 0:  # 无记录 不存在该用户
+        return JsonResponse({"message": "用户不存在，请进行注册"})
+
+    sql = "SELECT user_code FROM user where user_email = '%s'"
+    cursor.execute(sql%data)
+    result = cursor.fetchone()
+    code = result[0]
     cursor.close()
     con.close()
     # 密码验证
@@ -43,15 +48,31 @@ def user_identified(request):
         return JsonResponse({"message": "邮箱或密码输入错误"})
 
 
-# 注册
+# 注册页面
 def SignUp(request):
     return render(request,'SignUp.html')
 
+# 用户注册
+def register(request):
+    username = request.POST.get('user',None)
+    password = request.POST.get('password',None)
+    useremail = username+'@skyfall.icu'
+    con = connectdb()
+    cursor = con.cursor()
+    sql = "INSERT INTO user(user_name,user_code,user_email,smtp_state,pop_state) VALUES('%s','%s','%s','%s','%s')"
+    data = (username,password,useremail,"1","1")  # 默认可以收发邮件
+    cursor.execute(sql%data)
+    con.commit()
+    cursor.close()
+    con.close()
+    return JsonResponse({"message": "注册成功"})
+
+
+#主页
 def Index(request):
     return render(request,'Index.html')
 
 def GET_test(request):
-    # 渲染这个页面 并返回到前端
     return render(request,'GET_test.html')
 
 def POST_test(request):
