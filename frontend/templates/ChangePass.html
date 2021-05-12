@@ -68,18 +68,18 @@
                     <!-- .navbar-left -->
 
                     <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" data-toggle="dropdown">首页 </a>
+                        <li>
+                            <a href="/Index">首页 </a>
                         </li>
 
                         <li class="dropdown">
                             <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a tabindex="-1" href="javascript:void(0)"> 修改密码 </a>
+                                    <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
                                 </li>
                                 <li>
-                                    <a tabindex="-1" href="javascript:void(0)"> 退出登录 </a>
+                                    <a tabindex="-1" href="javascript:void(0)" id="logout"> 退出登录 </a>
                                 </li>
                             </ul>
                         </li>
@@ -192,6 +192,23 @@
     <script src="../../static/js/core/jquery.placeholder.min.js"></script>
     <script src="../../static/js/app.js"></script>
     <script src="../../static/js/app-custom.js"></script>
+
+    <script>
+        $("#logout").click(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/Logout/',
+                // async: false,
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    alert(data.message);
+                    if (data.status == 200) window.location.href = "/";
+                }
+            })
+        })
+    </script>
 
 </body>
 

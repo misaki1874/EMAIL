@@ -16,18 +16,18 @@
         <meta name="robots" content="noindex, nofollow" />
 
         <!-- Favicons -->
-        <link rel="apple-touch-icon" href="assets/img/favicons/apple-touch-icon.png" />
-        <link rel="icon" href="assets/img/favicons/favicon.ico" />
+        <link rel="apple-touch-icon" href="../../static/img/favicons/apple-touch-icon.png" />
+        <link rel="icon" href="../../static/img/favicons/favicon.ico" />
 
         <!-- Google fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
 
         <!-- AppUI CSS stylesheets -->
-        <link rel="stylesheet" id="css-font-awesome" href="assets/css/font-awesome.css" />
-        <link rel="stylesheet" id="css-ionicons" href="assets/css/ionicons.css" />
-        <link rel="stylesheet" id="css-bootstrap" href="assets/css/bootstrap.css" />
-        <link rel="stylesheet" id="css-app" href="assets/css/app.css" />
-        <link rel="stylesheet" id="css-app-custom" href="assets/css/app-custom.css" />
+        <link rel="stylesheet" id="css-font-awesome" href="../../static/css/font-awesome.css" />
+        <link rel="stylesheet" id="css-ionicons" href="../../static/css/ionicons.css" />
+        <link rel="stylesheet" id="css-bootstrap" href="../../static/css/bootstrap.css" />
+        <link rel="stylesheet" id="css-app" href="../../static/css/app.css" />
+        <link rel="stylesheet" id="css-app-custom" href="../../static/css/app-custom.css" />
         <!-- End Stylesheets -->
     </head>
 
@@ -42,7 +42,7 @@
                     <div class="app-layout-drawer-scroll">
                         <!-- Drawer logo -->
                         <div id="logo" class="drawer-header">
-                            <a href="#"><img class="img-responsive" src="assets/img/logo/logo-backend.png" title="AppUI" alt="AppUI" /></a>
+                            <a href="#"><img class="img-responsive" src="../../static/img/logo/logo-backend.png" title="AppUI" alt="AppUI" /></a>
                         </div>
 
                         <!-- Drawer navigation -->
@@ -52,11 +52,11 @@
                                 <li class="nav-item nav-drawer-header">菜单</li>
 
                                 <li class="nav-item nav-item-has-subnav">
-                                    <a href="javascript:void(0)"><i class="ion-ios-calculator-outline"></i> 写邮件</a>
+                                    <a href="/WriteEmail"><i class="ion-ios-calculator-outline"></i> 写邮件</a>
                                 </li>
 
                                 <li class="nav-item nav-item-has-subnav">
-                                    <a href="javascript:void(0)"><i class="ion-ios-compose-outline"></i> 收件箱</a>
+                                    <a href="/ReceiveEmail"><i class="ion-ios-compose-outline"></i> 收件箱</a>
                                 </li>
 
                                 <li class="nav-item nav-item-has-subnav" style="background-color:rgb(125, 200, 85);">
@@ -76,18 +76,18 @@
                                 <!-- .navbar-left -->
 
                                 <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">首页 </a>
+                                    <li>
+                                        <a href="/Index">首页 </a>
                                     </li>
 
                                     <li class="dropdown">
                                         <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li>
-                                                <a tabindex="-1" href="javascript:void(0)"> 修改密码 </a>
+                                                <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
                                             </li>
                                             <li>
-                                                <a tabindex="-1" href="javascript:void(0)"> 退出登录 </a>
+                                                <a tabindex="-1" href="javascript:void(0)" id="logout"> 退出登录 </a>
                                             </li>
                                         </ul>
                                     </li>
@@ -244,13 +244,30 @@
         <div class="app-ui-mask-modal"></div>
 
         <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
-        <script src="assets/js/core/jquery.min.js"></script>
-        <script src="assets/js/core/bootstrap.min.js"></script>
-        <script src="assets/js/core/jquery.slimscroll.min.js"></script>
-        <script src="assets/js/core/jquery.scrollLock.min.js"></script>
-        <script src="assets/js/core/jquery.placeholder.min.js"></script>
-        <script src="assets/js/app.js"></script>
-        <script src="assets/js/app-custom.js"></script>
+        <script src="../../static/js/core/jquery.min.js"></script>
+        <script src="../../static/js/core/bootstrap.min.js"></script>
+        <script src="../../static/js/core/jquery.slimscroll.min.js"></script>
+        <script src="../../static/js/core/jquery.scrollLock.min.js"></script>
+        <script src="../../static/js/core/jquery.placeholder.min.js"></script>
+        <script src="../../static/js/app.js"></script>
+        <script src="../../static/js/app-custom.js"></script>
+
+        <script>
+            $("#logout").click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Logout/',
+                    // async: false,
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                        if (data.status == 200) window.location.href = "/";
+                    }
+                })
+            })
+        </script>
 
     </body>
 
