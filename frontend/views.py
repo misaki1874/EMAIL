@@ -48,6 +48,21 @@ def ChangePass(request):
     return render(request,'ChangePass.html')
 
 
+# 身份信息获取
+# authority：管理员1 普通用户0
+def GetIdentity(request):
+    if not request.session.get('isLogin', None):
+        return JsonResponse({"message": "未登录", "status": 404})
+
+    userId = request.session.get('userId', None)
+    authority = request.session.get('userAuthority', None)
+    return JsonResponse({
+        "message": "返回数据成功",
+        "status": 200,
+        "userId": userId,
+        "authority": authority})
+
+
 # 用户注册
 # 参数：用户名，密码
 # 注册成功，返回消息和200状态码
@@ -94,10 +109,12 @@ def user_identified(request):
         # 设置登录状态为True，设置登录id为username
         request.session['isLogin'] = True
         request.session['userId'] = username
+        request.session['userAuthority'] = 1
         return JsonResponse({"message": "登陆成功", "status": 200, "userId":username, "authorityNo": 1})
     elif user.user_code == password:  # 普通用户
         request.session['isLogin'] = True
         request.session['username'] = user.user_name
+        request.session['userAuthority'] = 0
         return JsonResponse({"message": "登陆成功", "status": 200, "userId":username, "authorityNo": 0})
     else:
         return JsonResponse({"message": "用户名或密码输入错误", "status": 404})
@@ -128,6 +145,9 @@ def Logout(request):
     else:
         request.session.flush()
         return JsonResponse({"message": "登出成功", "status": 200})
+
+
+
 
 
 def GET_test(request):

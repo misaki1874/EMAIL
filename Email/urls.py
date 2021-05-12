@@ -18,21 +18,34 @@ from django.urls import path
 from frontend import views
 
 urlpatterns = [
-    # 地址+vue中的url
     path('admin/', admin.site.urls),
-    path('', views.Login),
-    path('SignUp/', views.SignUp),
-    path('Index/', views.Index),
     path('GET_test/',views.GET_test),
     path('POST_test/',views.POST_test),
     path('POST/',views.POST),
+# 登录页面
+    path('', views.Login),
+# 注册页面
+    path('SignUp/', views.SignUp),
+# 主页
+    path('Index/', views.Index),
+# 登录认证
     path('userIdentified/', views.user_identified),
+# 用户注册
     path('userRegister/', views.register),
+# 写邮件页面
     path('WriteEmail/', views.WriteEmail),
+# 收件箱页面
     path('ReceiveEmail/', views.ReceiveEmail),
+# 已发送页面
     path('SentEmail/', views.SentEmail),
+# 修改密码页面
     path('ChangePass/', views.ChangePass),
+# 登出
     path('Logout/', views.Logout),
+# 修改密码
     path('ChangePwd/', views.ChangePwd),
+# 身份信息获取
+    path('GetIdentity/', views.GetIdentity),
+
 
 ]
