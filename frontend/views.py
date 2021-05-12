@@ -126,6 +126,7 @@ def Logout(request):
     if not request.session.get('isLogin', None):
         return JsonResponse({"message": "未登录，无法登出", "status": 404})
     else:
+        request.session.flush()
         return JsonResponse({"message": "登出成功", "status": 200})
 
 
