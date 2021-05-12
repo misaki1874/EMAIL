@@ -27,5 +27,9 @@ urlpatterns = [
     path('POST_test/',views.POST_test),
     path('POST/',views.POST),
     path('userIdentified/', views.user_identified),
-    path('userRegister/', views.register)
+    path('userRegister/', views.register),
+    path('WriteEmail/', views.WriteEmail),
+    path('ReceiveEmail/', views.ReceiveEmail),
+    path('SentEmail/', views.SentEmail),
+    path('ChangePass/', views.ChangePass),
 ]
