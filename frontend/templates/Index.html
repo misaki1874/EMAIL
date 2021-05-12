@@ -1,252 +1,275 @@
 <!DOCTYPE html>
 
-<html class="app-ui"><head>
-        <!-- Meta -->
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<html class="app-ui">
 
-        <!-- Document title -->
-        <title>index</title>
+<head>
+    <!-- Meta -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-        <meta name="description" content="AppUI - Admin Dashboard Template & UI Framework" />
-        <meta name="author" content="rustheme" />
-        <meta name="robots" content="noindex, nofollow" />
+    <!-- Document title -->
+    <title>index</title>
 
-        <!-- Favicons -->
-        <link rel="apple-touch-icon" href="../../static/img/favicons/apple-touch-icon.png" />
-        <link rel="icon" href="../../static/img/favicons/favicon.ico" />
+    <meta name="description" content="AppUI - Admin Dashboard Template & UI Framework" />
+    <meta name="author" content="rustheme" />
+    <meta name="robots" content="noindex, nofollow" />
 
-        <!-- Google fonts -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="../../static/img/favicons/apple-touch-icon.png" />
+    <link rel="icon" href="../../static/img/favicons/favicon.ico" />
 
-        <!-- Page JS Plugins CSS -->
-        <link rel="stylesheet" href="../../static/js/plugins/slick/slick.min.css" />
-        <link rel="stylesheet" href="../../static/js/plugins/slick/slick-theme.min.css" />
+    <!-- Google fonts -->
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
 
-        <!-- AppUI CSS stylesheets -->
-        <link rel="stylesheet" id="css-font-awesome" href="../../static/css/font-awesome.css" />
-        <link rel="stylesheet" id="css-ionicons" href="../../static/css/ionicons.css" />
-        <link rel="stylesheet" id="css-bootstrap" href="../../static/css/bootstrap.css" />
-        <link rel="stylesheet" id="css-app" href="../../static/css/app.css" />
-        <link rel="stylesheet" id="css-app-custom" href="../../static/css/app-custom.css" />
-        <!-- End Stylesheets -->
-    </head>
+    <!-- Page JS Plugins CSS -->
+    <link rel="stylesheet" href="../../static/js/plugins/slick/slick.min.css" />
+    <link rel="stylesheet" href="../../static/js/plugins/slick/slick-theme.min.css" />
 
-    <body class="app-ui layout-has-drawer layout-has-fixed-header">
-        <div class="app-layout-canvas">
-            <div class="app-layout-container">
+    <!-- AppUI CSS stylesheets -->
+    <link rel="stylesheet" id="css-font-awesome" href="../../static/css/font-awesome.css" />
+    <link rel="stylesheet" id="css-ionicons" href="../../static/css/ionicons.css" />
+    <link rel="stylesheet" id="css-bootstrap" href="../../static/css/bootstrap.css" />
+    <link rel="stylesheet" id="css-app" href="../../static/css/app.css" />
+    <link rel="stylesheet" id="css-app-custom" href="../../static/css/app-custom.css" />
+    <!-- End Stylesheets -->
+</head>
 
-                <!-- Drawer -->
-                <aside class="app-layout-drawer">
+<body class="app-ui layout-has-drawer layout-has-fixed-header">
+    <div class="app-layout-canvas">
+        <div class="app-layout-container">
 
-                    <!-- Drawer scroll area -->
-                    <div class="app-layout-drawer-scroll">
-                        <!-- Drawer logo -->
-                        <div id="logo" class="drawer-header">
-                            <a href="#"></a><img class="img-responsive" src="../../static/img/logo/logo-backend.png" title="AppUI" alt="AppUI" /></a>
-                        </div>
+            <!-- Drawer -->
+            <aside class="app-layout-drawer">
 
-                        <!-- Drawer navigation -->
-                        <nav class="drawer-main">
-                            <ul class="nav nav-drawer">
-
-                                <li class="nav-item nav-drawer-header">菜单</li>
-
-                                <li class="nav-item nav-item-has-subnav">
-                                    <a href="javascript:void(0)"><i class="ion-ios-calculator-outline"></i> 写邮件</a>
-                                </li>
-
-                                <li class="nav-item nav-item-has-subnav">
-                                    <a href="javascript:void(0)"><i class="ion-ios-compose-outline"></i> 收件箱</a>
-                                </li>
-
-                                <li class="nav-item nav-item-has-subnav">
-                                    <a href="javascript:void(0)"><i class="ion-ios-list-outline"></i> 已发送</a>
-                                </li>
-
-                            </ul>
-                        </nav>
+                <!-- Drawer scroll area -->
+                <div class="app-layout-drawer-scroll">
+                    <!-- Drawer logo -->
+                    <div id="logo" class="drawer-header">
+                        <a href="#"></a><img class="img-responsive" src="../../static/img/logo/logo-backend.png"
+                            title="AppUI" alt="AppUI" /></a>
                     </div>
-                    <!-- End drawer scroll area -->
-                </aside>
-                <!-- End drawer -->
 
-                <!-- Header -->
-                <header class="app-layout-header">
-                    <nav class="navbar navbar-default">
-                                <!-- .navbar-left -->
+                    <!-- Drawer navigation -->
+                    <nav class="drawer-main">
+                        <ul class="nav nav-drawer">
 
-                                <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">首页 </a>
-                                    </li>
+                            <li class="nav-item nav-drawer-header">菜单</li>
 
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                            <li>
-                                                <a tabindex="-1" href="javascript:void(0)"> 修改密码 </a>
-                                            </li>
-                                            <li>
-                                                <a tabindex="-1" href="/"> 退出登录 </a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                            <li class="nav-item nav-item-has-subnav">
+                                <a href="javascript:void(0)"><i class="ion-ios-calculator-outline"></i> 写邮件</a>
+                            </li>
 
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">
-                                            <span class="m-r-sm dropdown">  </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <!-- .navbar-right -->
-                            </div>
-                        </div>
-                        <!-- .container-fluid -->
+                            <li class="nav-item nav-item-has-subnav">
+                                <a href="javascript:void(0)"><i class="ion-ios-compose-outline"></i> 收件箱</a>
+                            </li>
+
+                            <li class="nav-item nav-item-has-subnav">
+                                <a href="javascript:void(0)"><i class="ion-ios-list-outline"></i> 已发送</a>
+                            </li>
+
+                        </ul>
                     </nav>
-                    <!-- .navbar-default -->
-                </header>
-                <!-- End header -->
+                </div>
+                <!-- End drawer scroll area -->
+            </aside>
+            <!-- End drawer -->
 
-                <main class="app-layout-content">
+            <!-- Header -->
+            <header class="app-layout-header">
+                <nav class="navbar navbar-default">
+                    <!-- .navbar-left -->
 
-                    <!-- Page Content -->
-                    <div class="container-fluid p-y-md">
-                        <!-- Stats -->
-                        <div class="row">
-                            <div class="col-sm-6 col-lg-6">
-                                <a class="card" href="javascript:void(0)">
-                                    <div class="card-block clearfix">
-                                        <div class="pull-right">
-                                            <p class="h6 text-muted m-t-0 m-b-xs">收件箱</p>
-                                            <p class="h3 text-blue m-t-sm m-b-0">120</p>
-                                        </div>
-                                        <div class="pull-left m-r">
-                                            <span class="img-avatar img-avatar-48 bg-green bg-inverse"><i class="ion-ios-bell fa-1-5x"></i></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- .col-sm-6 -->
+                    <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown">首页 </a>
+                        </li>
 
-                            <div class="col-sm-6 col-lg-6">
-                                <a class="card bg-green bg-inverse" href="javascript:void(0)">
-                                    <div class="card-block clearfix">
-                                        <div class="pull-right">
-                                            <p class="h6 text-muted m-t-0 m-b-xs">已发送</p>
-                                            <p class="h3 m-t-sm m-b-0">80</p>
-                                        </div>
-                                        <div class="pull-left m-r">
-                                            <span class="img-avatar img-avatar-48 bg-gray-light-o"><i class="ion-ios-email fa-1-5x"></i></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- .col-sm-6 -->
-                        </div>
-                        <!-- .row -->
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <!-- Yearly summary widget -->
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>这里是文件日志管理（还没想好怎么展示）</h4>
-                                        <ul class="card-actions">
-                                            <li class="dropdown">
-                                                <button type="button" data-toggle="dropdown"><i class="ion-more"></i></button>
-                                                <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li class="dropdown-header">Profile</li>
-                                                    <li>
-                                                        <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">3</span> News</a>
-                                                    </li>
-                                                    <li>
-                                                        <a tabindex="-1" href="javascript:void(0)"><span class="badge pull-right">1</span> Messages</a>
-                                                    </li>
-                                                    <li class="divider"></li>
-                                                    <li class="dropdown-header">More</li>
-                                                    <li>
-                                                        <a tabindex="-1" href="javascript:void(0)">Edit Profile..</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        <!-- .card-actions -->
-                                    </div>
-                                    <!-- .card-header -->
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <p class="h6 small text-muted">Yearly change</p>
-                                                <p class="h3 m-t-0">+214.22</p>
-                                                <!-- Chart.js Charts (initialized in js/pages/base_pages_dashboard.js), for more examples please check http://www.chartjs.org/docs/ -->
-                                                <div style="height: 120px;"><canvas class="js-chartjs-lines4"></canvas></div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <p class="h6 small text-muted">Shares trade</p>
-                                                <p class="h3 m-t-0">$28.74M</p>
-                                                <!-- Chart.js Charts (initialized in js/pages/base_pages_dashboard.js), for more examples please check http://www.chartjs.org/docs/ -->
-                                                <div style="height: 120px;"><canvas class="js-chartjs-lines5"></canvas></div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <p class="h6 small text-muted">Yearly change</p>
-                                                <p class="h3 m-t-0">+74%</p>
-                                                <!-- Chart.js Charts (initialized in js/pages/base_pages_dashboard.js), for more examples please check http://www.chartjs.org/docs/ -->
-                                                <div style="height: 120px;"><canvas class="js-chartjs-lines6"></canvas></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- .card-block -->
-                                </div>
-                                <!-- .card -->
-                                <!-- End Yearly summary widget -->
-                            </div>
-                            <!-- .col-lg-8 -->
-                        </div>
-                        <!-- .row -->
-                        <!-- End stats -->
-                    </div>
-                    <!-- .container-fluid -->
-                    <!-- End Page Content -->
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" id="logout" href="javascript:;"> 退出登录 </a>
+                                </li>
+                            </ul>
+                        </li>
 
-                    
-
-                </main>
-
-            </div>
-            <!-- .app-layout-container -->
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" data-toggle="dropdown">
+                                <span class="m-r-sm dropdown"> </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- .navbar-right -->
         </div>
-        <!-- .app-layout-canvas -->
+    </div>
+    <!-- .container-fluid -->
+    </nav>
+    <!-- .navbar-default -->
+    </header>
+    <!-- End header -->
 
-        <div class="app-ui-mask-modal"></div>
+    <main class="app-layout-content">
 
-        <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
-        <script src="../../static/js/core/jquery.min.js"></script>
-        <script src="../../static/js/core/bootstrap.min.js"></script>
-        <script src="../../static/js/core/jquery.slimscroll.min.js"></script>
-        <script src="../../static/js/core/jquery.scrollLock.min.js"></script>
-        <script src="../../static/js/core/jquery.placeholder.min.js"></script>
-        <script src="../../static/js/app.js"></script>
-        <script src="../../static/js/app-custom.js"></script>
+        <!-- Page Content -->
+        <div class="container-fluid p-y-md">
+            <!-- Stats -->
+            <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <a class="card" href="javascript:void(0)">
+                        <div class="card-block clearfix">
+                            <div class="pull-right">
+                                <p class="h6 text-muted m-t-0 m-b-xs">收件箱</p>
+                                <p class="h3 text-blue m-t-sm m-b-0">120</p>
+                            </div>
+                            <div class="pull-left m-r">
+                                <span class="img-avatar img-avatar-48 bg-green bg-inverse"><i
+                                        class="ion-ios-bell fa-1-5x"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- .col-sm-6 -->
 
-        <!-- Page Plugins -->
-        <script src="../../static/js/plugins/slick/slick.min.js"></script>
-        <script src="../../static/js/plugins/chartjs/Chart.min.js"></script>
-        <script src="../../static/js/plugins/flot/jquery.flot.min.js"></script>
-        <script src="../../static/js/plugins/flot/jquery.flot.pie.min.js"></script>
-        <script src="../../static/js/plugins/flot/jquery.flot.stack.min.js"></script>
-        <script src="../../static/js/plugins/flot/jquery.flot.resize.min.js"></script>
+                <div class="col-sm-6 col-lg-6">
+                    <a class="card bg-green bg-inverse" href="javascript:void(0)">
+                        <div class="card-block clearfix">
+                            <div class="pull-right">
+                                <p class="h6 text-muted m-t-0 m-b-xs">已发送</p>
+                                <p class="h3 m-t-sm m-b-0">80</p>
+                            </div>
+                            <div class="pull-left m-r">
+                                <span class="img-avatar img-avatar-48 bg-gray-light-o"><i
+                                        class="ion-ios-email fa-1-5x"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- .col-sm-6 -->
+            </div>
+            <!-- .row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Yearly summary widget -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>这里是文件日志管理（还没想好怎么展示）</h4>
+                            <ul class="card-actions">
+                                <li class="dropdown">
+                                    <button type="button" data-toggle="dropdown"><i class="ion-more"></i></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li class="dropdown-header">Profile</li>
+                                        <li>
+                                            <a tabindex="-1" href="javascript:void(0)"><span
+                                                    class="badge pull-right">3</span> News</a>
+                                        </li>
+                                        <li>
+                                            <a tabindex="-1" href="javascript:void(0)"><span
+                                                    class="badge pull-right">1</span> Messages</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="dropdown-header">More</li>
+                                        <li>
+                                            <a tabindex="-1" href="javascript:void(0)">Edit Profile..</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!-- .card-actions -->
+                        </div>
+                        <!-- .card-header -->
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p class="h6 small text-muted">Yearly change</p>
+                                    <p class="h3 m-t-0">+214.22</p>
+                                    <!-- Chart.js Charts (initialized in js/pages/base_pages_dashboard.js), for more examples please check http://www.chartjs.org/docs/ -->
+                                    <div style="height: 120px;"><canvas class="js-chartjs-lines4"></canvas></div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <p class="h6 small text-muted">Shares trade</p>
+                                    <p class="h3 m-t-0">$28.74M</p>
+                                    <!-- Chart.js Charts (initialized in js/pages/base_pages_dashboard.js), for more examples please check http://www.chartjs.org/docs/ -->
+                                    <div style="height: 120px;"><canvas class="js-chartjs-lines5"></canvas></div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <p class="h6 small text-muted">Yearly change</p>
+                                    <p class="h3 m-t-0">+74%</p>
+                                    <!-- Chart.js Charts (initialized in js/pages/base_pages_dashboard.js), for more examples please check http://www.chartjs.org/docs/ -->
+                                    <div style="height: 120px;"><canvas class="js-chartjs-lines6"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .card-block -->
+                    </div>
+                    <!-- .card -->
+                    <!-- End Yearly summary widget -->
+                </div>
+                <!-- .col-lg-8 -->
+            </div>
+            <!-- .row -->
+            <!-- End stats -->
+        </div>
+        <!-- .container-fluid -->
+        <!-- End Page Content -->
 
-        <!-- Page JS Code -->
-        <script src="../../static/js/pages/index.js"></script>
-        <script>
-            $(function()
-            {
-                // Init page helpers (Slick Slider plugin)
-                App.initHelpers('slick');
-            });
-        </script>
 
-    </body>
+
+    </main>
+
+    </div>
+    <!-- .app-layout-container -->
+    </div>
+    <!-- .app-layout-canvas -->
+
+    <div class="app-ui-mask-modal"></div>
+
+    <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
+    <script src="../../static/js/core/jquery.min.js"></script>
+    <script src="../../static/js/core/bootstrap.min.js"></script>
+    <script src="../../static/js/core/jquery.slimscroll.min.js"></script>
+    <script src="../../static/js/core/jquery.scrollLock.min.js"></script>
+    <script src="../../static/js/core/jquery.placeholder.min.js"></script>
+    <script src="../../static/js/app.js"></script>
+    <script src="../../static/js/app-custom.js"></script>
+
+    <!-- Page Plugins -->
+    <script src="../../static/js/plugins/slick/slick.min.js"></script>
+    <script src="../../static/js/plugins/chartjs/Chart.min.js"></script>
+    <script src="../../static/js/plugins/flot/jquery.flot.min.js"></script>
+    <script src="../../static/js/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="../../static/js/plugins/flot/jquery.flot.stack.min.js"></script>
+    <script src="../../static/js/plugins/flot/jquery.flot.resize.min.js"></script>
+
+    <!-- Page JS Code -->
+    <script src="../../static/js/pages/index.js"></script>
+    <script>
+        $(function () {
+            // Init page helpers (Slick Slider plugin)
+            App.initHelpers('slick');
+        });
+    </script>
+
+    <script>
+        $("#logout").click(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/Logout/',
+                // async: false,
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    alert(data.message);
+                    if (data.status == 200) window.location.href = "/";
+                }
+            })
+        })
+    </script>
+</body>
 
 </html>
