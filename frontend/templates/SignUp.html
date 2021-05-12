@@ -117,11 +117,11 @@
         <script>
             $("#signup").click(function () {
                 alert(123);
-                var user = document.getElementById('frontend_signup_username').value;
+                var username = document.getElementById('frontend_signup_username').value;
                 var password = document.getElementById('frontend_signup_password').value;
                 var repassword = document.getElementById('frontend_signup_repassword').value;
-                alert(user + password + repassword);
-                if (user == "" || password == "" || repassword =="") alert("请正确输入！");
+                alert(username + password + repassword);
+                if (username == "" || password == "" || repassword =="") alert("请正确输入！");
                 else if(password!=repassword) alert("两次密码输入不一致！");
                 else {
                     $.ajax({
@@ -129,13 +129,13 @@
                         url: '/userRegister/',
                         // async: false,
                         data: {
-                            user: user,
+                            username: username,
                             password: password,
                             csrfmiddlewaretoken:'{{ csrf_token }}'
                         },
                         success: function (data) {
                             alert(data.message);
-                            if(data.message=="注册成功") window.location.href="";
+                            if(data.message=="注册成功") window.location.href="/";
                         }
                     })
                 }
