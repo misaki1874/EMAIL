@@ -47,6 +47,7 @@ def SentEmail(request):
 def ChangePass(request):
     return render(request,'ChangePass.html')
 
+
 # 用户注册
 # 参数：用户名，密码
 # 注册成功，返回消息和200状态码
@@ -59,7 +60,7 @@ def register(request):
     username = request.POST.get('username',None)
     password = request.POST.get('password',None)
     useremail = username+'@skyfall.icu'
-    sameNameUser = models.User.objects.get(user_name=username)
+    sameNameUser = models.User.objects.filter(user_name=username)
     # 用户已存在
     if sameNameUser or username == 'admin':
         return JsonResponse({"message": "该用户名已被占用，请重新输入用户名", "status": 404})
@@ -84,10 +85,11 @@ def user_identified(request):
 
     username = request.POST.get('username',None)
     password = request.POST.get('password',None)
-    user = models.User.objects.get(user_name=username)
+    user = models.User.objects.filter(user_name=username)
     if not user.exists():  # 无记录 不存在该用户
         return JsonResponse({"message": "用户不存在，请进行注册", "status": 404})
     # 身份验证
+    user = user.first()
     if username == 'admin' and password == '123456':  # 管理员
         # 设置登录状态为True，设置登录id为username
         request.session['isLogin'] = True
@@ -101,6 +103,30 @@ def user_identified(request):
         return JsonResponse({"message": "用户名或密码输入错误", "status": 404})
 
 
+# 修改密码
+# 参数：用户名username，旧密码oldPassword，新密码newPassword
+def ChangePwd(request):
+    if not request.session.get('isLogin', None):
+        return JsonResponse({"message": "你还未登录", "status": 404})
+
+    username = request.session.get("username", None)
+    oldPassword = request.POST.get('oldPassword', None)
+    newPassword = request.POST.get('newPassword', None)
+    user = models.User.objects.get(user_name=username)
+    if user.user_code == oldPassword:
+        return JsonResponse({"message": "原密码错误，修改失败", "status": 404})
+
+    user.user_code = newPassword
+    user.save()
+    return JsonResponse({"message": "修改成功", "status": 200})
+
+
+# 登出
+def Logout(request):
+    if not request.session.get('isLogin', None):
+        return JsonResponse({"message": "未登录，无法登出", "status": 404})
+    else:
+        return JsonResponse({"message": "登出成功", "status": 200})
 
 
 def GET_test(request):

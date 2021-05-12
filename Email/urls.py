@@ -32,4 +32,7 @@ urlpatterns = [
     path('ReceiveEmail/', views.ReceiveEmail),
     path('SentEmail/', views.SentEmail),
     path('ChangePass/', views.ChangePass),
+    path('Logout/', views.Logout),
+    path('ChangePwd/', views.ChangePwd),
+
 ]
