@@ -54,12 +54,12 @@ def GetIdentity(request):
     if not request.session.get('isLogin', None):
         return JsonResponse({"message": "未登录", "status": 404})
 
-    userId = request.session.get('userId', None)
+    username = request.session.get('userId', None)
     authority = request.session.get('userAuthority', None)
     return JsonResponse({
         "message": "返回数据成功",
         "status": 200,
-        "userId": userId,
+        "username": username,
         "authority": authority})
 
 
@@ -110,23 +110,23 @@ def user_identified(request):
         request.session['isLogin'] = True
         request.session['userId'] = username
         request.session['userAuthority'] = 1
-        return JsonResponse({"message": "登陆成功", "status": 200, "userId":username, "authorityNo": 1})
+        return JsonResponse({"message": "登陆成功", "status": 200, "username": username, "authorityNo": 1})
     elif user.user_code == password:  # 普通用户
         request.session['isLogin'] = True
-        request.session['username'] = user.user_name
+        request.session['userId'] = username
         request.session['userAuthority'] = 0
-        return JsonResponse({"message": "登陆成功", "status": 200, "userId":username, "authorityNo": 0})
+        return JsonResponse({"message": "登陆成功", "status": 200, "username": username, "authorityNo": 0})
     else:
         return JsonResponse({"message": "用户名或密码输入错误", "status": 404})
 
 
 # 修改密码
-# 参数：用户名username，旧密码oldPassword，新密码newPassword
+# 参数：旧密码oldPassword，新密码newPassword
 def ChangePwd(request):
     if not request.session.get('isLogin', None):
         return JsonResponse({"message": "你还未登录", "status": 404})
 
-    username = request.session.get("username", None)
+    username = request.session.get("userId", None)
     oldPassword = request.POST.get('oldPassword', None)
     newPassword = request.POST.get('newPassword', None)
     user = models.User.objects.get(user_name=username)
