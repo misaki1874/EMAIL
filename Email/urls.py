@@ -36,6 +36,8 @@ urlpatterns = [
     path('SentEmail/', views.SentEmail),
 # 修改密码页面
     path('ChangePass/', views.ChangePass),
+# 用户管理页面
+    path('UserManage/',views.UserManage),
 
 # 登录认证
     path('userIdentified/', views.user_identified),

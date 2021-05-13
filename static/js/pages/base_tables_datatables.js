@@ -8,7 +8,7 @@ var BaseTableDatatables = function() {
 	// Init full DataTable: https://www.datatables.net/
 	var initDataTableFull = function() {
 		jQuery( '.js-dataTable-full' ).dataTable({
-			columnDefs: [ { orderable: false, targets: [ 4 ] } ],
+			columnDefs: [ { orderable: false, targets: [ -1 ] } ],
 			pageLength: 10,
 			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]]
 		});
@@ -17,7 +17,7 @@ var BaseTableDatatables = function() {
 	// Init simple DataTable: https://www.datatables.net/
 	var initDataTableSimple = function() {
 		jQuery( '.js-dataTable-simple' ).dataTable({
-			columnDefs: [ { orderable: false, targets: [ 4 ] } ],
+			columnDefs: [ { orderable: false, targets: [ -1 ] } ],
 			pageLength: 10,
 			lengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
 			searching: false,

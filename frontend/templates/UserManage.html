@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="app-ui">
+
+    <head>
+        <!-- Meta -->
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+        <!-- Document title -->
+        <title>Tables &ndash; Data tables</title>
+
+        <meta name="description" content="AppUI - Admin Dashboard Template & UI Framework" />
+        <meta name="author" content="rustheme" />
+        <meta name="robots" content="noindex, nofollow" />
+
+        <!-- Favicons -->
+        <link rel="apple-touch-icon" href="../../static/img/favicons/apple-touch-icon.png" />
+        <link rel="icon" href="../../static/img/favicons/favicon.ico" />
+
+        <!-- Google fonts -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
+
+        <!-- Page JS Plugins CSS -->
+        <link rel="stylesheet" href="../../static/js/plugins/datatables/jquery.dataTables.min.css" />
+
+        <!-- AppUI CSS stylesheets -->
+        <link rel="stylesheet" id="css-font-awesome" href="../../static/css/font-awesome.css" />
+        <link rel="stylesheet" id="css-ionicons" href="../../static/css/ionicons.css" />
+        <link rel="stylesheet" id="css-bootstrap" href="../../static/css/bootstrap.css" />
+        <link rel="stylesheet" id="css-app" href="../../static/css/app.css" />
+        <link rel="stylesheet" id="css-app-custom" href="../../static/css/app-custom.css" />
+        <!-- End Stylesheets -->
+    </head>
+
+    <body class="app-ui layout-has-drawer layout-has-fixed-header">
+        <div class="app-layout-canvas">
+            <div class="app-layout-container">
+
+                <!-- Drawer -->
+                <aside class="app-layout-drawer">
+
+                    <!-- Drawer scroll area -->
+                    <div class="app-layout-drawer-scroll">
+                        <!-- Drawer logo -->
+                        <div id="logo" class="drawer-header">
+                            <a href="index.html"><img class="img-responsive" src="../../static/img/logo/logo-backend.png" title="AppUI" alt="AppUI" /></a>
+                        </div>
+
+                        <!-- Drawer navigation -->
+                        <nav class="drawer-main">
+                            <ul class="nav nav-drawer">
+
+                                <li class="nav-item nav-drawer-header">后台管理</li>
+
+                                <li class="nav-item">
+                                    <a href="Manage.html"><i class="ion-ios-speedometer-outline"></i> 后台主页</a>
+                                </li>
+
+                                <!-- <li class="nav-item">
+                                    <a href="frontend_home.html"><i class="ion-ios-monitor-outline"></i> Frontend</a>
+                                </li> -->
+                                <li class="nav-item">
+                                    <a href="Userlist.html"><i class="ion-ios-calculator-outline"></i> 用户管理</a>
+                                </li>
+
+                                <li class="nav-item nav-item-has-subnav">
+                                    <a href="javascript:void(0)"><i class="ion-ios-compose-outline"></i> 日志管理</a>
+                                    <ul class="nav nav-subnav">
+
+                                        <li>
+                                            <a href="Log.html">SMTP日志</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="Log.html">POP3日志</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="EmailManage.html"><i class="ion-ios-email"></i>邮件管理</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="BatchSending.html"><i class="ion-ios-email-outline"></i>群发邮件</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a href="Systemsetting.html"><i class="ion-ios-list-outline"></i> 系统设置</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- End drawer navigation -->
+                    </div>
+                    <!-- End drawer scroll area -->
+                </aside>
+                <!-- End drawer -->
+
+                <!-- Header -->
+                <header class="app-layout-header">
+                    <nav class="navbar navbar-default">
+                                <!-- .navbar-left -->
+
+                                <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" data-toggle="dropdown">首页 </a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li>
+                                                <a tabindex="-1" href="javascript:void(0)"> 修改密码 </a>
+                                            </li>
+                                            <li>
+                                                <a tabindex="-1" href="javascript:void(0)"> 退出登录 </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" data-toggle="dropdown">
+                                            <span class="m-r-sm dropdown">  </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- .navbar-right -->
+                            </div>
+                        </div>
+                        <!-- .container-fluid -->
+                    </nav>
+                    <!-- .navbar-default -->
+                </header>
+                <!-- End header -->
+
+
+                <main class="app-layout-content">
+
+                    <!-- Page Content -->
+                    <div class="container-fluid p-y-md">
+                        <!-- Dynamic Table Full -->
+                        <div class="card">
+                            <!-- <div class="card-header">
+                                <h4>Dynamic Table - Full</h4>
+                            </div> -->
+                            <div class="card-block">
+                                <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
+                                <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <th>用户名</th>
+                                            <th class="hidden-xs">邮箱</th>
+                                            <th class="hidden-xs w-20">SMTP状态</th>
+                                            <th class="hidden-xs w-20">POP3状态</th>
+                                            <th class="text-center" style="width: 10%;">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="font-500" id="showusername">{{ userName }}</td>
+                                            <td class="hidden-xs">client1@example.com</td>
+                                            <td class="hidden-xs">正常</td>
+                                            <td class="hidden-xs">正常</td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="modal" data-target="#modal-popout" title="Edit Client"><i class="ion-edit"></i></button>
+                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="modal" data-target="#modal-slideup" title="Remove Client"><i class="ion-close"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- .card-block -->
+                        </div>
+                        <!-- .card -->
+                        <!-- End Dynamic Table Full -->
+                    </div>
+                    <!-- .container-fluid -->
+                    <!-- End Page Content -->
+
+                    <!-- Pop Out Modal -->
+                    <div class="modal fade" id="modal-popout" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-popout">
+                            <div class="modal-content">
+                                <div class="card-header bg-green bg-inverse">
+                                    <h4>用户设置</h4>
+                                    <ul class="card-actions">
+                                        <li>
+                                            <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="card-block" style="padding-bottom: 120px;" name="card-block">
+                                    <div class="form-group">
+                                        <label class="col-xs-12" for="example-select">设置SMTP/POP3启用状态</label>
+                                        <div class="col-sm-9" style="margin-top: 10px;">
+                                            <!-- <P>
+                                            <select class="form-control" id="authselect" name="authselect" size="1">
+                                                <option value="0">普通用户</option>
+                                                <option value="1">管理员</option>
+                                            </select>
+                                            </P> -->
+                                            <p>
+                                                <label class="css-input switch switch-sm switch-primary">
+                                                是否开启SMTP服务 <input id="SMTPoption" type="checkbox" checked /><span></span>
+                                            </label>
+                                            </p>
+                                            <p>
+                                                <label class="css-input switch switch-sm switch-primary">
+                                                是否开启POP3服务 <input id="POP3option" type="checkbox" checked /><span></span>
+                                            </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">取消</button>
+                                    <button class="btn btn-sm btn-app" type="button" data-dismiss="modal" onClick='getForm()' ><i class="ion-checkmark"></i>确定</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Pop Out Modal -->
+
+                    <!-- Slide Up Modal -->
+                    <div class="modal fade" id="modal-slideup" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-slideup">
+                            <div class="modal-content">
+                                <div class="card-header bg-green bg-inverse">
+                                    <h4>提示</h4>
+                                    <ul class="card-actions">
+                                        <li>
+                                            <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-block">
+                                    <p>确定要删除用户？</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">取消</button>
+                                    <button class="btn btn-sm btn-app" type="button" data-dismiss="modal"><i class="ion-checkmark"></i> 确定</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Slide Up Modal -->
+                </main>
+
+            </div>
+            <!-- .app-layout-container -->
+        </div>
+        <!-- .app-layout-canvas -->
+
+        <!-- Apps Modal -->
+        <!-- Opens from the button in the header -->
+        <div id="apps-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-sm modal-dialog modal-dialog-top">
+                <div class="modal-content">
+                    <!-- Apps card -->
+                    <div class="card m-b-0">
+                        <div class="card-header bg-app bg-inverse">
+                            <h4>Apps</h4>
+                            <ul class="card-actions">
+                                <li>
+                                    <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-block">
+                            <div class="row text-center">
+                                <div class="col-xs-6">
+                                    <a class="card card-block m-b-0 bg-app-secondary bg-inverse" href="index.html">
+                                        <i class="ion-speedometer fa-4x"></i>
+                                        <p>Admin</p>
+                                    </a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a class="card card-block m-b-0 bg-app-tertiary bg-inverse" href="frontend_home.html">
+                                        <i class="ion-laptop fa-4x"></i>
+                                        <p>Frontend</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .card-block -->
+                    </div>
+                    <!-- End Apps card -->
+                </div>
+            </div>
+        </div>
+        <!-- End Apps Modal -->
+
+        <div class="app-ui-mask-modal"></div>
+
+        <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
+        <script src="../../static/js/core/jquery.min.js"></script>
+        <script src="../../static/js/core/bootstrap.min.js"></script>
+        <script src="../../static/js/core/jquery.slimscroll.min.js"></script>
+        <script src="../../static/js/core/jquery.scrollLock.min.js"></script>
+        <script src="../../static/js/core/jquery.placeholder.min.js"></script>
+        <script src="../../static/js/app.js"></script>
+        <script src="../../static/js/app-custom.js"></script>
+
+        <!-- Page JS Plugins -->
+        <script src="../../static/js/plugins/datatables/jquery.dataTables.min.js"></script>
+
+        <!-- Page JS Code -->
+        <script src="../../static/js/pages/base_tables_datatables.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function()
+            {
+                // alert("chengg");
+                var userName;
+                var mailAddrr;
+                var SMTPstate;
+                var POP3state;
+                var list;
+                $.ajax({
+                    type: 'GET',
+                    url: '/UserList',
+                    // async: false,
+                    dateType: "json",
+                    // data: {
+                    // },
+                    success: function (data) {
+                        console.log(data.infoList[0]);
+                        alert(data.infoList[0].userName);
+                        userName=data.infoList[0].userName;
+                        document.getElementById("showusername").innerHTML=userName
+                        // console.log(list.data);
+                        // alert(data.message);
+                    }
+                })
+
+            });
+            function getForm(){
+                var auth=authselect.value;
+                var op1=SMTPoption.checked;
+                var op2=POP3option.checked; //选定时返回true 否则false
+                if(op1==true) alert(op1);
+            }
+            function changeState(){
+                var op1=SMTPoption.checked;
+                var op2=POP3option.checked;
+                if(op1==true) ;//开启SMTP
+
+                if(op1==false) ;//关闭SMTP
+                if(op2==true) ;//开启POP3
+                if(op2==false) ;//关闭POP3
+            }
+            function deleteUser(){//删除用户
+
+            }
+
+        </script>
+
+    </body>
+
+</html>

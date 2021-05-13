@@ -46,6 +46,9 @@ def SentEmail(request):
 # 修改密码页面
 def ChangePass(request):
     return render(request,'ChangePass.html')
+# 用户管理页面
+def UserManage(request):
+    return render(request,'UserManage.html')
 
 
 # 身份信息获取
