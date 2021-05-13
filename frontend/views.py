@@ -55,12 +55,12 @@ def GetIdentity(request):
         return JsonResponse({"message": "未登录", "status": 404})
 
     username = request.session.get('userId', None)
-    authority = request.session.get('userAuthority', None)
+    authorityNo = request.session.get('userAuthority', None)
     return JsonResponse({
         "message": "返回数据成功",
         "status": 200,
         "username": username,
-        "authority": authority})
+        "authorityNo": authorityNo})
 
 
 # 用户注册
@@ -149,6 +149,70 @@ def Logout(request):
         request.session.flush()
         return JsonResponse({"message": "登出成功", "status": 200})
 
+
+# 用户管理列表
+def UserList(request):
+    if not request.session.get('isLogin', None):
+        return JsonResponse({"message": "你还未登录", "status": 404})
+    users = models.User.objects.all().order_by("user_name")
+    infoList = []
+    for user in users:
+        infoList.append({'userName': user.user_name,
+                         'mailAddr': user.user_email,
+                         'SMTPstate': user.smtp_state,
+                         'POP3state': user.pop_state})
+    return JsonResponse({
+        "message": "返回数据成功",
+        "status": 200,
+        "infoList": infoList})
+
+# SMTP禁用
+def StopSMTP(request):
+    userName = request.POST.get('userName',None)
+    try:
+        user = models.User.objects.filter(user_name=userName)
+        user = user.first()
+        user.smtp_state = 0
+        user.save()
+        return JsonResponse({"message": "SMTP已禁用", "status": 200})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+# SMTP开启
+def StartSMTP(request):
+    userName = request.POST.get('userName',None)
+    try:
+        user = models.User.objects.filter(user_name=userName)
+        user = user.first()
+        user.smtp_state = 1
+        user.save()
+        return JsonResponse({"message": "SMTP已开启", "status": 200})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+# POP3禁用
+def StopPOP3(request):
+    userName = request.POST.get('userName',None)
+    try:
+        user = models.User.objects.filter(user_name=userName)
+        user = user.first()
+        user.pop_state = 0
+        user.save()
+        return JsonResponse({"message": "POP3已禁用", "status": 200})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+# POP3开启
+def StartPOP3(request):
+    userName = request.POST.get('userName',None)
+    try:
+        user = models.User.objects.filter(user_name=userName)
+        user = user.first()
+        user.pop_state = 1
+        user.save()
+        return JsonResponse({"message": "POP3已开启", "status": 200})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
 
 
 

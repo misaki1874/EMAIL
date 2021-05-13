@@ -47,12 +47,14 @@ urlpatterns = [
     path('ChangePwd/', views.ChangePwd),
 # 身份信息获取
     path('GetIdentity/', views.GetIdentity),
-# 主页收件数和发件数
-
-# 收件箱列表
-
-# 发件箱列表
-
-# 具体邮件查看
-
+# 用户管理列表
+    path('UserList', views.UserList),
+# SMTP禁用
+    path('StopSMTP', views.StopSMTP),
+# SMTP开启
+    path('StartSMTP', views.StartSMTP),
+# POP3禁用
+    path('StopPOP3', views.StopPOP3),
+# POP3开启
+    path('StartPOP3', views.StartPOP3),
 ]
