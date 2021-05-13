@@ -28,10 +28,6 @@ urlpatterns = [
     path('SignUp/', views.SignUp),
 # 主页
     path('Index/', views.Index),
-# 登录认证
-    path('userIdentified/', views.user_identified),
-# 用户注册
-    path('userRegister/', views.register),
 # 写邮件页面
     path('WriteEmail/', views.WriteEmail),
 # 收件箱页面
@@ -40,12 +36,23 @@ urlpatterns = [
     path('SentEmail/', views.SentEmail),
 # 修改密码页面
     path('ChangePass/', views.ChangePass),
+
+# 登录认证
+    path('userIdentified/', views.user_identified),
+# 用户注册
+    path('userRegister/', views.register),
 # 登出
     path('Logout/', views.Logout),
 # 修改密码
     path('ChangePwd/', views.ChangePwd),
 # 身份信息获取
     path('GetIdentity/', views.GetIdentity),
+# 主页收件数和发件数
 
+# 收件箱列表
+
+# 发件箱列表
+
+# 具体邮件查看
 
 ]

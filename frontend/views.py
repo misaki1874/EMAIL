@@ -129,9 +129,12 @@ def ChangePwd(request):
     username = request.session.get("userId", None)
     oldPassword = request.POST.get('oldPassword', None)
     newPassword = request.POST.get('newPassword', None)
-    user = models.User.objects.get(user_name=username)
-    if user.user_code == oldPassword:
-        return JsonResponse({"message": "原密码错误，修改失败", "status": 404})
+    user = models.User.objects.filter(user_name=username)
+    user = user.first()
+    if user.user_code != oldPassword:
+        return JsonResponse({"message": "原密码错误，请重新输入", "status": 404})
+    if user.user_code == newPassword:
+        return JsonResponse({"message": "新密码与原密码相同，请重新输入", "status": 404})
 
     user.user_code = newPassword
     user.save()
