@@ -43,8 +43,8 @@
                 <div class="app-layout-drawer-scroll">
                     <!-- Drawer logo -->
                     <div id="logo" class="drawer-header">
-                        <a href="#"><img class="img-responsive" src="../../static/img/logo/logo-backend.png" title="AppUI"
-                                alt="AppUI" /></a>
+                        <a href="#"><img class="img-responsive" src="../../static/img/logo/logo-backend.png"
+                                title="AppUI" alt="AppUI" /></a>
                     </div>
 
                     <!-- Drawer navigation -->
@@ -136,27 +136,27 @@
                                 <div class="form-group has-success">
                                     <label class="col-xs-12" for="example-text-input-success">旧密码</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="text" id="example-text-input-OldPassword"
-                                            name="example-text-input-OldPassword" placeholder="旧密码.." />
+                                        <input class="form-control" type="text" id="example-text-input-oldPassword"
+                                            name="example-text-input-oldPassword" placeholder="旧密码.." />
                                     </div>
                                 </div>
                                 <div class="form-group has-success">
                                     <label class="col-xs-12" for="example-text-input-success">新密码</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="text" id="example-text-input-NewPassword"
-                                            name="example-text-input-NewPassword" placeholder="新密码.." />
+                                        <input class="form-control" type="text" id="example-text-input-newPassword"
+                                            name="example-text-input-newPassword" placeholder="新密码.." />
                                     </div>
                                 </div>
                                 <div class="form-group has-success">
                                     <label class="col-xs-12" for="example-text-input-success">确认密码</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="text" id="example-text-input-repassword"
-                                            name="example-text-input-repassword" placeholder="确认密码.." />
+                                        <input class="form-control" type="text" id="example-text-input-reNewPassword"
+                                            name="example-text-input-reNewPassword" placeholder="确认密码.." />
                                     </div>
                                 </div>
                                 <div class="form-group m-b-0">
                                     <div class="col-xs-12">
-                                        <button class="btn btn-app" type="submit">提交</button>
+                                        <button class="btn btn-app" type="submit" id="submit">提交</button>
                                     </div>
                                 </div>
                             </form>
@@ -194,6 +194,20 @@
     <script src="../../static/js/app-custom.js"></script>
 
     <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/GetIdentity/',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    alert(data.message);
+                    if (data.status == 200) username = data.username;
+                }
+            })
+        });
+
         $("#logout").click(function () {
             $.ajax({
                 type: 'GET',
@@ -205,6 +219,28 @@
                 success: function (data) {
                     alert(data.message);
                     if (data.status == 200) window.location.href = "/";
+                }
+            })
+        });
+
+        $("#submit").click(function () {
+            var oldPassword = document.getElementById('example-text-input-oldPassword').value;
+            var newPassword = document.getElementById('example-text-input-newPassword').value;
+            var reNewPassword = document.getElementById('example-text-input-reNewPassword').value;
+            if(oldPassword==""||newPassword==""||reNewPassword=="") alert("请正确输入！");
+            else if(newPassword!=reNewPassword) alert("两次密码输入不一致！");
+            $.ajax({
+                type: 'POST',
+                url: '/ChangePwd/',
+                // async: false,
+                data: {
+                    oldPassword: oldPassword,
+                    newPassword: newPassword,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    alert(data.message);
+                    if (data.status == 200) window.location.href="/ChangePass";
                 }
             })
         })
