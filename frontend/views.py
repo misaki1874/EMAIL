@@ -177,8 +177,9 @@ def StopSMTP(request):
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        user.smtp_state = 0
-        user.save()
+        if user.smtp_state == 1:
+            user.smtp_state = 0
+            user.save()
         return JsonResponse({"message": "SMTP已禁用", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
@@ -189,8 +190,9 @@ def StartSMTP(request):
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        user.smtp_state = 1
-        user.save()
+        if user.smtp_state == 0:
+            user.smtp_state = 1
+            user.save()
         return JsonResponse({"message": "SMTP已开启", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
@@ -201,8 +203,9 @@ def StopPOP3(request):
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        user.pop_state = 0
-        user.save()
+        if user.pop_state == 1:
+            user.pop_state = 0
+            user.save()
         return JsonResponse({"message": "POP3已禁用", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
@@ -213,8 +216,9 @@ def StartPOP3(request):
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        user.pop_state = 1
-        user.save()
+        if user.pop_state == 0:
+            user.pop_state = 1
+            user.save()
         return JsonResponse({"message": "POP3已开启", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
@@ -240,6 +244,48 @@ def DeleEmail(request):
         return JsonResponse({"message": "邮件已删除", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
+
+# 发件箱列表
+def SendList(request):
+    userId = request.POST.get('userId',None)
+    try:
+        userEmail = models.User.objects.get(user_id=userId).user_email
+        emails = models.Email.objects.filter(email_from=userEmail, del_flag=0).order_by("-send_time")
+        infoList = []
+        for email in emails:
+            infoList.append({'emailId': email.email_id,
+                             'emailTo': email.email_to,
+                             'emailSubject': email.email_subject,
+                             'sendTime': email.send_time})
+        return JsonResponse({
+            "message": "返回数据成功",
+            "status": 200,
+            "infoList": infoList})
+
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+# 收件箱列表
+def RcvList(request):
+    userId = request.POST.get('userId',None)
+    try:
+        userEmail = models.User.objects.get(user_id=userId).user_email
+        emails = models.Email.objects.filter(email_to=userEmail, del_flag=0).order_by("-send_time")
+        infoList = []
+        for email in emails:
+            infoList.append({'emailId': email.email_id,
+                             'emailFrom': email.email_from,
+                             'emailSubject': email.email_subject,
+                             'sendTime': email.send_time})
+        return JsonResponse({
+            "message": "返回数据成功",
+            "status": 200,
+            "infoList": infoList})
+
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+
 
 def GET_test(request):
     return render(request,'GET_test.html')
