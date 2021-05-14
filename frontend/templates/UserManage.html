@@ -84,9 +84,9 @@
                                 <li class="nav-item">
                                     <a href="BatchSending.html"><i class="ion-ios-email-outline"></i>群发邮件</a>
                                 </li>
-                                <li class="nav-item active">
+                                <!-- <li class="nav-item active">
                                     <a href="Systemsetting.html"><i class="ion-ios-list-outline"></i> 系统设置</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </nav>
                         <!-- End drawer navigation -->
@@ -98,32 +98,6 @@
                 <!-- Header -->
                 <header class="app-layout-header">
                     <nav class="navbar navbar-default">
-                                <!-- .navbar-left -->
-
-                                <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">首页 </a>
-                                    </li>
-
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                            <li>
-                                                <a tabindex="-1" href="javascript:void(0)"> 修改密码 </a>
-                                            </li>
-                                            <li>
-                                                <a tabindex="-1" href="javascript:void(0)"> 退出登录 </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">
-                                            <span class="m-r-sm dropdown">  </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <!-- .navbar-right -->
                             </div>
                         </div>
                         <!-- .container-fluid -->
@@ -144,7 +118,7 @@
                             </div> -->
                             <div class="card-block">
                                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
-                                <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                                <!-- <table class="table table-condensed" id="userListTable">
                                     <thead>
                                         <tr>
                                             <th class="text-center"></th>
@@ -155,8 +129,9 @@
                                             <th class="text-center" style="width: 10%;">操作</th>
                                         </tr>
                                     </thead>
+                                    <tbody></tbody>
                                     <tbody>
-                                        <tr>
+                                        <tr id="tab">
                                             <td class="text-center">1</td>
                                             <td class="font-500" id="showusername">{{ userName }}</td>
                                             <td class="hidden-xs">client1@example.com</td>
@@ -169,6 +144,31 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                    </tbody>
+                                </table> -->
+                                <table class="table table-condensed" >
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width: 50px;">序号</th>
+                                            <th class="text-center" style="width: 100px;">用户名称</th>
+                                            <th class="text-center hidden-xs w-40">邮箱地址</th>
+                                            <th class="text-center hidden-xs w-15">SMTP状态</th>
+                                            <th class="text-center" style="width: 100px;">POP3状态</th>
+                                            <th class="text-center" style="width: 100px;">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userListTable">
+                                        <!-- <tr id="userListTable">
+                                            <td class="text-center">1</td>
+                                            <td>Mark Henry</td>
+                                            <td class="hidden-xs">Accountant</td>
+                                            <td class="hidden-xs">2021-5-9</td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remove client"><i class="ion-close"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -210,7 +210,7 @@
                                             </p>
                                             <p>
                                                 <label class="css-input switch switch-sm switch-primary">
-                                                是否开启POP3服务 <input id="POP3option" type="checkbox" checked /><span></span>
+                                                是否开启POP3服务 <input id="POP3option" type="checkbox" checked/><span></span>
                                             </label>
                                             </p>
                                         </div>
@@ -218,7 +218,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">取消</button>
-                                    <button class="btn btn-sm btn-app" type="button" data-dismiss="modal" onClick='getForm()' ><i class="ion-checkmark"></i>确定</button>
+                                    <button class="btn btn-sm btn-app" type="button" data-dismiss="modal" onClick='changeState()' ><i class="ion-checkmark"></i>确定</button>
                                 </div>
                             </div>
                         </div>
@@ -311,46 +311,120 @@
         <!-- Page JS Code -->
         <script src="../../static/js/pages/base_tables_datatables.js"></script>
         <script type="text/javascript">
+            var users;
+            var now;
+            // var name="";
             $(document).ready(function()
             {
-                // alert("chengg");
-                var userName;
-                var mailAddrr;
-                var SMTPstate;
-                var POP3state;
-                var list;
                 $.ajax({
                     type: 'GET',
                     url: '/UserList',
-                    // async: false,
                     dateType: "json",
-                    // data: {
-                    // },
                     success: function (data) {
-                        console.log(data.infoList[0]);
-                        alert(data.infoList[0].userName);
-                        userName=data.infoList[0].userName;
-                        document.getElementById("showusername").innerHTML=userName
-                        // console.log(list.data);
-                        // alert(data.message);
+                        var list=data.infoList
+                        users=list
+                        for(var i=0;i<list.length;i++){
+                            name=list[i].userName;
+                            if(list[i].SMTPstate==1) list[i].SMTPstate="启用"
+                            else if(list[i].SMTPstate==0) list[i].SMTPstate="禁用"
+                            if(list[i].POP3state==1) list[i].POP3state="启用"
+                            else if(list[i].POP3state==0) list[i].POP3state="禁用"
+                            str="<tr><td class=\""+"text-center"+"\">"+(i+1)+
+                                "</td><td class=\""+"text-center"+"\">"+list[i].userName+
+                                "</td><td class=\""+"text-center"+"\">"+list[i].mailAddr+
+                                "</td><td class=\""+"text-center"+"\">"+list[i].SMTPstate+
+                                "</td><td class=\""+"text-center"+"\">"+list[i].POP3state+"</td>"+
+                                "<td  class=\""+"text-center"+"\"><div class=\""+"btn-group"+"\">"+
+                                "<button class=\""+"btn btn-xs btn-default"+"\" type=\""+"button"+"\" data-toggle=\""+"modal"+"\" data-target=\""+"#modal-popout"+"\" title=\""+"Edit Client"+"\" onClick='getForm("+list[i].userId+")'>"
+                                 +"<i class=\""+"ion-edit"+"\" ></i></button>"+
+                                 "<button class=\""+"btn btn-xs btn-default"+"\" type=\""+"button"+"\" data-toggle=\""+"modal"+"\" data-target=\""+"#modal-slideup"+"\" title=\""+"Edit Client"+"\" onClick='getForm("+list[i].userId+")'>"
+                                 +"<i class=\""+"ion-close"+"\"></i></button>"
+                                 +"</div></td></tr>"
+                            $("#userListTable").append(str)
+                        }
+                        alert(data.message);
+
                     }
                 })
-
             });
-            function getForm(){
-                var auth=authselect.value;
-                var op1=SMTPoption.checked;
-                var op2=POP3option.checked; //选定时返回true 否则false
-                if(op1==true) alert(op1);
+            function getForm(name){
+                console.log("调用了getform"+name);
+                now=name;
+                // document.getElementById("POP3option").checked=false;
+                // changeState(num);
             }
             function changeState(){
                 var op1=SMTPoption.checked;
                 var op2=POP3option.checked;
-                if(op1==true) ;//开启SMTP
+                console.log(now+"的SMTP状态是"+op1)
+                console.log(now+"的POP3状态是"+op2)
+                if(op1==true){
+                    console.log("选项1开启")
+                    $.ajax({
+                    type: 'POST',
+                    url: '/StartSMTP',
+                    // async: false,
+                    dateType: "json",
+                    data: {
+                        userId:now,
+                        csrfmiddlewaretoken:'{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                    }
+                })
+                };//开启SMTP
 
-                if(op1==false) ;//关闭SMTP
-                if(op2==true) ;//开启POP3
-                if(op2==false) ;//关闭POP3
+                if(op1==false){
+                    console.log("选项1关闭")
+                    $.ajax({
+                    type: 'POST',
+                    url: '/StopSMTP',
+                    // async: false,
+                    dateType: "json",
+                    data: {
+                        userId:now,
+                        csrfmiddlewaretoken:'{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                    }
+                })
+                };//关闭SMTP
+
+                if(op2==true){
+                    console.log("选项2开启")
+                    $.ajax({
+                    type: 'POST',
+                    url: '/StartPOP3',
+                    // async: false,
+                    dateType: "json",
+                    data: {
+                        userId:now,
+                        csrfmiddlewaretoken:'{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                    }
+                })
+                };//开启POP3
+                if(op2==false){
+                    console.log("选项2关闭")
+                    $.ajax({
+                    type: 'POST',
+                    url: '/StopPOP3',
+                    // async: false,
+                    dateType: "json",
+                    data: {
+                        userId:now,
+                        csrfmiddlewaretoken:'{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                    }
+                })
+                };//关闭POP3
+                // location.reload();
             }
             function deleteUser(){//删除用户
 
