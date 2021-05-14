@@ -39,6 +39,8 @@ urlpatterns = [
 # 用户管理页面
     path('UserManage/',views.UserManage),
 
+# 身份信息获取
+    path('GetIdentity/', views.GetIdentity),
 # 登录认证
     path('userIdentified/', views.user_identified),
 # 用户注册
@@ -47,8 +49,6 @@ urlpatterns = [
     path('Logout/', views.Logout),
 # 修改密码
     path('ChangePwd/', views.ChangePwd),
-# 身份信息获取
-    path('GetIdentity/', views.GetIdentity),
 
 # 管理员用户管理列表
     path('UserList', views.UserList),
@@ -65,5 +65,11 @@ urlpatterns = [
 
 # 删除邮件
     path('DeleEmail', views.DeleEmail),
+# 发件箱列表
+    path('SendList/', views.SendList),
+# 收件箱列表
+    path('RcvList/', views.RcvList),
+# # 具体邮件查看
+#     path('CheckMail/', views.CheckMail),
 
 ]
