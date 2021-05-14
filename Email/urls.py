@@ -71,5 +71,8 @@ urlpatterns = [
     path('RcvList/', views.RcvList),
 # # 具体邮件查看
 #     path('CheckMail/', views.CheckMail),
+# 某用户的smtp pop权限
+    path('UserStates/', views.UserStates),
+
 
 ]

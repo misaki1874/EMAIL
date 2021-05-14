@@ -56,8 +56,6 @@ def GetIdentity(request):
 
 # 用户注册
 # 参数：用户名，密码
-# 注册成功，返回消息和200状态码
-# 注册失败，返回消息和404状态码
 def register(request):
     # 登录状态不允许注册
     if request.session.get('isLogin', None):
@@ -82,7 +80,7 @@ def register(request):
 
 
 # 登录认证
-# 参数：用户名, 密码
+# 参数：userName, password
 # 管理员权限No=1，普通用户权限No=0
 def user_identified(request):
     # 若已经登录，直接进入已登录账号
@@ -125,7 +123,7 @@ def user_identified(request):
 
 
 # 修改密码
-# 参数：旧密码oldPassword，新密码newPassword
+# 参数：oldPassword, newPassword
 def ChangePwd(request):
     if not request.session.get('isLogin', None):
         return JsonResponse({"message": "你还未登录", "status": 404})
@@ -172,58 +170,63 @@ def UserList(request):
         "infoList": infoList})
 
 # SMTP禁用
+# 参数：userId
 def StopSMTP(request):
     userId = request.POST.get('userId',None)
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        if user.smtp_state == 1:
-            user.smtp_state = 0
+        if user.smtp_state == '1':
+            user.smtp_state = '0'
             user.save()
         return JsonResponse({"message": "SMTP已禁用", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
 # SMTP开启
+# 参数：userId
 def StartSMTP(request):
     userId = request.POST.get('userId',None)
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        if user.smtp_state == 0:
-            user.smtp_state = 1
+        if user.smtp_state == '0':
+            user.smtp_state = '1'
             user.save()
         return JsonResponse({"message": "SMTP已开启", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
 # POP3禁用
+# 参数：userId
 def StopPOP3(request):
     userId = request.POST.get('userId',None)
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        if user.pop_state == 1:
-            user.pop_state = 0
+        if user.pop_state == '1':
+            user.pop_state = '0'
             user.save()
         return JsonResponse({"message": "POP3已禁用", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
 # POP3开启
+# 参数：userId
 def StartPOP3(request):
     userId = request.POST.get('userId',None)
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        if user.pop_state == 0:
-            user.pop_state = 1
+        if user.pop_state == '0':
+            user.pop_state = '1'
             user.save()
         return JsonResponse({"message": "POP3已开启", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
 # 管理员删除用户
+# 参数：userId
 def DeleUser(request):
     userId = request.POST.get('userId',None)
     try:
@@ -235,6 +238,7 @@ def DeleUser(request):
         return JsonResponse({"message": "数据库出错", "status": 404})
 
 # 删除邮件
+# 参数：mailId
 def DeleEmail(request):
     mailId = request.POST.get('mailId',None)
     try:
@@ -247,10 +251,10 @@ def DeleEmail(request):
 
 # 发件箱列表
 def SendList(request):
-    userId = request.POST.get('userId',None)
+    userId = request.session.get('userId',None)
     try:
         userEmail = models.User.objects.get(user_id=userId).user_email
-        emails = models.Email.objects.filter(email_from=userEmail, del_flag=0).order_by("-send_time")
+        emails = models.Email.objects.filter(email_from=userEmail, del_flag='0').order_by("-send_time")
         infoList = []
         for email in emails:
             infoList.append({'emailId': email.email_id,
@@ -267,10 +271,10 @@ def SendList(request):
 
 # 收件箱列表
 def RcvList(request):
-    userId = request.POST.get('userId',None)
+    userId = request.session.get('userId',None)
     try:
         userEmail = models.User.objects.get(user_id=userId).user_email
-        emails = models.Email.objects.filter(email_to=userEmail, del_flag=0).order_by("-send_time")
+        emails = models.Email.objects.filter(email_to=userEmail, del_flag='0').order_by("-send_time")
         infoList = []
         for email in emails:
             infoList.append({'emailId': email.email_id,
@@ -286,6 +290,20 @@ def RcvList(request):
         return JsonResponse({"message": "数据库出错", "status": 404})
 
 
+
+# 某用户的smtp pop权限
+def UserStates(request):
+    userId = request.POST.get('userId',None)
+    try:
+        user = models.User.objects.get(user_id=userId)
+        return JsonResponse({
+            "message": "返回数据成功",
+            "status": 200,
+            'SMTPstate': user.smtp_state,
+            'POP3state': user.pop_state})
+
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
 
 def GET_test(request):
     return render(request,'GET_test.html')
