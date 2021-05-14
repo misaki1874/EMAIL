@@ -5,19 +5,6 @@ from django.shortcuts import render
 from . import models
 # Create your views here.
 
-# 数据库连接
-# def connectdb():
-#     config = {
-#         'host': '127.0.0.1',
-#         'port': 3306,
-#         'user': 'root',
-#         'password': 'root',
-#         'database': 'maildb',
-#         'charset': 'utf8',
-#     }
-#     con = pymysql.connect(**config)
-#     return con
-
 # 注册页面
 def SignUp(request):
     return render(request,'SignUp.html')
@@ -56,12 +43,14 @@ def GetIdentity(request):
     if not request.session.get('isLogin', None):
         return JsonResponse({"message": "未登录", "status": 404})
 
-    username = request.session.get('userId', None)
+    userId = request.session.get('userId', None)
+    userName = request.session.get('userName', None)
     authorityNo = request.session.get('userAuthority', None)
     return JsonResponse({
         "message": "返回数据成功",
         "status": 200,
-        "username": username,
+        "userName": userName,
+        "userId": userId,
         "authorityNo": authorityNo})
 
 
@@ -74,18 +63,18 @@ def register(request):
     if request.session.get('isLogin', None):
         return JsonResponse({"message": "登录状态，无法注册", "status": 404})
 
-    username = request.POST.get('username',None)
+    userName = request.POST.get('userName',None)
     password = request.POST.get('password',None)
-    useremail = username+'@skyfall.icu'
-    sameNameUser = models.User.objects.filter(user_name=username)
+    userEmail = userName+'@skyfall.icu'
+    sameNameUser = models.User.objects.filter(user_name=userName)
     # 用户已存在
-    if sameNameUser or username == 'admin':
+    if sameNameUser or userName == 'admin':
         return JsonResponse({"message": "该用户名已被占用，请重新输入用户名", "status": 404})
     # 注册新用户
     models.User.objects.create(
-        user_name=username,
+        user_name=userName,
         user_code=password,
-        user_email=useremail,
+        user_email=userEmail,
         smtp_state='1',
         pop_state='1'
     )
@@ -100,24 +89,37 @@ def user_identified(request):
     if request.session.get('isLogin', None):
         return JsonResponse({"message": "你已经登录", "status": 404})
 
-    username = request.POST.get('username',None)
+    userName = request.POST.get('userName',None)
     password = request.POST.get('password',None)
-    user = models.User.objects.filter(user_name=username)
+    user = models.User.objects.filter(user_name=userName)
     if not user.exists():  # 无记录 不存在该用户
         return JsonResponse({"message": "用户不存在，请进行注册", "status": 404})
     # 身份验证
     user = user.first()
-    if username == 'admin' and password == '123456':  # 管理员
+    userId = user.user_id
+    if userName == 'admin' and password == '123456':  # 管理员
         # 设置登录状态为True，设置登录id为username
         request.session['isLogin'] = True
-        request.session['userId'] = username
+        request.session['userName'] = userName
+        request.session['userId'] = userId
         request.session['userAuthority'] = 1
-        return JsonResponse({"message": "登陆成功", "status": 200, "username": username, "authorityNo": 1})
+        return JsonResponse({
+            "message": "登陆成功",
+            "status": 200,
+            "userName": userName,
+            "userId": userId,
+            "authorityNo": 1})
     elif user.user_code == password:  # 普通用户
         request.session['isLogin'] = True
-        request.session['userId'] = username
+        request.session['userName'] = userName
+        request.session['userId'] = userId
         request.session['userAuthority'] = 0
-        return JsonResponse({"message": "登陆成功", "status": 200, "username": username, "authorityNo": 0})
+        return JsonResponse({
+            "message": "登陆成功",
+            "status": 200,
+            "userName": userName,
+            "userId": userId,
+            "authorityNo": 0})
     else:
         return JsonResponse({"message": "用户名或密码输入错误", "status": 404})
 
@@ -128,10 +130,10 @@ def ChangePwd(request):
     if not request.session.get('isLogin', None):
         return JsonResponse({"message": "你还未登录", "status": 404})
 
-    username = request.session.get("userId", None)
+    userName = request.session.get("userName", None)
     oldPassword = request.POST.get('oldPassword', None)
     newPassword = request.POST.get('newPassword', None)
-    user = models.User.objects.filter(user_name=username)
+    user = models.User.objects.filter(user_name=userName)
     user = user.first()
     if user.user_code != oldPassword:
         return JsonResponse({"message": "原密码错误，请重新输入", "status": 404})
@@ -159,7 +161,8 @@ def UserList(request):
     users = models.User.objects.all().order_by("user_name")
     infoList = []
     for user in users:
-        infoList.append({'userName': user.user_name,
+        infoList.append({'userId': user.user_id,
+                         'userName': user.user_name,
                          'mailAddr': user.user_email,
                          'SMTPstate': user.smtp_state,
                          'POP3state': user.pop_state})
@@ -170,9 +173,9 @@ def UserList(request):
 
 # SMTP禁用
 def StopSMTP(request):
-    userName = request.POST.get('userName',None)
+    userId = request.POST.get('userId',None)
     try:
-        user = models.User.objects.filter(user_name=userName)
+        user = models.User.objects.filter(user_id=userId)
         user = user.first()
         user.smtp_state = 0
         user.save()
@@ -182,9 +185,9 @@ def StopSMTP(request):
 
 # SMTP开启
 def StartSMTP(request):
-    userName = request.POST.get('userName',None)
+    userId = request.POST.get('userId',None)
     try:
-        user = models.User.objects.filter(user_name=userName)
+        user = models.User.objects.filter(user_id=userId)
         user = user.first()
         user.smtp_state = 1
         user.save()
@@ -194,9 +197,9 @@ def StartSMTP(request):
 
 # POP3禁用
 def StopPOP3(request):
-    userName = request.POST.get('userName',None)
+    userId = request.POST.get('userId',None)
     try:
-        user = models.User.objects.filter(user_name=userName)
+        user = models.User.objects.filter(user_id=userId)
         user = user.first()
         user.pop_state = 0
         user.save()
@@ -206,9 +209,9 @@ def StopPOP3(request):
 
 # POP3开启
 def StartPOP3(request):
-    userName = request.POST.get('userName',None)
+    userId = request.POST.get('userId',None)
     try:
-        user = models.User.objects.filter(user_name=userName)
+        user = models.User.objects.filter(user_id=userId)
         user = user.first()
         user.pop_state = 1
         user.save()
@@ -216,8 +219,27 @@ def StartPOP3(request):
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
+# 管理员删除用户
+def DeleUser(request):
+    userId = request.POST.get('userId',None)
+    try:
+        user = models.User.objects.filter(user_id=userId)
+        user = user.first()
+        user.delete()
+        return JsonResponse({"message": "用户已删除", "status": 200})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
 
-
+# 删除邮件
+def DeleEmail(request):
+    mailId = request.POST.get('mailId',None)
+    try:
+        email = models.Email.objects.filter(email_id=mailId)
+        email = email.first()
+        email.delete()
+        return JsonResponse({"message": "邮件已删除", "status": 200})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
 
 def GET_test(request):
     return render(request,'GET_test.html')
@@ -230,10 +252,10 @@ def POST(request):
     password=request.POST['password']
     mail=request.POST['mail']
     port=request.POST['port']
-    User.objects.create(user_name=userName,user_code=password,user_email=mail,smtp_state='1',pop_state='1',port=port)
+    models.User.objects.create(user_name=userName,user_code=password,user_email=mail,smtp_state='1',pop_state='1',port=port)
     return render(request,'result.html',context={'data':userName})
 
 def GET_test(request):
-    data = User.objects.all()
+    data = models.User.objects.all()
     # context必须是一个键值对
     return render(request,'GET_test.html',context={'data':data})

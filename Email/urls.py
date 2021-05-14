@@ -49,7 +49,8 @@ urlpatterns = [
     path('ChangePwd/', views.ChangePwd),
 # 身份信息获取
     path('GetIdentity/', views.GetIdentity),
-# 用户管理列表
+
+# 管理员用户管理列表
     path('UserList', views.UserList),
 # SMTP禁用
     path('StopSMTP', views.StopSMTP),
@@ -59,4 +60,10 @@ urlpatterns = [
     path('StopPOP3', views.StopPOP3),
 # POP3开启
     path('StartPOP3', views.StartPOP3),
+# 管理员删除用户
+    path('DeleUser', views.DeleUser),
+
+# 删除邮件
+    path('DeleEmail', views.DeleEmail),
+
 ]
