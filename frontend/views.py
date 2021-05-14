@@ -3,21 +3,20 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from . import models
-from .models import User
 # Create your views here.
 
 # 数据库连接
-def connectdb():
-    config = {
-        'host': '127.0.0.1',
-        'port': 3306,
-        'user': 'root',
-        'password': 'root',
-        'database': 'maildb',
-        'charset': 'utf8',
-    }
-    con = pymysql.connect(**config)
-    return con
+# def connectdb():
+#     config = {
+#         'host': '127.0.0.1',
+#         'port': 3306,
+#         'user': 'root',
+#         'password': 'root',
+#         'database': 'maildb',
+#         'charset': 'utf8',
+#     }
+#     con = pymysql.connect(**config)
+#     return con
 
 # 注册页面
 def SignUp(request):

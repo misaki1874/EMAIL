@@ -124,7 +124,7 @@ class DjangoSession(models.Model):
 
 
 class Email(models.Model):
-    email_no = models.IntegerField(primary_key=True)        
+    email_id = models.AutoField(primary_key=True)
     email_from = models.CharField(max_length=32, blank=True, null=True)
     email_to = models.CharField(max_length=32, blank=True, null=True)
     email_subject = models.CharField(max_length=64, blank=True, null=True)
@@ -140,8 +140,9 @@ class Email(models.Model):
 
 
 class Manager(models.Model):
-    manager_id = models.CharField(primary_key=True, max_length=32)
-    manager_pwd = models.CharField(max_length=32, blank=True, null=True)
+    manager_id = models.AutoField(primary_key=True)
+    manager_name = models.CharField(max_length=32, blank=True, null=True)
+    manager_code = models.CharField(max_length=32, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -149,11 +150,11 @@ class Manager(models.Model):
 
 
 class User(models.Model):
-    user_name = models.CharField(primary_key=True, max_length=32)
-    user_code = models.CharField(max_length=32)
+    user_id = models.AutoField(primary_key=True)
+    user_name = models.CharField(max_length=32, blank=True, null=True)
+    user_code = models.CharField(max_length=32, blank=True, null=True)
     user_email = models.CharField(max_length=32, blank=True, null=True)
-    smtp_state = models.CharField(max_length=1, blank=True, 
-null=True)
+    smtp_state = models.CharField(max_length=1, blank=True, null=True)
     pop_state = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
