@@ -60,16 +60,16 @@
                                         <div class="card-block">
                                             <form action="index.html" method="post">
                                                 <div class="form-group">
-                                                    <label class="sr-only" for="frontend_signup_username">Username</label>
-                                                    <input class="form-control" type="text" id="frontend_signup_username" placeholder="用户名（邮箱格式为 用户名@skyfall.icu ）" />
+                                                    <label class="sr-only" for="frontend_signup_userName">userName</label>
+                                                    <input class="form-control" type="text" id="frontend_signup_userName" placeholder="用户名（邮箱格式为 用户名@skyfall.icu ）" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="sr-only" for="frontend_signup_password">Password</label>
                                                     <input class="form-control" type="password" id="frontend_signup_password" placeholder="密码" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="sr-only" for="frontend_signup_repassword">Comfirm Password</label>
-                                                    <input class="form-control" type="password" id="frontend_signup_repassword" placeholder="确认密码" />
+                                                    <label class="sr-only" for="frontend_signup_rePassword">rePassword</label>
+                                                    <input class="form-control" type="password" id="frontend_signup_rePassword" placeholder="确认密码" />
                                                 </div>
                                                 <input type="button" id=signup value='注册' class="btn btn-app btn-block">
                                             </form>
@@ -115,21 +115,33 @@
         <script src="../../static/js/app.js"></script>
         <script src="../../static/js/app-custom.js"></script>
         <script>
+            $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/GetIdentity/',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    // alert(data.status);
+                    if (data.status == 200) window.location.href="/Index";
+                }
+            })
+        });
             $("#signup").click(function () {
-                alert(123);
-                var username = document.getElementById('frontend_signup_username').value;
+                var userName = document.getElementById('frontend_signup_userName').value;
                 var password = document.getElementById('frontend_signup_password').value;
-                var repassword = document.getElementById('frontend_signup_repassword').value;
-                alert(username + password + repassword);
-                if (username == "" || password == "" || repassword =="") alert("请正确输入！");
-                else if(password!=repassword) alert("两次密码输入不一致！");
+                var rePassword = document.getElementById('frontend_signup_rePassword').value;
+                // alert(userName + password + rePassword);
+                if (userName == "" || password == "" || rePassword =="") alert("请正确输入！");
+                else if(password!=rePassword) alert("两次密码输入不一致！");
                 else {
                     $.ajax({
                         type: 'POST',
                         url: '/userRegister/',
                         // async: false,
                         data: {
-                            username: username,
+                            userName: userName,
                             password: password,
                             csrfmiddlewaretoken:'{{ csrf_token }}'
                         },
