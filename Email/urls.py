@@ -68,7 +68,17 @@ urlpatterns = [
     path('DeleUser/', views.DeleUser),
 # 管理员删除邮件
     path('ManagerDeleEmail/', views.ManagerDeleEmail),
+# 设为管理员
+    path('SetAsManager/', views.SetAsManager),
+# 设为普通用户
+    path('SetAsUser/', views.SetAsUser),
+# 邮件管理列表
+    path('EmailList/', views.EmailList),
 
+
+
+# # 发邮件，含群发
+#     path('SendEmail/', views.SendEmail),
 
 # 发件箱列表
     path('SendList/', views.SendList),
@@ -80,6 +90,7 @@ urlpatterns = [
     path('RcverDeleEmail/', views.RcverDeleEmail),
 # # 具体邮件查看
 #     path('CheckMail/', views.CheckMail),
+
 
 
 # 某用户的smtp pop权限

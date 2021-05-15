@@ -149,18 +149,24 @@ def Logout(request):
 def UserList(request):
     if not request.session.get('isLogin', None):
         return JsonResponse({"message": "你还未登录", "status": 404})
-    users = models.User.objects.all().order_by("user_name")
-    infoList = []
-    for user in users:
-        infoList.append({'userId': user.user_id,
-                         'userName': user.user_name,
-                         'mailAddr': user.user_email,
-                         'SMTPstate': user.smtp_state,
-                         'POP3state': user.pop_state})
-    return JsonResponse({
-        "message": "返回数据成功",
-        "status": 200,
-        "infoList": infoList})
+    managerId = request.session.get('userId')
+    try:
+        users = models.User.objects.exclude(user_id=managerId).order_by("user_name")
+        infoList = []
+        for user in users:
+            infoList.append({'userId': user.user_id,
+                             'userName': user.user_name,
+                             'mailAddr': user.user_email,
+                             'SMTPstate': user.smtp_state,
+                             'POP3state': user.pop_state,
+                             'authorityNo': user.authorityNo})
+        return JsonResponse({
+            "message": "返回数据成功",
+            "status": 200,
+            "infoList": infoList})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
 
 # SMTP禁用
 # 参数：userId
@@ -218,6 +224,7 @@ def StartPOP3(request):
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
+
 # 管理员删除用户
 # 参数：userId
 def DeleUser(request):
@@ -230,6 +237,7 @@ def DeleUser(request):
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
+
 # 管理员删除邮件
 # 参数：mailId
 def ManagerDeleEmail(request):
@@ -240,6 +248,54 @@ def ManagerDeleEmail(request):
         return JsonResponse({"message": "邮件已删除", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
+
+
+# 设为管理员
+# 参数：userId
+def SetAsManager(request):
+    userId = request.POST.get('userId',None)
+    try:
+        user = models.User.objects.get(user_id=userId)
+        user.authorityNo = 1
+        user.save()
+        return JsonResponse({"message": "已设为管理员", "status": 200})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+# 设为普通用户
+# 参数：userId
+def SetAsUser(request):
+    userId = request.POST.get('userId',None)
+    try:
+        user = models.User.objects.get(user_id=userId)
+        user.authorityNo = 0
+        user.save()
+        return JsonResponse({"message": "已设为普通用户", "status": 200})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+
+# 邮件管理列表
+def EmailList(request):
+    try:
+        emails = models.Email.objects.all()
+        infoList = []
+        for email in emails:
+            infoList.append({'emailId': email.email_id,
+                             'fromAddr': email.email_from,
+                             'toAddr': email.email_to,
+                             'emailSubject': email.email_subject,
+                             'emailCont': email.email_cont,
+                             'sendTime': email.send_time})
+        return JsonResponse({
+            "message": "返回数据成功",
+            "status": 200,
+            "infoList": infoList})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+
+
 
 # 发件箱列表
 def SendList(request):
@@ -260,6 +316,7 @@ def SendList(request):
 
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
+
 
 # 收件箱列表
 def RcvList(request):
@@ -295,6 +352,7 @@ def SenderDeleEmail(request):
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
+
 # 普通用户收件箱删除邮件
 # 参数：mailId
 def RcverDeleEmail(request):
@@ -310,7 +368,15 @@ def RcverDeleEmail(request):
 
 
 
+# 发邮件，含群发
+# def SendEmail(request):
+#
+
+
+
+
 # 某用户的smtp pop权限
+# 参数：userId
 def UserStates(request):
     userId = request.POST.get('userId',None)
     try:
