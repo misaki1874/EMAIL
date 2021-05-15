@@ -43,7 +43,7 @@
                 <div class="app-layout-drawer-scroll">
                     <!-- Drawer logo -->
                     <div id="logo" class="drawer-header">
-                        <a href="#"><img class="img-responsive" src="../../static/img/logo/logo-backend.png"
+                        <a href="#"><img class="img-responsive" src="../../static/img/logo/logo-backend.jpg"
                                 title="AppUI" alt="AppUI" /></a>
                     </div>
 
@@ -66,30 +66,36 @@
             <header class="app-layout-header">
                 <nav class="navbar navbar-default">
                     <!-- .navbar-left -->
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <span class="navbar-page-title" id="userEmail">
+                            </span>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
+                            <li>
+                                <a href="/Index">首页 </a>
+                            </li>
 
-                    <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
-                        <li>
-                            <a href="/Index">首页 </a>
-                        </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="javascript:void(0)" id="logout"> 退出登录 </a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
-                                </li>
-                                <li>
-                                    <a tabindex="-1" href="javascript:void(0)" id="logout"> 退出登录 </a>
-                                </li>
-                            </ul>
-                        </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0)" data-toggle="dropdown">
+                                    <span class="m-r-sm dropdown"> </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" data-toggle="dropdown">
-                                <span class="m-r-sm dropdown"> </span>
-                            </a>
-                        </li>
-                    </ul>
                     <!-- .navbar-right -->
         </div>
     </div>
@@ -192,7 +198,9 @@
                 },
                 success: function (data) {
                     if (data.status == 200) {
-                        $('#userName').text(data['userName'])
+                        var email = "<" + data.userName + "@skyfall.icu" + ">";
+                        $('#userName').text(data[''])
+                        $('#userEmail').text(email)
                     }
                 }
             })
@@ -217,8 +225,8 @@
             var oldPassword = document.getElementById('example-text-input-oldPassword').value;
             var newPassword = document.getElementById('example-text-input-newPassword').value;
             var reNewPassword = document.getElementById('example-text-input-reNewPassword').value;
-            if(oldPassword==""||newPassword==""||reNewPassword=="") alert("请正确输入！");
-            else if(newPassword!=reNewPassword) alert("两次密码输入不一致！");
+            if (oldPassword == "" || newPassword == "" || reNewPassword == "") alert("请正确输入！");
+            else if (newPassword != reNewPassword) alert("两次密码输入不一致！");
             $.ajax({
                 type: 'POST',
                 url: '/ChangePwd/',
@@ -230,7 +238,7 @@
                 },
                 success: function (data) {
                     alert(data.message);
-                    if (data.status == 200) window.location.href="/ChangePass";
+                    if (data.status == 200) window.location.href = "/ChangePass";
                 }
             })
         })

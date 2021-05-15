@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import pymysql
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -333,7 +334,7 @@ def RcvList(request):
                              'emailFrom': email.email_from,
                              'emailSubject': email.email_subject,
                              'sendTime': email.send_time,
-                             'readState': email.rcver_fr_flag})
+                             'readState': email.rcver_fr_flag})  # 读取状态
         return JsonResponse({
             "message": "返回数据成功",
             "status": 200,
@@ -373,10 +374,10 @@ def RcverDeleEmail(request):
 
 
 # 发邮件，含群发
-# 参数：用;分隔的接收人用户名字符串rcverNameList，主题subject，内容cont
+# 参数：用"@skyfall.icu; "分隔的接收人邮箱字符串rcverEmailList，主题subject，内容cont
 def SendEmail(request):
-    rcverNameList = request.POST.get('rcverNameList',None)
-    rcverNameList = rcverNameList.split(';')
+    rcverEmailList = request.POST.get('rcverEmailList',None)
+    rcverNameList = rcverEmailList.split('@skyfall.icu; ')
     subject = request.POST.get('subject',None)
     cont = request.POST.get('cont',None)
     userId = request.session.get('userId')
@@ -457,7 +458,7 @@ def POPLogList(request):
                              'fromAddr': email.email_from,
                              'toAddr': email.email_to,
                              'emailSubject': email.email_subject,
-                             'readTime': email.rcver_fr_time,
+                             'readTime': email.rcver_fr_time,  # 读取时间
                              })
         return JsonResponse({"message": "返回数据成功", "status": 200, "infoList": infoList})
 
@@ -501,10 +502,10 @@ def AdminIndexInfo(request):
         return JsonResponse({
             "message": "返回数据成功",
             "status": 200,
-            "smtpLogCnt": smtpLogCnt,
-            "popLogCnt": popLogCnt,
-            "userCnt": userCnt,
-            "emailCnt": emailCnt})
+            "smtpLogCnt": smtpLogCnt,  # smtp日志数
+            "popLogCnt": popLogCnt,    # pop日志数
+            "userCnt": userCnt,        # 用户数
+            "emailCnt": emailCnt})     # 邮件数
 
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
@@ -516,17 +517,42 @@ def IndexInfo(request):
     try:
         userEmail = models.User.objects.get(user_id=userId).user_email
         rcvEmailCnt = models.Email.objects.filter(email_to=userEmail, rcver_del_flag=0).count()
+        yetReadCnt = models.Email.objects.filter(email_to=userEmail, rcver_del_flag=0, rcver_fr_flag=0).count()
         sendEmailCnt = models.Email.objects.filter(email_from=userEmail, sender_del_flag=0).count()
         return JsonResponse({
             "message": "返回数据成功",
             "status": 200,
-            "rcvEmailCnt": rcvEmailCnt,
-            "sendEmailCnt": sendEmailCnt,
+            "rcvEmailCnt": rcvEmailCnt,    # 收件数
+            "yetReadCnt": yetReadCnt,      # 未读邮件数
+            "sendEmailCnt": sendEmailCnt,  # 发件数
         })
 
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
+
+# 已删除列表
+def DeletedMailList(request):
+    userId = request.session.get('userId')
+    try:
+        userEmail = models.User.objects.get(user_id=userId).user_email
+        infoList = []
+        emails = models.Email.objects.filter(Q(email_to=userEmail, rcver_del_flag=1) | Q(email_from=userEmail, sender_del_flag=1))
+        for email in emails:
+            infoList.append({'emailId': email.email_id,
+                             'emailFrom': email.email_from,
+                             'emailTo': email.email_to,
+                             'subject': email.email_subject,
+                             'sendTime': email.send_time})  # 原收/发件时间
+
+        return JsonResponse({
+            "message": "返回数据成功",
+            "status": 200,
+            "infoList": infoList
+        })
+
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
 
 
 

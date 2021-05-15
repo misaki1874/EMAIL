@@ -47,8 +47,8 @@
                 <div class="app-layout-drawer-scroll">
                     <!-- Drawer logo -->
                     <div id="logo" class="drawer-header">
-                        <a href="#"></a><img class="img-responsive" src="../../static/img/logo/logo-backend.png"
-                            title="AppUI" alt="AppUI" /></a>
+                        <a href="#"><img class="img-responsive" src="../../static/img/logo/logo-backend.jpg"
+                                title="AppUI" alt="AppUI" /></a>
                     </div>
 
                     <!-- Drawer navigation -->
@@ -80,30 +80,36 @@
             <header class="app-layout-header">
                 <nav class="navbar navbar-default">
                     <!-- .navbar-left -->
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <span class="navbar-page-title" id="userEmail">
+                            </span>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
+                            <li>
+                                <a href="/Index">首页 </a>
+                            </li>
 
-                    <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
-                        <li class="dropdown">
-                            <a href="#" data-toggle="dropdown">首页 </a>
-                        </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="javascript:void(0)" id="logout"> 退出登录 </a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
-                                </li>
-                                <li>
-                                    <a tabindex="-1" id="logout" href="javascript:;"> 退出登录 </a>
-                                </li>
-                            </ul>
-                        </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0)" data-toggle="dropdown">
+                                    <span class="m-r-sm dropdown"> </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" data-toggle="dropdown">
-                                <span class="m-r-sm dropdown"> </span>
-                            </a>
-                        </li>
-                    </ul>
                     <!-- .navbar-right -->
         </div>
     </div>
@@ -119,12 +125,12 @@
         <div class="container-fluid p-y-md">
             <!-- Stats -->
             <div class="row">
-                <div class="col-sm-6 col-lg-6">
+                <div class="col-sm-8 col-lg-8" style="left: 17%;">
                     <a class="card" href="javascript:void(0)">
                         <div class="card-block clearfix">
                             <div class="pull-right">
                                 <p class="h6 text-muted m-t-0 m-b-xs">收件箱</p>
-                                <p class="h3 text-blue m-t-sm m-b-0">120</p>
+                                <p class="h3 text-blue m-t-sm m-b-0" id="RsvNum"></p>
                             </div>
                             <div class="pull-left m-r">
                                 <span class="img-avatar img-avatar-48 bg-green bg-inverse"><i
@@ -133,9 +139,9 @@
                         </div>
                     </a>
                 </div>
-                <!-- .col-sm-6 -->
-
-                <div class="col-sm-6 col-lg-6">
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-lg-8"  style="left: 17%;">
                     <a class="card bg-green bg-inverse" href="javascript:void(0)">
                         <div class="card-block clearfix">
                             <div class="pull-right">
@@ -149,7 +155,22 @@
                         </div>
                     </a>
                 </div>
-                <!-- .col-sm-6 -->
+            </div>
+            <div class="row">
+                <div class="col-sm-8 col-lg-8" style="left: 17%;">
+                    <a class="card" href="javascript:void(0)">
+                        <div class="card-block clearfix">
+                            <div class="pull-right">
+                                <p class="h6 text-muted m-t-0 m-b-xs">未读邮件</p>
+                                <p class="h3 text-blue m-t-sm m-b-0">120</p>
+                            </div>
+                            <div class="pull-left m-r">
+                                <span class="img-avatar img-avatar-48 bg-green bg-inverse"><i
+                                        class="ion-ios-bell fa-1-5x"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
             <!-- .row -->
             <div class="row">
@@ -245,16 +266,35 @@
     <script src="../../static/js/plugins/flot/jquery.flot.stack.min.js"></script>
     <script src="../../static/js/plugins/flot/jquery.flot.resize.min.js"></script>
 
-    <!-- Page JS Code -->
-    <script src="../../static/js/pages/index.js"></script>
-    <script>
-        $(function () {
-            // Init page helpers (Slick Slider plugin)
-            App.initHelpers('slick');
-        });
-    </script>
+
 
     <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/GetIdentity',
+                // async: false,
+                dateType: "json",
+                success: function (data) {
+                    if (data.status == 200) {
+                        var email = "<" + data.userName + "@skyfall.icu" + ">";
+                        $('#userEmail').text(email)
+                    }
+                }
+            })
+            // $.ajax({
+            //     type: 'GET',
+            //     url: '/GetIdentity',
+            //     // async: false,
+            //     dateType: "json",
+            //     success: function (data) {
+            //         if (data.status == 200) {
+            //             var email = "<" + data.userName + "@skyfall.icu" + ">";
+            //             $('#userEmail').text(email)
+            //         }
+            //     }
+            // })
+        });
         $("#logout").click(function () {
             $.ajax({
                 type: 'GET',

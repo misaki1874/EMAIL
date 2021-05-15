@@ -43,7 +43,7 @@
                 <div class="app-layout-drawer-scroll">
                     <!-- Drawer logo -->
                     <div id="logo" class="drawer-header">
-                        <a href="#"><img class="img-responsive" src="../../static/img/logo/logo-backend.png"
+                        <a href="#"><img class="img-responsive" src="../../static/img/logo/logo-backend.jpg"
                                 title="AppUI" alt="AppUI" /></a>
                     </div>
 
@@ -76,30 +76,36 @@
             <header class="app-layout-header">
                 <nav class="navbar navbar-default">
                     <!-- .navbar-left -->
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <span class="navbar-page-title" id="userEmail">
+                            </span>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
+                            <li>
+                                <a href="/Index">首页 </a>
+                            </li>
 
-                    <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
-                        <li>
-                            <a href="/Index">首页 </a>
-                        </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="javascript:void(0)" id="logout"> 退出登录 </a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
-                                </li>
-                                <li>
-                                    <a tabindex="-1" href="javascript:void(0)" id="logout"> 退出登录 </a>
-                                </li>
-                            </ul>
-                        </li>
+                            <li class="dropdown">
+                                <a href="javascript:void(0)" data-toggle="dropdown">
+                                    <span class="m-r-sm dropdown"> </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" data-toggle="dropdown">
-                                <span class="m-r-sm dropdown"> </span>
-                            </a>
-                        </li>
-                    </ul>
                     <!-- .navbar-right -->
         </div>
     </div>
@@ -138,7 +144,7 @@
                                     <div class="col-xs-12">
                                         <label for="receiver">收件人</label>
                                         <input class="form-control input-lg" style="height: 36px;" type="text"
-                                            id="receiver" name="receiver" placeholder=" " />
+                                            id="receiver" name="receiver" placeholder="请输入用户名..." />
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +155,8 @@
                                     <div class="col-xs-12">
                                         <label for="subject">主题</label>
                                         <input class="form-control input-lg" style="height: 36px;" type="text"
-                                            id="subject" name="subject" placeholder=" " />
+                                            id="subject" name="subject" placeholder="请输入邮件主题...
+                                            " />
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +167,7 @@
                                     <div class="col-xs-12">
                                         <label for="text">正文</label>
                                         <textarea class="form-control input-lg" id="text" name="text" rows="16"
-                                            placeholder=" "></textarea>
+                                            placeholder="请输入邮件内容，字数在1000字以内..." maxlength="1000"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -222,10 +229,25 @@
     <script src="../../static/js/app-custom.js"></script>
 
     <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/GetIdentity/',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        var email = "<" + data.userName + "@skyfall.icu" + ">";
+                        $('#userEmail').text(email)
+                    }
+                }
+            })
+        });
         $("#receiver").keydown(function(event) {
             if(event.keyCode=="13") {
                 var e=document.getElementById("receiver").value;
-                document.getElementById("receiver").value+=";";
+                document.getElementById("receiver").value+="@skyfall.icu; ";
                 document.getElementById("receiver").style.fontStyle="italic"
                 // div1.style.backgroundColor="black";
             }
