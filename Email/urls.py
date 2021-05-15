@@ -51,26 +51,33 @@ urlpatterns = [
     path('ChangePwd/', views.ChangePwd),
 
 # 管理员用户管理列表
-    path('UserList', views.UserList),
+    path('UserList/', views.UserList),
 # SMTP禁用
-    path('StopSMTP', views.StopSMTP),
+    path('StopSMTP/', views.StopSMTP),
 # SMTP开启
-    path('StartSMTP', views.StartSMTP),
+    path('StartSMTP/', views.StartSMTP),
 # POP3禁用
-    path('StopPOP3', views.StopPOP3),
+    path('StopPOP3/', views.StopPOP3),
 # POP3开启
-    path('StartPOP3', views.StartPOP3),
+    path('StartPOP3/', views.StartPOP3),
 # 管理员删除用户
-    path('DeleUser', views.DeleUser),
+    path('DeleUser/', views.DeleUser),
+# 管理员删除邮件
+    path('ManagerDeleEmail/', views.ManagerDeleEmail),
 
-# 删除邮件
-    path('DeleEmail', views.DeleEmail),
+
 # 发件箱列表
     path('SendList/', views.SendList),
 # 收件箱列表
     path('RcvList/', views.RcvList),
+# 普通用户发件箱删除邮件
+    path('SenderDeleEmail/', views.SenderDeleEmail),
+# 普通用户收件箱删除邮件
+    path('RcverDeleEmail/', views.RcverDeleEmail),
 # # 具体邮件查看
 #     path('CheckMail/', views.CheckMail),
+
+
 # 某用户的smtp pop权限
     path('UserStates/', views.UserStates),
 

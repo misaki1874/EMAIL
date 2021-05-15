@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pymysql
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -49,8 +51,8 @@ def GetIdentity(request):
     return JsonResponse({
         "message": "返回数据成功",
         "status": 200,
-        "userName": userName,
         "userId": userId,
+        "userName": userName,
         "authorityNo": authorityNo})
 
 
@@ -66,15 +68,13 @@ def register(request):
     userEmail = userName+'@skyfall.icu'
     sameNameUser = models.User.objects.filter(user_name=userName)
     # 用户已存在
-    if sameNameUser or userName == 'admin':
+    if sameNameUser:
         return JsonResponse({"message": "该用户名已被占用，请重新输入用户名", "status": 404})
     # 注册新用户
     models.User.objects.create(
         user_name=userName,
         user_code=password,
         user_email=userEmail,
-        smtp_state='1',
-        pop_state='1'
     )
     return JsonResponse({"message": "注册成功", "status": 200})
 
@@ -94,30 +94,18 @@ def user_identified(request):
         return JsonResponse({"message": "用户不存在，请进行注册", "status": 404})
     # 身份验证
     user = user.first()
-    userId = user.user_id
-    if userName == 'admin' and password == '123456':  # 管理员
-        # 设置登录状态为True，设置登录id为username
+    if user.user_code == password:
+        # 设置登录状态为True
         request.session['isLogin'] = True
+        request.session['userId'] = user.user_id
         request.session['userName'] = userName
-        request.session['userId'] = userId
-        request.session['userAuthority'] = 1
+        request.session['userAuthority'] = user.authorityNo
         return JsonResponse({
             "message": "登陆成功",
             "status": 200,
             "userName": userName,
-            "userId": userId,
-            "authorityNo": 1})
-    elif user.user_code == password:  # 普通用户
-        request.session['isLogin'] = True
-        request.session['userName'] = userName
-        request.session['userId'] = userId
-        request.session['userAuthority'] = 0
-        return JsonResponse({
-            "message": "登陆成功",
-            "status": 200,
-            "userName": userName,
-            "userId": userId,
-            "authorityNo": 0})
+            "userId": user.user_id,
+            "authorityNo": user.authorityNo})
     else:
         return JsonResponse({"message": "用户名或密码输入错误", "status": 404})
 
@@ -176,8 +164,8 @@ def StopSMTP(request):
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        if user.smtp_state == '1':
-            user.smtp_state = '0'
+        if user.smtp_state == 1:
+            user.smtp_state = 0
             user.save()
         return JsonResponse({"message": "SMTP已禁用", "status": 200})
     except Exception as e:
@@ -190,8 +178,8 @@ def StartSMTP(request):
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        if user.smtp_state == '0':
-            user.smtp_state = '1'
+        if user.smtp_state == 0:
+            user.smtp_state = 1
             user.save()
         return JsonResponse({"message": "SMTP已开启", "status": 200})
     except Exception as e:
@@ -204,8 +192,8 @@ def StopPOP3(request):
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        if user.pop_state == '1':
-            user.pop_state = '0'
+        if user.pop_state == 1:
+            user.pop_state = 0
             user.save()
         return JsonResponse({"message": "POP3已禁用", "status": 200})
     except Exception as e:
@@ -218,8 +206,8 @@ def StartPOP3(request):
     try:
         user = models.User.objects.filter(user_id=userId)
         user = user.first()
-        if user.pop_state == '0':
-            user.pop_state = '1'
+        if user.pop_state == 0:
+            user.pop_state = 1
             user.save()
         return JsonResponse({"message": "POP3已开启", "status": 200})
     except Exception as e:
@@ -237,13 +225,12 @@ def DeleUser(request):
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
-# 删除邮件
+# 管理员删除邮件
 # 参数：mailId
-def DeleEmail(request):
+def ManagerDeleEmail(request):
     mailId = request.POST.get('mailId',None)
     try:
-        email = models.Email.objects.filter(email_id=mailId)
-        email = email.first()
+        email = models.Email.objects.get(email_id=mailId)
         email.delete()
         return JsonResponse({"message": "邮件已删除", "status": 200})
     except Exception as e:
@@ -254,7 +241,7 @@ def SendList(request):
     userId = request.session.get('userId',None)
     try:
         userEmail = models.User.objects.get(user_id=userId).user_email
-        emails = models.Email.objects.filter(email_from=userEmail, del_flag='0').order_by("-send_time")
+        emails = models.Email.objects.filter(email_from=userEmail, sender_del_flag=0).order_by("-send_time")
         infoList = []
         for email in emails:
             infoList.append({'emailId': email.email_id,
@@ -274,7 +261,7 @@ def RcvList(request):
     userId = request.session.get('userId',None)
     try:
         userEmail = models.User.objects.get(user_id=userId).user_email
-        emails = models.Email.objects.filter(email_to=userEmail, del_flag='0').order_by("-send_time")
+        emails = models.Email.objects.filter(email_to=userEmail, rcver_del_flag=0).order_by("-send_time")
         infoList = []
         for email in emails:
             infoList.append({'emailId': email.email_id,
@@ -286,6 +273,33 @@ def RcvList(request):
             "status": 200,
             "infoList": infoList})
 
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+
+# 普通用户发件箱删除邮件
+# 参数：mailId
+def SenderDeleEmail(request):
+    mailId = request.POST.get('mailId',None)
+    try:
+        email = models.Email.objects.get(email_id=mailId)
+        email.sender_del_flag = 1  # 当前用户为发件人
+        email.sender_del_time = datetime.now()
+        email.save()
+        return JsonResponse({"message": "邮件已删除", "status": 200})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+# 普通用户收件箱删除邮件
+# 参数：mailId
+def RcverDeleEmail(request):
+    mailId = request.POST.get('mailId',None)
+    try:
+        email = models.Email.objects.get(email_id=mailId)
+        email.rcver_del_flag = 1  # 当前用户为收件人
+        email.rcver_del_time = datetime.now()
+        email.save()
+        return JsonResponse({"message": "邮件已删除", "status": 200})
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
 
