@@ -132,7 +132,9 @@
                 },
                 success: function (data) {
                     // alert(data.status);
-                    if (data.status == 200) window.location.href="/Index";
+                    if (data.status == 200) {
+                        isAdmin(data);
+                    }
                 }
             })
         });
@@ -152,12 +154,17 @@
                     },
                     success: function (data) {
                         alert(data.message);
-                        if(data.message=="登陆成功") window.location.href="/Index";
+                        if(data.message=="登陆成功"){
+                            isAdmin(data);
+                        }
                     }
                 })
             }
-            
         })
+        function isAdmin(data) {
+            if(data.authorityNo==0)  window.location.href="/Index"; 
+            else  window.location.href="/AdminIndex"; 
+        }
     </script>
 
 </body>
