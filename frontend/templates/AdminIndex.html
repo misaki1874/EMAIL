@@ -44,7 +44,7 @@
                     <div class="app-layout-drawer-scroll">
                         <!-- Drawer logo -->
                         <div id="logo" class="drawer-header">
-                            <a href="index.html"><img class="img-responsive" src="../../static/img/logo/logo-backend.png" title="AppUI" alt="AppUI" /></a>
+                            <a href="index.html"><img class="img-responsive" src="../../static/img/logo/logo-backend.jpg" title="AppUI" alt="AppUI" /></a>
                         </div>
 
                         <!-- Drawer navigation -->
@@ -69,11 +69,11 @@
                                     <ul class="nav nav-subnav">
 
                                         <li>
-                                            <a href="Log.html">SMTP日志</a>
+                                            <a href="/SMTPLog">SMTP日志</a>
                                         </li>
 
                                         <li>
-                                            <a href="Log.html">POP3日志</a>
+                                            <a href="/POP3Log">POP3日志</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -81,7 +81,7 @@
                                     <a href="/EmailManage"><i class="ion-ios-email"></i>邮件管理</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="BatchSending.html"><i class="ion-ios-email-outline"></i>群发邮件</a>
+                                    <a href="/CreateUser"><i class="ion-ios-personadd-outline"></i>创建用户</a>
                                 </li>
                             </ul>
                         </nav>
@@ -98,24 +98,24 @@
 
                                 <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
                                     <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">首页 </a>
+                                        <a href="/Index">首页 </a>
                                     </li>
-
+            
                                     <li class="dropdown">
                                         <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li>
-                                                <a tabindex="-1" href="javascript:void(0)"> 修改密码 </a>
+                                                <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
                                             </li>
                                             <li>
-                                                <a tabindex="-1" href="javascript:void(0)"> 退出登录 </a>
+                                                <a tabindex="-1" id="logout" href="javascript:;"> 退出登录 </a>
                                             </li>
                                         </ul>
                                     </li>
-
+            
                                     <li class="dropdown">
                                         <a href="javascript:void(0)" data-toggle="dropdown">
-                                            <span class="m-r-sm dropdown">  </span>
+                                            <span class="m-r-sm dropdown"> </span>
                                         </a>
                                     </li>
                                 </ul>
@@ -168,7 +168,7 @@
                                     <div class="card-block clearfix">
                                         <div class="pull-right">
                                             <p class="h6 text-muted m-t-0 m-b-xs">用户总数</p>
-                                            <p class="h3 m-t-sm m-b-0" id="usercnt">920 000</p>
+                                            <p class="h3 m-t-sm m-b-0" id="usercnt"></p>
                                         </div>
                                         <div class="pull-left m-r">
                                             <span class="img-avatar img-avatar-48 bg-gray-light-o"><i class="ion-ios-people fa-1-5x"></i></span>
@@ -183,7 +183,7 @@
                                     <div class="card-block clearfix">
                                         <div class="pull-right">
                                             <p class="h6 text-muted m-t-0 m-b-xs">邮件总数</p>
-                                            <p class="h3 m-t-sm m-b-0" id="mailcnt">3 new</p>
+                                            <p class="h3 m-t-sm m-b-0" id="mailcnt"></p>
                                         </div>
                                         <div class="pull-left m-r">
                                             <span class="img-avatar img-avatar-48 bg-gray-light-o"><i class="ion-ios-email fa-1-5x"></i></span>
@@ -202,8 +202,16 @@
                             <div class="col-lg-12">
                                 <!-- Yearly summary widget -->
                                 <div class="card">
-                                    <div class="card-header">
-                                        <h4>日志</h4>
+                                    <div class="card-block">
+                                        <h4>近期日志</h4>
+                                        <table class="table table-condensed" style="width: 600px; margin-top: 50px; font-size: 20px;">
+                                            <thead>
+                                                <tr>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="logList">
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 <!-- End Yearly summary widget -->
@@ -220,45 +228,6 @@
             <!-- .app-layout-container -->
         </div>
         <!-- .app-layout-canvas -->
-
-        <!-- Apps Modal -->
-        <!-- Opens from the button in the header -->
-        <div id="apps-modal" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-sm modal-dialog modal-dialog-top">
-                <div class="modal-content">
-                    <!-- Apps card -->
-                    <div class="card m-b-0">
-                        <div class="card-header bg-app bg-inverse">
-                            <h4>Apps</h4>
-                            <ul class="card-actions">
-                                <li>
-                                    <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-block">
-                            <div class="row text-center">
-                                <div class="col-xs-6">
-                                    <a class="card card-block m-b-0 bg-app-secondary bg-inverse" href="index.html">
-                                        <i class="ion-speedometer fa-4x"></i>
-                                        <p>Admin</p>
-                                    </a>
-                                </div>
-                                <div class="col-xs-6">
-                                    <a class="card card-block m-b-0 bg-app-tertiary bg-inverse" href="frontend_home.html">
-                                        <i class="ion-laptop fa-4x"></i>
-                                        <p>Frontend</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .card-block -->
-                    </div>
-                    <!-- End Apps card -->
-                </div>
-            </div>
-        </div>
-        <!-- End Apps Modal -->
 
         <div class="app-ui-mask-modal"></div>
 
@@ -280,7 +249,7 @@
         <script src="../../static/js/plugins/flot/jquery.flot.resize.min.js"></script> -->
 
         <!-- Page JS Code -->
-        <script src="../../static/js/pages/index.js"></script>
+        <!-- <script src="../../static/js/pages/index.js"></script> -->
         <script>
             $(document).ready(function(){
                 $.ajax({
@@ -288,7 +257,6 @@
                     url: '/GetIdentity',
                     dateType: "json",
                     success: function (data){
-                        console.log(data.authorityNo)
                         if(data.authorityNo!=1){
                             alert("您无权访问此页面")
                             window.location.href="/Index";
@@ -297,17 +265,79 @@
                 })
                 $.ajax({
                     type: 'GET',
-                    url: '/GetIdentity',
+                    url: '/UserList/',
                     dateType: "json",
                     success: function (data){
-                        console.log(data.authorityNo)
-                        if(data.authorityNo!=1){
-                            alert("您无权访问此页面")
-                            window.location.href="/Index";
-                        }
+                        var usercnt=data.infoList.length
+                        console.log("usercnt")
+                        console.log(usercnt)
+                        // document.getElementById("usercnt")=usercnt
+                        $("#usercnt").html(usercnt)
+                    }
+                })
+                $.ajax({
+                    type: 'GET',
+                    url: '/EmailList/',
+                    dateType: "json",
+                    success: function (data){
+                        var mailcnt=data.infoList.length
+                        // document.getElementById("usercnt")=usercnt
+                        $("#mailcnt").html(mailcnt)
+                    }
+                })
+                $.ajax({
+                    type:'GET',
+                    url:'/IndexInfo',
+                    dateType:"json",
+                    success:function(data){
+                        var SMTPcnt=data.sendEmailCnt
+                        var POP3cnt=data.rcvEmailCnt
+                        $("#SMTPcnt").html(SMTPcnt)
+                        $("#POP3cnt").html(POP3cnt)
                     }
                 })
             })
+            $("#logout").click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Logout/',
+                    // async: false,
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                        if (data.status == 200) window.location.href = "/";
+                    }
+                })
+            })
+            $.ajax({
+                    type: 'GET',
+                    url: '/SMTPLogList/',
+                    dateType: "json",
+                    success: function (data) {
+                        // alert(data.message);
+                        var list=data.infoList
+                        for(var i=0;i<list.length;i++){
+                            console.log(list[i].emailId);
+                            mailid=list[i].emailId
+                            var sendTime=timeFormatter(list[i].sendTime)
+                            console.log(sendTime);
+                            str="<tr><td class=\""+"text-center"+"\" align=\""+"left"+"\" valign=\""+"middle"+"\">"
+                                +sendTime+"："+list[i].fromAddr+"向"+list[i].toAddr+"发送了一封邮件</td>"+
+                                "<td class=\""+"text-center"+"\"></td></tr>"
+                            $("#logList").append(str)
+                        }
+                    }
+            })
+            function timeFormatter(value){
+                console.log(value)
+                var datetime=value.replace("T"," ").replace("Z","")
+                return datetime
+            }
+            function getForm(mailId){
+                mailid=mailId
+            }
         </script>
 
 

@@ -45,7 +45,7 @@
                     <div class="app-layout-drawer-scroll">
                         <!-- Drawer logo -->
                         <div id="logo" class="drawer-header">
-                            <a href="index.html"><img class="img-responsive" src="../../static/img/logo/logo-backend.png" title="AppUI" alt="AppUI" /></a>
+                            <a href="index.html"><img class="img-responsive" src="../../static/img/logo/logo-backend.jpg" title="AppUI" alt="AppUI" /></a>
                         </div>
 
                         <!-- Drawer navigation -->
@@ -70,7 +70,7 @@
                                     <ul class="nav nav-subnav">
 
                                         <li>
-                                            <a href="Log.html">SMTP日志</a>
+                                            <a href="/SMTPLog">SMTP日志</a>
                                         </li>
 
                                         <li>
@@ -82,10 +82,7 @@
                                     <a href="/EmailManage"><i class="ion-ios-email"></i>邮件管理</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="BatchSending.html"><i class="ion-ios-email-outline"></i>群发邮件</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a href="Systemsetting.html"><i class="ion-ios-list-outline"></i> 系统设置</a>
+                                    <a href="/CreateUser"><i class="ion-ios-personadd-outline"></i>创建用户</a>
                                 </li>
                             </ul>
                         </nav>
@@ -102,7 +99,7 @@
 
                                 <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
                                     <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">首页 </a>
+                                        <a href="/Index">首页 </a>
                                     </li>
 
                                     <li class="dropdown">
@@ -144,19 +141,19 @@
                             </div> -->
                             <div class="card-block">
                                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
-                                <table class="table table-condensed">
+                                <table class="table table-condensed" >
                                     <thead>
                                         <tr>
-                                            <th class="text-center"></th>
-                                            <th>邮件名称</th>
-                                            <th class="hidden-xs">发送邮箱</th>
-                                            <th class="hidden-xs">接收邮箱</th>
-                                            <th class="hidden-xs w-20">日期</th>
+                                            <th class="text-center">序号</th>
+                                            <th class="text-center">邮件名称</th>
+                                            <th class="hidden-xs text-center">发送邮箱</th>
+                                            <th class="hidden-xs text-center">接收邮箱</th>
+                                            <th class="hidden-xs w-20 text-center">日期</th>
                                             <th class="text-center" style="width: 10%;">操作</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="mailList">
+                                        <!-- <tr>
                                             <td class="text-center">1</td>
                                             <td class="font-500">Denise Watson</td>
                                             <td class="hidden-xs">client1@example.com</td>
@@ -181,7 +178,7 @@
                                                     <button class="btn btn-xs btn-default" type="button" data-toggle="modal" data-target="#modal-slideup" title="删除邮件"><i class="ion-close"></i></button>
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -198,18 +195,19 @@
                         <div class="modal-dialog modal-dialog-popout">
                             <div class="modal-content">
                                 <div class="card-header bg-green bg-inverse">
-                                    <h4>邮件名称</h4>
+                                    <h4 id="mailTitle">邮件名称</h4>
                                     <ul class="card-actions">
                                         <li>
                                             <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="card-block">
-                                    <p>Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant
-                                        quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi.</p>
-                                    <p>Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant
-                                        quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi.</p>
+                                <div class="card-block" id="mailContent" style="width: 100%;WORD-WRAP:break-word;TABLE-LAYOUT:fixed;word-break:break-all;">
+                                    <!-- <p>kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkklllllllllllllllllllllllllllllllllllllllllllllllllllll
+                                    </p>
+                                    <td style="WORD-BREAK: break-all; WORD-WRAP: break-word">
+                                        文本正文文本正文文本正文文本正文文本正文文本正文文本正文文本正文文本正文文本正文文本正文文本正文文本正文文本正文文本正文kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkklllllllllllllllllllllllllllllllllllllllllllllllllllll
+                                    </td> -->
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">关闭</button>
@@ -236,7 +234,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">取消</button>
-                                    <button class="btn btn-sm btn-app" type="button" data-dismiss="modal"><i class="ion-checkmark"></i> 确定</button>
+                                    <button class="btn btn-sm btn-app" type="button" data-dismiss="modal" onClick='deleteEmail()'><i class="ion-checkmark"></i> 确定</button>
                                 </div>
                             </div>
                         </div>
@@ -305,36 +303,104 @@
         <!-- Page JS Code -->
         <script src="../../static/js/pages/base_tables_datatables.js"></script>
         <script>
-            $.ajax({
+            var mailid;
+            $(document).ready(function()
+            {
+                $.ajax({
                     type: 'GET',
-                    url: '/UserList/',
+                    url: '/GetIdentity/',
                     dateType: "json",
-                    success: function (data) {
-                        var list=data.infoList
-                        users=list
-                        for(var i=0;i<list.length;i++){
-                            name=list[i].userName;
-                            if(list[i].SMTPstate==1) list[i].SMTPstate="启用"
-                            else if(list[i].SMTPstate==0) list[i].SMTPstate="禁用"
-                            if(list[i].POP3state==1) list[i].POP3state="启用"
-                            else if(list[i].POP3state==0) list[i].POP3state="禁用"
-                            str="<tr><td class=\""+"text-center"+"\">"+(i+1)+
-                                "</td><td class=\""+"text-center"+"\">"+list[i].userName+
-                                "</td><td class=\""+"text-center"+"\">"+list[i].mailAddr+
-                                "</td><td class=\""+"text-center"+"\">"+list[i].SMTPstate+
-                                "</td><td class=\""+"text-center"+"\">"+list[i].POP3state+"</td>"+
-                                "<td  class=\""+"text-center"+"\"><div class=\""+"btn-group"+"\">"+
-                                "<button class=\""+"btn btn-xs btn-default"+"\" type=\""+"button"+"\" data-toggle=\""+"modal"+"\" data-target=\""+"#modal-popout"+"\" title=\""+"Edit Client"+"\" onClick='getForm("+list[i].userId+")'>"
-                                 +"<i class=\""+"ion-edit"+"\" ></i></button>"+
-                                 "<button class=\""+"btn btn-xs btn-default"+"\" type=\""+"button"+"\" data-toggle=\""+"modal"+"\" data-target=\""+"#modal-slideup"+"\" title=\""+"Edit Client"+"\" onClick='getForm("+list[i].userId+")'>"
-                                 +"<i class=\""+"ion-close"+"\"></i></button>"
-                                 +"</div></td></tr>"
-                            $("#userListTable").append(str)
+                    success: function (data){
+                        console.log(data.authorityNo)
+                        if(data.authorityNo!=1){
+                            alert("您无权访问此页面")
+                            window.location.href="/Index";
                         }
-                        // alert(data.message);
-
                     }
                 })
+                $.ajax({
+                    type: 'GET',
+                    url: '/EmailList/',
+                    dateType: "json",
+                    success: function (data) {
+                        // alert(data.message);
+                        var list=data.infoList
+                        for(var i=0;i<list.length;i++){
+                            console.log(list[i].emailId);
+                            var sendTime=timeFormatter(list[i].sendTime)
+                            console.log(sendTime);
+                            str="<tr><td class=\""+"text-center"+"\">"+(i+1)+
+                                "</td><td class=\""+"text-center"+"\">"+list[i].emailSubject+
+                                "</td><td class=\""+"text-center"+"\">"+list[i].fromAddr+
+                                "</td><td class=\""+"text-center"+"\">"+list[i].toAddr+
+                                "</td><td class=\""+"text-center"+"\">"+sendTime+"</td>"+
+                                "<td class=\""+"text-center"+"\"><div class=\""+"btn-group"+"\">"+
+                                "<button class=\""+"btn btn-xs btn-default"+"\" type=\""+"button"+"\" data-toggle=\""+"modal"+"\" data-target=\""+"#modal-popout"+"\" title=\""+"Edit Client"+"\" onClick='getForm("+list[i].emailId+")'>"
+                                 +"<i class=\""+"ion-eye"+"\" ></i></button>"+
+                                 "<button class=\""+"btn btn-xs btn-default"+"\" type=\""+"button"+"\" data-toggle=\""+"modal"+"\" data-target=\""+"#modal-slideup"+"\" title=\""+"Edit Client"+"\" onClick='getForm("+list[i].emailId+")'>"
+                                 +"<i class=\""+"ion-close"+"\"></i></button>"
+                                 +"</div></td></tr>"
+                            $("#mailList").append(str)
+                        }
+                    }
+                })
+            });
+            function getForm(mailId){
+                console.log("content")
+                mailid=mailId;
+                $.ajax({
+                    type: 'POST',
+                    url: '/CheckMail/',
+                    dateType: "json",
+                    data: {
+                        mailId:mailId,
+                        csrfmiddlewaretoken:'{{ csrf_token }}'
+                    },
+                    success:function(data){
+                        var content=data.info;
+                        // console.log(content.emailCont)
+                        // console.log("[[[[[[[")
+                        $("#mailTitle").html(content.emailSubject)
+                        $("#mailContent").html(content.emailCont)
+                    }
+                })
+            }
+            function timeFormatter(value){
+                console.log(value)
+                var datetime=value.replace("T"," ").replace("Z","")
+                return datetime
+            }
+            function deleteEmail(){
+                // alert(data.message)
+                $.ajax({
+                    type: 'POST',
+                    url: '/ManagerDeleEmail/',
+                    dateType: "json",
+                    data: {
+                        mailId:mailid,
+                        csrfmiddlewaretoken:'{{ csrf_token }}'
+                    },
+                    success:function(data){
+                        // alert(data.message)
+                        location.reload();
+                    }
+                    
+                })
+            }
+            $("#logout").click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Logout/',
+                    // async: false,
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        alert(data.message);
+                        if (data.status == 200) window.location.href = "/";
+                    }
+                })
+            })
         </script>
 
     </body>

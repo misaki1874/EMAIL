@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="app-ui"><head>
+        <!-- Meta -->
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+        <!-- Document title -->
+        <title>Dashboard</title>
+
+        <meta name="description" content="AppUI - Admin Dashboard Template & UI Framework" />
+        <meta name="author" content="rustheme" />
+        <meta name="robots" content="noindex, nofollow" />
+
+        <!-- Favicons -->
+        <link rel="apple-touch-icon" href="../../static/img/favicons/apple-touch-icon.png" />
+        <link rel="icon" href="../../static/img/favicons/favicon.ico" />
+
+        <!-- Google fonts -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
+
+        <!-- Page JS Plugins CSS -->
+        <!-- <link rel="stylesheet" href="../../static/js/plugins/slick/slick.min.css" />
+        <link rel="stylesheet" href="../../static/js/plugins/slick/slick-theme.min.css" /> -->
+
+        <!-- AppUI CSS stylesheets -->
+        <link rel="stylesheet" id="css-font-awesome" href="../../static/css/font-awesome.css" />
+        <link rel="stylesheet" id="css-ionicons" href="../../static/css/ionicons.css" />
+        <link rel="stylesheet" id="css-bootstrap" href="../../static/css/bootstrap.css" />
+        <link rel="stylesheet" id="css-app" href="../../static/css/app.css" />
+        <link rel="stylesheet" id="css-app-custom" href="../../static/css/app-custom.css" />
+        <!-- End Stylesheets -->
+    </head>
+
+    <body class="app-ui layout-has-drawer layout-has-fixed-header">
+        <div class="app-layout-canvas">
+            <div class="app-layout-container">
+
+                <!-- Drawer -->
+                <aside class="app-layout-drawer">
+
+                    <!-- Drawer scroll area -->
+                    <div class="app-layout-drawer-scroll">
+                        <!-- Drawer logo -->
+                        <div id="logo" class="drawer-header">
+                            <a href="index.html"><img class="img-responsive" src="../../static/img/logo/logo-backend.jpg" title="AppUI" alt="AppUI" /></a>
+                        </div>
+
+                        <!-- Drawer navigation -->
+                        <nav class="drawer-main">
+                            <ul class="nav nav-drawer">
+
+                                <li class="nav-item nav-drawer-header">后台管理</li>
+
+                                <li class="nav-item">
+                                    <a href="/AdminIndex"><i class="ion-ios-speedometer-outline"></i> 后台主页</a>
+                                </li>
+
+                                <!-- <li class="nav-item">
+                                    <a href="frontend_home.html"><i class="ion-ios-monitor-outline"></i> Frontend</a>
+                                </li> -->
+                                <li class="nav-item">
+                                    <a href="/UserManage"><i class="ion-ios-calculator-outline"></i> 用户管理</a>
+                                </li>
+
+                                <li class="nav-item nav-item-has-subnav">
+                                    <a href="javascript:void(0)"><i class="ion-ios-compose-outline"></i> 日志管理</a>
+                                    <ul class="nav nav-subnav">
+
+                                        <li>
+                                            <a href="/SMTPLog">SMTP日志</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="/POP3Log">POP3日志</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/EmailManage"><i class="ion-ios-email"></i>邮件管理</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/CreateUser"><i class="ion-ios-personadd-outline"></i>创建用户</a>
+                                </li>
+
+                            </ul>
+                        </nav>
+                        <!-- End drawer navigation -->
+                    </div>
+                    <!-- End drawer scroll area -->
+                </aside>
+                <!-- End drawer -->
+
+                <!-- Header -->
+                <header class="app-layout-header">
+                    <nav class="navbar navbar-default">
+                                <!-- .navbar-left -->
+
+                                <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
+                                    <li class="dropdown">
+                                        <a href="/Index">首页 </a>
+                                    </li>
+            
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li>
+                                                <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
+                                            </li>
+                                            <li>
+                                                <a tabindex="-1" id="logout" href="javascript:;"> 退出登录 </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+            
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" data-toggle="dropdown">
+                                            <span class="m-r-sm dropdown"> </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- .navbar-right -->
+                            </div>
+                        </div>
+                        <!-- .container-fluid -->
+                    </nav>
+                    <!-- .navbar-default -->
+                </header>
+                <!-- End header -->
+
+                <main class="app-layout-content">
+
+                    <!-- Page content -->
+                    <div class="page-content">
+                        <div class="container">
+                            <div class="row">
+                                <!-- Sign up -->
+                                <div class="col-md-6"  style="left:25%;">
+                                    <div class="card">
+                                        <h3 class="card-header h4">创建新用户</h3>
+                                        <div class="card-block">
+                                            <form action="index.html" method="post">
+                                                <div class="form-group">
+                                                    <label class="sr-only" for="frontend_signup_userName">userName</label>
+                                                    <input class="form-control" type="text" id="frontend_signup_userName" placeholder="用户名（邮箱格式为 用户名@skyfall.icu ）" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="sr-only" for="frontend_signup_password">Password</label>
+                                                    <input class="form-control" type="password" id="frontend_signup_password" placeholder="密码" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="sr-only" for="frontend_signup_rePassword">rePassword</label>
+                                                    <input class="form-control" type="password" id="frontend_signup_rePassword" placeholder="确认密码" />
+                                                </div>
+                                                <input type="button" id=signup value='创建' class="btn btn-app btn-block">
+                                            </form>
+                                        </div>
+                                        <!-- .card-block -->
+                                    </div>
+                                    <!-- .card -->
+                                </div>
+                                <!-- .col-md-6 -->
+                                <!-- End sign up -->
+
+                            </div>
+                            <!-- .row -->
+                        </div>
+                        <!-- .container -->
+                    </div>
+                    <!-- End page content -->
+
+                </main>
+
+            </div>
+            <!-- .app-layout-container -->
+        </div>
+        <!-- .app-layout-canvas -->
+
+        <div class="app-ui-mask-modal"></div>
+
+        <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
+        <script src="../../static/js/core/jquery.min.js"></script>
+        <script src="../../static/js/core/bootstrap.min.js"></script>
+        <script src="../../static/js/core/jquery.slimscroll.min.js"></script>
+        <script src="../../static/js/core/jquery.scrollLock.min.js"></script>
+        <script src="../../static/js/core/jquery.placeholder.min.js"></script>
+        <script src="../../static/js/app.js"></script>
+        <script src="../../static/js/app-custom.js"></script>
+
+        <script>
+            $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/GetIdentity/',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    // alert(data.status);
+                    // if (data.status == 200) window.location.href="/Index";
+                }
+            })
+        });
+            $("#signup").click(function () {
+                var userName = document.getElementById('frontend_signup_userName').value;
+                var password = document.getElementById('frontend_signup_password').value;
+                var rePassword = document.getElementById('frontend_signup_rePassword').value;
+                // alert(userName + password + rePassword);
+                if (userName == "" || password == "" || rePassword =="") alert("请正确输入！");
+                else if(password!=rePassword) alert("两次密码输入不一致！");
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/userRegister/',
+                        // async: false,
+                        data: {
+                            userName: userName,
+                            password: password,
+                            csrfmiddlewaretoken:'{{ csrf_token }}'
+                        },
+                        success: function (data) {
+                            alert.success(data.message);
+                            if(data.message=="注册成功") window.location.href="/AdminIndex";
+                        }
+                    })
+                }
+                
+            })
+        </script>
+    </body>
+
+</html>
