@@ -54,14 +54,14 @@
                                 <li class="nav-item nav-drawer-header">后台管理</li>
 
                                 <li class="nav-item">
-                                    <a href="Manage.html"><i class="ion-ios-speedometer-outline"></i> 后台主页</a>
+                                    <a href="/AdminIndex"><i class="ion-ios-speedometer-outline"></i> 后台主页</a>
                                 </li>
 
                                 <!-- <li class="nav-item">
                                     <a href="frontend_home.html"><i class="ion-ios-monitor-outline"></i> Frontend</a>
                                 </li> -->
                                 <li class="nav-item">
-                                    <a href="Userlist.html"><i class="ion-ios-calculator-outline"></i> 用户管理</a>
+                                    <a href="/UserManage"><i class="ion-ios-calculator-outline"></i> 用户管理</a>
                                 </li>
 
                                 <li class="nav-item nav-item-has-subnav">
@@ -78,7 +78,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="EmailManage.html"><i class="ion-ios-email"></i>邮件管理</a>
+                                    <a href="/EmailManage"><i class="ion-ios-email"></i>邮件管理</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="BatchSending.html"><i class="ion-ios-email-outline"></i>群发邮件</a>
@@ -135,11 +135,11 @@
                         <!-- Stats -->
                         <div class="row">
                             <div class="col-sm-6 col-lg-3">
-                                <a class="card" href="Log.html">
+                                <a class="card">
                                     <div class="card-block clearfix">
                                         <div class="pull-right">
                                             <p class="h6 text-muted m-t-0 m-b-xs">SMTP日志</p>
-                                            <p class="h3 text-blue m-t-sm m-b-0">$120.9k</p>
+                                            <p class="h3 text-blue m-t-sm m-b-0" id="SMTPcnt">$120.9k</p>
                                         </div>
                                         <div class="pull-left m-r">
                                             <span class="img-avatar img-avatar-48 bg-blue bg-inverse"><i class="ion-ios-bell fa-1-5x"></i></span>
@@ -154,7 +154,7 @@
                                     <div class="card-block clearfix">
                                         <div class="pull-right">
                                             <p class="h6 text-muted m-t-0 m-b-xs">POP3日志</p>
-                                            <p class="h3 m-t-sm m-b-0">$340.5k</p>
+                                            <p class="h3 m-t-sm m-b-0" id="POP3cnt">$340.5k</p>
                                         </div>
                                         <div class="pull-left m-r">
                                             <span class="img-avatar img-avatar-48 bg-gray-light-o"><i class="ion-ios-speedometer fa-1-5x"></i></span>
@@ -168,7 +168,7 @@
                                     <div class="card-block clearfix">
                                         <div class="pull-right">
                                             <p class="h6 text-muted m-t-0 m-b-xs">用户总数</p>
-                                            <p class="h3 m-t-sm m-b-0">920 000</p>
+                                            <p class="h3 m-t-sm m-b-0" id="usercnt">920 000</p>
                                         </div>
                                         <div class="pull-left m-r">
                                             <span class="img-avatar img-avatar-48 bg-gray-light-o"><i class="ion-ios-people fa-1-5x"></i></span>
@@ -183,7 +183,7 @@
                                     <div class="card-block clearfix">
                                         <div class="pull-right">
                                             <p class="h6 text-muted m-t-0 m-b-xs">邮件总数</p>
-                                            <p class="h3 m-t-sm m-b-0">3 new</p>
+                                            <p class="h3 m-t-sm m-b-0" id="mailcnt">3 new</p>
                                         </div>
                                         <div class="pull-left m-r">
                                             <span class="img-avatar img-avatar-48 bg-gray-light-o"><i class="ion-ios-email fa-1-5x"></i></span>
@@ -281,6 +281,34 @@
 
         <!-- Page JS Code -->
         <script src="../../static/js/pages/index.js"></script>
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    type: 'GET',
+                    url: '/GetIdentity',
+                    dateType: "json",
+                    success: function (data){
+                        console.log(data.authorityNo)
+                        if(data.authorityNo!=1){
+                            alert("您无权访问此页面")
+                            window.location.href="/Index";
+                        }
+                    }
+                })
+                $.ajax({
+                    type: 'GET',
+                    url: '/GetIdentity',
+                    dateType: "json",
+                    success: function (data){
+                        console.log(data.authorityNo)
+                        if(data.authorityNo!=1){
+                            alert("您无权访问此页面")
+                            window.location.href="/Index";
+                        }
+                    }
+                })
+            })
+        </script>
 
 
     </body>

@@ -38,6 +38,10 @@ urlpatterns = [
     path('ChangePass/', views.ChangePass),
 # 用户管理页面
     path('UserManage/',views.UserManage),
+# 后台主界面
+    path('AdminIndex/',views.AdminIndex), 
+# 邮箱管理界面
+    path('EmailManage/',views.EmailManage),
 
 # 身份信息获取
     path('GetIdentity/', views.GetIdentity),

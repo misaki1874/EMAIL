@@ -84,9 +84,9 @@
                                 <li class="nav-item">
                                     <a href="BatchSending.html"><i class="ion-ios-email-outline"></i>群发邮件</a>
                                 </li>
-                                <!-- <li class="nav-item active">
+                                <li class="nav-item active">
                                     <a href="Systemsetting.html"><i class="ion-ios-list-outline"></i> 系统设置</a>
-                                </li> -->
+                                </li>
                             </ul>
                         </nav>
                         <!-- End drawer navigation -->
@@ -98,6 +98,32 @@
                 <!-- Header -->
                 <header class="app-layout-header">
                     <nav class="navbar navbar-default">
+                                <!-- .navbar-left -->
+
+                                <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" data-toggle="dropdown">首页 </a>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li>
+                                                <a tabindex="-1" href="javascript:void(0)"> 修改密码 </a>
+                                            </li>
+                                            <li>
+                                                <a tabindex="-1" href="javascript:void(0)"> 退出登录 </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0)" data-toggle="dropdown">
+                                            <span class="m-r-sm dropdown">  </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- .navbar-right -->
                             </div>
                         </div>
                         <!-- .container-fluid -->
@@ -118,57 +144,44 @@
                             </div> -->
                             <div class="card-block">
                                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality initialized in js/pages/base_tables_datatables.js -->
-                                <!-- <table class="table table-condensed" id="userListTable">
+                                <table class="table table-condensed">
                                     <thead>
                                         <tr>
                                             <th class="text-center"></th>
-                                            <th>用户名</th>
-                                            <th class="hidden-xs">邮箱</th>
-                                            <th class="hidden-xs w-20">SMTP状态</th>
-                                            <th class="hidden-xs w-20">POP3状态</th>
+                                            <th>邮件名称</th>
+                                            <th class="hidden-xs">发送邮箱</th>
+                                            <th class="hidden-xs">接收邮箱</th>
+                                            <th class="hidden-xs w-20">日期</th>
                                             <th class="text-center" style="width: 10%;">操作</th>
                                         </tr>
                                     </thead>
-                                    <tbody></tbody>
                                     <tbody>
-                                        <tr id="tab">
-                                            <td class="text-center">1</td>
-                                            <td class="font-500" id="showusername">{{ userName }}</td>
-                                            <td class="hidden-xs">client1@example.com</td>
-                                            <td class="hidden-xs">正常</td>
-                                            <td class="hidden-xs">正常</td>
-                                            <td class="text-center">
-                                                <div class="btn-group">
-                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="modal" data-target="#modal-popout" title="Edit Client"><i class="ion-edit"></i></button>
-                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="modal" data-target="#modal-slideup" title="Remove Client"><i class="ion-close"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-                                <table class="table table-condensed" >
-                                    <thead>
                                         <tr>
-                                            <th class="text-center" style="width: 50px;">序号</th>
-                                            <th class="text-center" style="width: 100px;">用户名称</th>
-                                            <th class="text-center hidden-xs w-40">邮箱地址</th>
-                                            <th class="text-center hidden-xs w-15">SMTP状态</th>
-                                            <th class="text-center" style="width: 100px;">POP3状态</th>
-                                            <th class="text-center" style="width: 100px;">操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="userListTable">
-                                        <!-- <tr id="userListTable">
                                             <td class="text-center">1</td>
-                                            <td>Mark Henry</td>
-                                            <td class="hidden-xs">Accountant</td>
-                                            <td class="hidden-xs">2021-5-9</td>
+                                            <td class="font-500">Denise Watson</td>
+                                            <td class="hidden-xs">client1@example.com</td>
+                                            <td class="hidden-xs">client1@example.com</td>
+                                            <td class="hidden-xs">2021/2/3</td>
                                             <td class="text-center">
                                                 <div class="btn-group">
-                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Remove client"><i class="ion-close"></i></button>
+                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="modal" data-target="#modal-popout" title="查看邮件"><i class="ion-eye"></i></button>
+                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="modal" data-target="#modal-slideup" title="删除邮件"><i class="ion-close"></i></button>
                                                 </div>
                                             </td>
-                                        </tr> -->
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="font-500">Denise Watson</td>
+                                            <td class="hidden-xs">client1@example.com</td>
+                                            <td class="hidden-xs">client1@example.com</td>
+                                            <td class="hidden-xs">2021/2/7</td>
+                                            <td class="text-center">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="modal" data-target="#modal-popout" title="查看邮件"><i class="ion-eye"></i></button>
+                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="modal" data-target="#modal-slideup" title="删除邮件"><i class="ion-close"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -185,40 +198,21 @@
                         <div class="modal-dialog modal-dialog-popout">
                             <div class="modal-content">
                                 <div class="card-header bg-green bg-inverse">
-                                    <h4>用户设置</h4>
+                                    <h4>邮件名称</h4>
                                     <ul class="card-actions">
                                         <li>
                                             <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
                                         </li>
                                     </ul>
                                 </div>
-                                
-                                <div class="card-block" style="padding-bottom: 120px;" name="card-block">
-                                    <div class="form-group">
-                                        <label class="col-xs-12" for="example-select">设置SMTP/POP3启用状态</label>
-                                        <div class="col-sm-9" style="margin-top: 10px;">
-                                            <!-- <P>
-                                            <select class="form-control" id="authselect" name="authselect" size="1">
-                                                <option value="0">普通用户</option>
-                                                <option value="1">管理员</option>
-                                            </select>
-                                            </P> -->
-                                            <p>
-                                                <label class="css-input switch switch-sm switch-primary">
-                                                是否开启SMTP服务 <input id="SMTPoption" type="checkbox" checked /><span></span>
-                                            </label>
-                                            </p>
-                                            <p>
-                                                <label class="css-input switch switch-sm switch-primary">
-                                                是否开启POP3服务 <input id="POP3option" type="checkbox" checked/><span></span>
-                                            </label>
-                                            </p>
-                                        </div>
-                                    </div>
+                                <div class="card-block">
+                                    <p>Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant
+                                        quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi.</p>
+                                    <p>Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant
+                                        quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi.</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">取消</button>
-                                    <button class="btn btn-sm btn-app" type="button" data-dismiss="modal" onClick='changeState()' ><i class="ion-checkmark"></i>确定</button>
+                                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">关闭</button>
                                 </div>
                             </div>
                         </div>
@@ -238,11 +232,11 @@
                                     </ul>
                                 </div>
                                 <div class="card-block">
-                                    <p>确定要删除用户？</p>
+                                    <p>确定要删除邮件？</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">取消</button>
-                                    <button class="btn btn-sm btn-app" type="button" data-dismiss="modal" onclick="deleteUser()"><i class="ion-checkmark"></i> 确定</button>
+                                    <button class="btn btn-sm btn-app" type="button" data-dismiss="modal"><i class="ion-checkmark"></i> 确定</button>
                                 </div>
                             </div>
                         </div>
@@ -310,25 +304,8 @@
 
         <!-- Page JS Code -->
         <script src="../../static/js/pages/base_tables_datatables.js"></script>
-        <script type="text/javascript">
-            var users;
-            var userId;
-            // var name="";
-            $(document).ready(function()
-            {
-                $.ajax({
-                    type: 'GET',
-                    url: '/GetIdentity/',
-                    dateType: "json",
-                    success: function (data){
-                        console.log(data.authorityNo)
-                        if(data.authorityNo!=1){
-                            alert("您无权访问此页面")
-                            window.location.href="/Index";
-                        }
-                    }
-                })
-                $.ajax({
+        <script>
+            $.ajax({
                     type: 'GET',
                     url: '/UserList/',
                     dateType: "json",
@@ -358,112 +335,6 @@
 
                     }
                 })
-            });
-            function getForm(name){
-                console.log("调用了getform"+name);
-                userId=name;
-                $.ajax({
-                    type: 'POST',
-                    url: '/UserStates/',
-                    dateType: "json",
-                    data: {
-                        userId:userId,
-                        csrfmiddlewaretoken:'{{ csrf_token }}'
-                    },
-                    success: function (data){
-                        console.log("data.SMTPstate"+data.SMTPstate)
-                        if(data.SMTPstate==1) document.getElementById("SMTPoption").checked=true;
-                        if(data.SMTPstate==0) document.getElementById("SMTPoption").checked=false;
-                        if(data.POP3state==1) document.getElementById("POP3option").checked=true;
-                        if(data.POP3state==0) document.getElementById("POP3option").checked=false;
-                    }
-                })
-            }
-            function changeState(){
-                var op1=SMTPoption.checked;
-                var op2=POP3option.checked;
-                console.log(userId+"的SMTP状态是"+op1)
-                console.log(userId+"的POP3状态是"+op2)
-                if(op1==true){
-                    console.log("选项1开启")
-                    $.ajax({
-                    type: 'POST',
-                    url: '/StartSMTP/',
-                    dateType: "json",
-                    data: {
-                        userId:userId,
-                        csrfmiddlewaretoken:'{{ csrf_token }}'
-                    },
-                    success: function (data) {
-                        console.log(data.message);
-                    }
-                })
-                };//开启SMTP
-
-                if(op1==false){
-                    console.log("选项1关闭")
-                    $.ajax({
-                    type: 'POST',
-                    url: '/StopSMTP/',
-                    dateType: "json",
-                    data: {
-                        userId:userId,
-                        csrfmiddlewaretoken:'{{ csrf_token }}'
-                    },
-                    success: function (data) {
-                        alert(data.message);
-                    }
-                })
-                };//关闭SMTP
-
-                if(op2==true){
-                    console.log("选项2开启")
-                    $.ajax({
-                    type: 'POST',
-                    url: '/StartPOP3/',
-                    dateType: "json",
-                    data: {
-                        userId:userId,
-                        csrfmiddlewaretoken:'{{ csrf_token }}'
-                    },
-                    success: function (data) {
-                        alert(data.message);
-                    }
-                })
-                };//开启POP3
-                if(op2==false){
-                    console.log("选项2关闭")
-                    $.ajax({
-                    type: 'POST',
-                    url: '/StopPOP3/',
-                    dateType: "json",
-                    data: {
-                        userId:userId,
-                        csrfmiddlewaretoken:'{{ csrf_token }}'
-                    },
-                    success: function (data) {
-                        alert(data.message);
-                    }
-                })
-                };//关闭POP3
-                location.reload();
-            }
-            function deleteUser(){//删除用户
-                $.ajax({
-                    type: 'POST',
-                    url: '/DeleUser/',
-                    dateType: "json",
-                    data: {
-                        userId:userId,
-                        csrfmiddlewaretoken:'{{ csrf_token }}'
-                    },
-                    success: function (data) {
-                        alert(data.message);
-                    }
-                })
-                location.reload();
-            }
-
         </script>
 
     </body>

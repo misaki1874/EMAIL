@@ -37,7 +37,12 @@ def ChangePass(request):
 # 用户管理页面
 def UserManage(request):
     return render(request,'UserManage.html')
-
+# 后台主界面
+def AdminIndex(request):
+    return render(request,'AdminIndex.html')
+# 邮件管理界面
+def EmailManage(request):
+    return render(request,'EmailManage.html')
 
 # 身份信息获取
 # authority：管理员1 普通用户0
