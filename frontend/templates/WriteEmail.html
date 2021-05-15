@@ -222,19 +222,29 @@
     <script src="../../static/js/app-custom.js"></script>
 
     <script>
+        $("#receiver").keydown(function(event) {
+            if(event.keyCode=="13") {
+                alert(111);
+                var e=document.getElementById("receiver").value;
+                document.getElementById("receiver").value+=";";
+                document.getElementById("receiver").style.fontStyle="italic"
+                // div1.style.backgroundColor="black";
+            }
+        })
         $("#send").click(function () {
             var receiver = document.getElementById("receiver").value;
             var subject = document.getElementById("subject").value;
             var text = document.getElementById("text").value;
-            // alert(receiver + subject + text);
+            alert(receiver + subject + text);
             if (receiver == "" || subject == "" || text == "") alert("请将表单填写完整！")
             else {
+                var arr = receiver.split(";");
                 $.ajax({
                     type: 'GET',
                     url: '/sendEmail/',
                     // async: false,
                     data: {
-                        receiver: receiver,
+                        receiver: arr,
                         subject: subject,
                         text: text,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
