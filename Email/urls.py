@@ -39,7 +39,7 @@ urlpatterns = [
 # 用户管理页面
     path('UserManage/',views.UserManage),
 # 后台主界面
-    path('AdminIndex/',views.AdminIndex), 
+    path('AdminIndex/',views.AdminIndex),
 # 邮箱管理界面
     path('EmailManage/',views.EmailManage),
 
@@ -74,6 +74,15 @@ urlpatterns = [
     path('SetAsUser/', views.SetAsUser),
 # 邮件管理列表
     path('EmailList/', views.EmailList),
+# SMTP日志列表
+    path('SMTPLogList/', views.SMTPLogList),
+# POP日志列表
+    path('POPLogList/', views.POPLogList),
+# SMTP日志清除
+    path('DeleSMTPLog/', views.DeleSMTPLog),
+# POP日志清除
+    path('DelePOPLog/', views.DelePOPLog),
+
 
 
 
@@ -93,9 +102,6 @@ urlpatterns = [
     path('RcverDeleEmail/', views.RcverDeleEmail),
 
 
-
-# 某用户的smtp pop权限
-    path('UserStates/', views.UserStates),
 
 
 ]

@@ -321,14 +321,19 @@ def SendList(request):
 def RcvList(request):
     userId = request.session.get('userId',None)
     try:
-        userEmail = models.User.objects.get(user_id=userId).user_email
+        user = models.User.objects.get(user_id=userId)
+        if user.pop_state == 0:
+            return JsonResponse({"message": "无pop权限，无法发送邮件", "status": 404})
+
+        userEmail = user.user_email
         emails = models.Email.objects.filter(email_to=userEmail, rcver_del_flag=0).order_by("-send_time")
         infoList = []
         for email in emails:
             infoList.append({'emailId': email.email_id,
                              'emailFrom': email.email_from,
                              'emailSubject': email.email_subject,
-                             'sendTime': email.send_time})
+                             'sendTime': email.send_time,
+                             'readState': email.rcver_fr_flag})
         return JsonResponse({
             "message": "返回数据成功",
             "status": 200,
@@ -368,16 +373,25 @@ def RcverDeleEmail(request):
 
 
 # 发邮件，含群发
-# 参数：接收人用户名列表rcverNameList，主题subject，内容cont
+# 参数：用;分隔的接收人用户名字符串rcverNameList，主题subject，内容cont
 def SendEmail(request):
     rcverNameList = request.POST.get('rcverNameList',None)
+    rcverNameList = rcverNameList.split(';')
     subject = request.POST.get('subject',None)
     cont = request.POST.get('cont',None)
     userId = request.session.get('userId')
     try:
         user = models.User.objects.get(user_id=userId)
-        for i in len(rcverNameList):
-            rcverEmail = models.User.objects.get(user_name=rcverNameList[i]).user_email
+        if user.smtp_state == 0:
+            return JsonResponse({"message": "无smtp权限，无法发送邮件", "status": 404})
+
+        for i in range(len(rcverNameList)):
+            rcver = models.User.objects.filter(user_name=rcverNameList[i])
+            if not rcver.exists():
+                return JsonResponse({"message": "有用户不存在，发送失败", "status": 404})
+            rcver = rcver.first()
+            rcverEmail = rcver.user_email
+            print(rcverEmail)
             models.Email.objects.create(
                 email_from=user.user_email,
                 email_to=rcverEmail,
@@ -385,7 +399,7 @@ def SendEmail(request):
                 email_cont=cont,
                 send_time=datetime.now()
             )
-        return JsonResponse({"message": "邮件发送成功", "status": 2000})
+        return JsonResponse({"message": "邮件发送成功", "status": 200})
 
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
@@ -415,23 +429,67 @@ def CheckMail(request):
         return JsonResponse({"message": "数据库出错", "status": 404})
 
 
-
-
-
-# 某用户的smtp pop权限
-# 参数：userId
-def UserStates(request):
-    userId = request.POST.get('userId',None)
+# SMTP日志列表
+def SMTPLogList(request):
+    infoList = []
     try:
-        user = models.User.objects.get(user_id=userId)
-        return JsonResponse({
-            "message": "返回数据成功",
-            "status": 200,
-            'SMTPstate': user.smtp_state,
-            'POP3state': user.pop_state})
+        emails = models.Email.objects.filter(smtp_log=1).order_by("-send_time")
+        for email in emails:
+            infoList.append({'emailId': email.email_id,
+                             'fromAddr': email.email_from,
+                             'toAddr': email.email_to,
+                             'emailSubject': email.email_subject,
+                             'sendTime': email.send_time,
+                             })
+        return JsonResponse({"message": "返回数据成功", "status": 200, "infoList": infoList})
 
     except Exception as e:
         return JsonResponse({"message": "数据库出错", "status": 404})
+
+# POP日志列表
+def POPLogList(request):
+    infoList = []
+    try:
+        emails = models.Email.objects.filter(pop_log=1).order_by("-rcver_fr_time")
+        for email in emails:
+            infoList.append({'emailId': email.email_id,
+                             'fromAddr': email.email_from,
+                             'toAddr': email.email_to,
+                             'emailSubject': email.email_subject,
+                             'readTime': email.rcver_fr_time,
+                             })
+        return JsonResponse({"message": "返回数据成功", "status": 200, "infoList": infoList})
+
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+# SMTP日志清除
+# 参数：mailId
+def DeleSMTPLog(request):
+    emailId = request.POST.get("mailId")
+    try:
+        email = models.Email.objects.filter(email_id=emailId)
+        email.smtp_log = 0
+        email.save()
+        return JsonResponse({"message": "日志清除成功", "status": 200})
+
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+# POP日志清除
+# 参数：mailId
+def DelePOPLog(request):
+    emailId = request.POST.get("mailId")
+    try:
+        email = models.Email.objects.filter(email_id=emailId)
+        email.pop_log = 0
+        email.save()
+        return JsonResponse({"message": "日志清除成功", "status": 200})
+
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+
 
 def GET_test(request):
     return render(request,'GET_test.html')
