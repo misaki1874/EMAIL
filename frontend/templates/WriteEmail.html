@@ -2,198 +2,241 @@
 
 <html class="app-ui">
 
-    <head>
-        <!-- Meta -->
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<head>
+    <!-- Meta -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-        <!-- Document title -->
-        <title>写邮件</title>
+    <!-- Document title -->
+    <title>写邮件</title>
 
-        <meta name="description" content="AppUI - Admin Dashboard Template & UI Framework" />
-        <meta name="author" content="rustheme" />
-        <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="AppUI - Admin Dashboard Template & UI Framework" />
+    <meta name="author" content="rustheme" />
+    <meta name="robots" content="noindex, nofollow" />
 
-        <!-- Favicons -->
-        <link rel="apple-touch-icon" href="../../static/img/favicons/apple-touch-icon.png" />
-        <link rel="icon" href="../../static/img/favicons/favicon.ico" />
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="../../static/img/favicons/apple-touch-icon.png" />
+    <link rel="icon" href="../../static/img/favicons/favicon.ico" />
 
-        <!-- Google fonts -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
+    <!-- Google fonts -->
+    <link rel="stylesheet"
+        href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,900%7CRoboto+Slab:300,400%7CRoboto+Mono:400" />
 
-        <!-- AppUI CSS stylesheets -->
-        <link rel="stylesheet" id="css-font-awesome" href="../../static/css/font-awesome.css" />
-        <link rel="stylesheet" id="css-ionicons" href="../../static/css/ionicons.css" />
-        <link rel="stylesheet" id="css-bootstrap" href="../../static/css/bootstrap.css" />
-        <link rel="stylesheet" id="css-app" href="../../static/css/app.css" />
-        <link rel="stylesheet" id="css-app-custom" href="../../static/css/app-custom.css" />
-        <!-- End Stylesheets -->
-    </head>
+    <!-- AppUI CSS stylesheets -->
+    <link rel="stylesheet" id="css-font-awesome" href="../../static/css/font-awesome.css" />
+    <link rel="stylesheet" id="css-ionicons" href="../../static/css/ionicons.css" />
+    <link rel="stylesheet" id="css-bootstrap" href="../../static/css/bootstrap.css" />
+    <link rel="stylesheet" id="css-app" href="../../static/css/app.css" />
+    <link rel="stylesheet" id="css-app-custom" href="../../static/css/app-custom.css" />
+    <!-- End Stylesheets -->
+</head>
 
-    <body class="app-ui layout-has-drawer layout-has-fixed-header">
-        <div class="app-layout-canvas">
-            <div class="app-layout-container">
+<body class="app-ui layout-has-drawer layout-has-fixed-header">
+    <div class="app-layout-canvas">
+        <div class="app-layout-container">
 
-                <!-- Drawer -->
-                <aside class="app-layout-drawer">
+            <!-- Drawer -->
+            <aside class="app-layout-drawer">
 
-                    <!-- Drawer scroll area -->
-                    <div class="app-layout-drawer-scroll">
-                        <!-- Drawer logo -->
-                        <div id="logo" class="drawer-header">
-                            <a href="#"><img class="img-responsive" src="../../static/img/logo/logo-backend.png" title="AppUI" alt="AppUI" /></a>
-                        </div>
-
-                        <!-- Drawer navigation -->
-                        <nav class="drawer-main">
-                            <ul class="nav nav-drawer">
-
-                                <li class="nav-item nav-drawer-header">菜单</li>
-
-                                <li class="nav-item nav-item-has-subnav" style="background-color:rgb(125, 200, 85);">
-                                    <a href="javascript:void(0)"><i class="ion-ios-calculator-outline"></i> 写邮件</a>
-                                </li>
-
-                                <li class="nav-item nav-item-has-subnav">
-                                    <a href="/ReceiveEmail"><i class="ion-ios-compose-outline"></i> 收件箱</a>
-                                </li>
-
-                                <li class="nav-item nav-item-has-subnav">
-                                    <a href="/SentEmail"><i class="ion-ios-list-outline"></i> 已发送</a>
-                                </li>
-
-                            </ul>
-                        </nav>
+                <!-- Drawer scroll area -->
+                <div class="app-layout-drawer-scroll">
+                    <!-- Drawer logo -->
+                    <div id="logo" class="drawer-header">
+                        <a href="#"><img class="img-responsive" src="../../static/img/logo/logo-backend.png"
+                                title="AppUI" alt="AppUI" /></a>
                     </div>
-                    <!-- End drawer scroll area -->
-                </aside>
-                <!-- End drawer -->
 
-                <!-- Header -->
-                <header class="app-layout-header">
-                    <nav class="navbar navbar-default">
-                                <!-- .navbar-left -->
+                    <!-- Drawer navigation -->
+                    <nav class="drawer-main">
+                        <ul class="nav nav-drawer">
 
-                                <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
-                                    <li>
-                                        <a href="/Index">首页 </a>
-                                    </li>
+                            <li class="nav-item nav-drawer-header">菜单</li>
 
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                            <li>
-                                                <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
-                                            </li>
-                                            <li>
-                                                <a tabindex="-1" href="javascript:void(0)" id="logout"> 退出登录 </a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                            <li class="nav-item nav-item-has-subnav" style="background-color:rgb(125, 200, 85);">
+                                <a href="javascript:void(0)"><i class="ion-ios-calculator-outline"></i> 写邮件</a>
+                            </li>
 
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" data-toggle="dropdown">
-                                            <span class="m-r-sm dropdown">  </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <!-- .navbar-right -->
-                            </div>
-                        </div>
-                        <!-- .container-fluid -->
+                            <li class="nav-item nav-item-has-subnav">
+                                <a href="/ReceiveEmail"><i class="ion-ios-compose-outline"></i> 收件箱</a>
+                            </li>
+
+                            <li class="nav-item nav-item-has-subnav">
+                                <a href="/SentEmail"><i class="ion-ios-list-outline"></i> 已发送</a>
+                            </li>
+
+                        </ul>
                     </nav>
-                    <!-- .navbar-default -->
-                </header>
-                <!-- End header -->
+                </div>
+                <!-- End drawer scroll area -->
+            </aside>
+            <!-- End drawer -->
 
-                <main class="app-layout-content">
-                    <!-- Page Content -->
-                    <div class="container-fluid p-y-md">
-                        <!-- Mega Form -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>写邮件</h4>
-                                <ul class="card-actions">
-                                    <!-- <li>
+            <!-- Header -->
+            <header class="app-layout-header">
+                <nav class="navbar navbar-default">
+                    <!-- .navbar-left -->
+
+                    <ul class="nav navbar-nav navbar-right navbar-toolbar hidden-sm hidden-xs">
+                        <li>
+                            <a href="/Index">首页 </a>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" data-toggle="dropdown">账户 <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a tabindex="-1" href="/ChangePass"> 修改密码 </a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href="javascript:void(0)" id="logout"> 退出登录 </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" data-toggle="dropdown">
+                                <span class="m-r-sm dropdown"> </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- .navbar-right -->
+        </div>
+    </div>
+    <!-- .container-fluid -->
+    </nav>
+    <!-- .navbar-default -->
+    </header>
+    <!-- End header -->
+
+    <main class="app-layout-content">
+        <!-- Page Content -->
+        <div class="container-fluid p-y-md">
+            <!-- Mega Form -->
+            <div class="card">
+                <div class="card-header" style="padding-left: 50px;padding-right: 50px;padding-top: 50px;">
+                    <h4>写邮件</h4>
+                    <ul class="card-actions">
+                        <!-- <li>
                                         <button type="button" data-toggle="card-action" data-action="refresh_toggle" data-action-mode="demo"><i class="ion-refresh"></i></button>
                                     </li> -->
+                        <div class="col-xs-12">
+                            <!-- <button class="btn btn-app" type="submit"><i class="ion-checkmark m-r-xs"></i> 发送
+                            </button> -->
+                            <button class="btn btn-app" type="submit" data-toggle="modal" data-target="#modal-slideup"
+                                title="Edit Client">
+                                <i class="ion-checkmark m-r-xs"></i> 发送
+                            </button>
+                        </div>
+                    </ul>
+                </div>
+                <div class="card-block" style="padding-left: 50px;padding-right: 50px;padding-bottom: 50px;">
+                    <form class="form-horizontal m-t-sm">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <div class="col-xs-12">
-                                        <button class="btn btn-app" type="submit"><i class="ion-checkmark m-r-xs"></i> 发送 </button>
+                                        <label for="receiver">收件人</label>
+                                        <input class="form-control input-lg" style="height: 36px;" type="text"
+                                            id="receiver" name="receiver" placeholder=" " />
                                     </div>
-                                </ul>
+                                </div>
                             </div>
-                            <div class="card-block">
-                                <form class="form-horizontal m-t-sm" action="base_forms_samples.html" method="post" onsubmit="return false;">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <label for="receiver">收件人</label>
-                                                    <input class="form-control input-lg" style="height: 36px;" type="text" id="receiver" name="receiver" placeholder=" " />
-                                                </div>
-                                            </div>
-                                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label for="subject">主题</label>
+                                        <input class="form-control input-lg" style="height: 36px;" type="text"
+                                            id="subject" name="subject" placeholder=" " />
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <label for="subject">主题</label>
-                                                    <input class="form-control input-lg" style="height: 36px;" type="text" id="subject" name="subject" placeholder=" " />
-                                                </div>
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <label for="text">正文</label>
+                                        <textarea class="form-control input-lg" id="text" name="text" rows="16"
+                                            placeholder=" "></textarea>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <label for="text">正文</label>
-                                                    <textarea class="form-control input-lg" id="text" name="text" rows="16" placeholder=" "></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="form-group m-b-0">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group m-b-0">
                                         <div class="col-xs-12">
                                             <button class="btn btn-app" type="submit"><i class="ion-checkmark m-r-xs"></i> 发送</button>
                                         </div>
                                     </div> -->
-                                </form>
-                            </div>
-                        </div>
-                        <!-- .card -->
-                        <!-- End Mega Form -->
-                    </div>
-                    <!-- .container-fluid -->
-                    <!-- End Page Content -->
-
-                </main>
-
+                    </form>
+                </div>
             </div>
-            <!-- .app-layout-container -->
+            <!-- .card -->
+            <!-- End Mega Form -->
         </div>
-        <!-- .app-layout-canvas -->
+        <!-- .container-fluid -->
+        <!-- End Page Content -->
 
-        <div class="app-ui-mask-modal"></div>
+        <!-- Slide Up Modal -->
+        <div class="modal fade" id="modal-slideup" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup">
+                <div class="modal-content">
+                    <div class="card-header bg-green bg-inverse">
+                        <h4>提示</h4>
+                        <ul class="card-actions">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-block">
+                        <p>确定要发送邮件？</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">取消</button>
+                        <button class="btn btn-sm btn-app" type="button" data-dismiss="modal" id="send">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Slide Up Modal -->
 
-        <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
-        <script src="../../static/js/core/jquery.min.js"></script>
-        <script src="../../static/js/core/bootstrap.min.js"></script>
-        <script src="../../static/js/core/jquery.slimscroll.min.js"></script>
-        <script src="../../static/js/core/jquery.scrollLock.min.js"></script>
-        <script src="../../static/js/core/jquery.placeholder.min.js"></script>
-        <script src="../../static/js/app.js"></script>
-        <script src="../../static/js/app-custom.js"></script>
+    </main>
 
-        <script>
-            $("#logout").click(function () {
+    </div>
+    <!-- .app-layout-container -->
+    </div>
+    <!-- .app-layout-canvas -->
+
+    <div class="app-ui-mask-modal"></div>
+
+    <!-- AppUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
+    <script src="../../static/js/core/jquery.min.js"></script>
+    <script src="../../static/js/core/bootstrap.min.js"></script>
+    <script src="../../static/js/core/jquery.slimscroll.min.js"></script>
+    <script src="../../static/js/core/jquery.scrollLock.min.js"></script>
+    <script src="../../static/js/core/jquery.placeholder.min.js"></script>
+    <script src="../../static/js/app.js"></script>
+    <script src="../../static/js/app-custom.js"></script>
+
+    <script>
+        $("#send").click(function () {
+            var receiver = document.getElementById("receiver").value;
+            var subject = document.getElementById("subject").value;
+            var text = document.getElementById("text").value;
+            // alert(receiver + subject + text);
+            if (receiver == "" || subject == "" || text == "") alert("请将表单填写完整！")
+            else {
                 $.ajax({
                     type: 'GET',
-                    url: '/Logout/',
+                    url: '/sendEmail/',
                     // async: false,
                     data: {
+                        receiver: receiver,
+                        subject: subject,
+                        text: text,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     success: function (data) {
@@ -201,9 +244,25 @@
                         if (data.status == 200) window.location.href = "/";
                     }
                 })
-            })
-        </script>
+            }
 
-    </body>
+        })
+        $("#logout").click(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/Logout/',
+                // async: false,
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    alert(data.message);
+                    if (data.status == 200) window.location.href = "/";
+                }
+            })
+        })
+    </script>
+
+</body>
 
 </html>

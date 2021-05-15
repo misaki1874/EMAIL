@@ -125,27 +125,32 @@
                             <table class="table table-condensed">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width: 50px;">#</th>
-                                        <th>发件人</th>
-                                        <th class="hidden-xs w-50">主题</th>
-                                        <th class="hidden-xs w-15">时间</th>
+                                        <th class="text-center hidden-xs w-10">#</th>
+                                        <th class="text-center hidden-xs w-20">发件人</th>
+                                        <th class="text-center hidden-xs w-35">主题</th>
+                                        <th class="text-center hidden-xs w-20">时间</th>
                                         <th class="text-center" style="width: 100px;">动作</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center" id="showId">{{id}}</td>
-                                        <td id="showEmailFrom">{{sendUser}}</td>
-                                        <td class="hidden-xs" id="showEmailSubject">{{emailSubject}}</td>
-                                        <td class="hidden-xs" id="showSendTime">{{emailTime}}</td>
+                                <tbody id="RcvEmail">
+                                    <!-- <tr>
+                                        <td class="text-center" id="showId">1</td>
+                                        <td class="text-center" id="showEmailFrom">12</td>
+                                        <td class="text-center hidden-xs" id="showEmailSubject">12</td>
+                                        <td class="text-center hidden-xs" id="showSendTime">12</td>
                                         <td class="text-center">
                                             <div class="btn-group">
                                                 <button class="btn btn-xs btn-default" type="button"
-                                                    data-toggle="tooltip" title="Remove client"><i
+                                                    data-toggle="tooltip" title="Remove client" onclick="getForm()"><i
+                                                        class="fa fa-search-plus"></i></button>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button class="btn btn-xs btn-default" type="button"
+                                                    data-toggle="tooltip" title="Remove client" onclick="getForm()"><i
                                                         class="ion-close"></i></button>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
@@ -160,6 +165,80 @@
         </div>
         <!-- .container-fluid -->
         <!-- End Page Content -->
+
+        <!-- Pop Out Modal -->
+        <div class="modal fade" id="modal-popout" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-popout">
+                <div class="modal-content">
+                    <div class="card-header bg-green bg-inverse">
+                        <h4>邮箱详细</h4>
+                        <ul class="card-actions">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card-block" style="padding-bottom: 60px;" name="card-block" id="showEmail">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="h5 m-b-xs">
+                                    <a href="javascript:void(0)">发件人</a>
+                                </h3>
+                                <p id="showEmailTo">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="h5 m-b-xs">
+                                    <a href="javascript:void(0)">主题</a>
+                                </h3>
+                                <p id="showEmailSubject">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="h5 m-b-xs">
+                                    <a href="javascript:void(0)">内容</a>
+                                </h3>
+                                <p id="showEmailContext">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-app" type="button" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Pop Out Modal -->
+
+        <!-- Slide Up Modal -->
+        <div class="modal fade" id="modal-slideup" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup">
+                <div class="modal-content">
+                    <div class="card-header bg-green bg-inverse">
+                        <h4>提示</h4>
+                        <ul class="card-actions">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-block">
+                        <p>确定要删除邮件？</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">取消</button>
+                        <button class="btn btn-sm btn-app" type="button" data-dismiss="modal" id="delEmail">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Slide Up Modal -->
 
     </main>
 
@@ -179,63 +258,79 @@
     <script src="../../static/js/app.js"></script>
     <script src="../../static/js/app-custom.js"></script>
 
-    <script>
+    <script type="text/javascript">
+        var emailId;
         $(document).ready(function () {
-            $.ajax({
-                type: 'GET',
-                url: '/GetIdentity/',
-                data: {
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                },
-                success: function (data) {
-                    // alert(data.status);
-                    if (data.status == 200) {
-                        getList(data.userId);
-                    }
-                }
-            })
-        });
-        function getList(userId) {
             $.ajax({
                 type: 'GET',
                 url: '/RcvList',
                 // async: false,
                 dateType: "json",
-                data: {
-                    userId:userId,
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                },
                 success: function (data) {
-                    alert(JSON.stringify(data));
-                    alert(data.infoList[0].emailFrom);
+                    // alert(JSON.stringify(data));
                     showTable(data.infoList);
                 }
             })
-        }
-        // $(document).ready(function () {
-        //     var list;
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: '/RcvList',
-        //         // async: false,
-        //         dateType: "json",
-        //         // data: {
-        //         // },
-        //         success: function (data) {
-        //             alert(JSON.stringify(data));
-        //             alert(data.infoList[0].emailFrom);
-        //             showTable(data.infoList);
-        //         }
-        //     })
-        // });
+        });
         function showTable(infoList) {
             for (var i = 0; i < infoList.length; i++) {
-                document.getElementById("showId").innerHTML = i + 1;
-                document.getElementById("showEmailFrom").innerHTML = infoList[i].emailFrom;
-                document.getElementById("showEmailSubject").innerHTML = infoList[i].emailSubject;
-                document.getElementById("showSendTime").innerHTML = infoList[i].sendTime;
+                // document.getElementById("showId").innerHTML = i + 1;
+                // document.getElementById("showEmailFrom").innerHTML = infoList[i].emailFrom;
+                // document.getElementById("showEmailSubject").innerHTML = infoList[i].emailSubject;
+                // document.getElementById("showSendTime").innerHTML = infoList[i].sendTime;
+                var str = "<tr><td class=\"text-center\">" + (i + 1) +
+                    "</td><td class=\"text-center\">" + infoList[i].emailFrom +
+                    "</td><td class=\"text-center hidden-xs\">" + infoList[i].emailSubject +
+                    "</td><td class=\"text-center hidden-xs\">" + infoList[i].sendTime +
+                    "</td><td  class=\"text-center\"><div class=\"btn-group\">"+
+                    "<button class=\"btn btn-xs btn-default\" type=\"button\" data-toggle=\"modal\" data-target=\"#modal-popout\" title=\"Edit Client\" onClick='getForm(" + infoList[i].emailId + ")'>"
+                    + "<i class=\"fa fa-search-plus\" ></i></button>" +
+                    "<button class=\"btn btn-xs btn-default\" type=\"button\" data-toggle=\"modal\" data-target=\"#modal-slideup\" title=\"Edit Client\" onClick='getForm(" + infoList[i].emailId + ")'>"
+                    + "<i class=\"ion-close\"></i></button>"
+                    + "</div></td></tr>"
+                $("#RcvEmail").append(str)
             }
         };
+        
+        function getForm(id) {
+            emailId=id;
+        }
+        function getEmail() {
+            $.ajax({
+                type: 'POST',
+                url: '/CheckMail/',
+                // async: false,
+                data: {
+                    mailId: emailId,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        alert("查看成功");
+                        $("#showEmailTo").text(data['emailTo'])
+                        $("#showEmailSubject").text(data['emailSubject'])
+                        $("#showEmailContext").text(data['emailContext'])
+                    }
+                }
+            })
+        }
+        $("#delEmail").click(function() {
+            $.ajax({
+                type: 'POST',
+                url: '/DeleEmail/',
+                // async: false,
+                data: {
+                    mailId: emailId,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        alert("删除成功");
+                        window.location.href = "/ReceiveEmail";
+                    }
+                }
+            })
+        })
 
         $("#logout").click(function () {
             $.ajax({
@@ -246,7 +341,6 @@
                     csrfmiddlewaretoken: '{{ csrf_token }}'
                 },
                 success: function (data) {
-                    alert(data.message);
                     if (data.status == 200) window.location.href = "/";
                 }
             })
