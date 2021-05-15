@@ -101,7 +101,8 @@ urlpatterns = [
     path('RcverDeleEmail/', views.RcverDeleEmail),
 # 用户主页数据
     path('IndexInfo/', views.IndexInfo),
-
+# 已删除列表
+    path('DeletedMailList/', views.DeletedMailList),
 
 
 ]
