@@ -137,7 +137,7 @@
                                         <td class="text-center" id="showId">1</td>
                                         <td class="text-center" id="showEmailFrom">12</td>
                                         <td class="text-center hidden-xs" id="showEmailSubject">12</td>
-                                        <td class="text-center hidden-xs" id="showSendTime">12</td>
+                                        <td class="text-center hidden-xs" id="showSendTime"></td>
                                         <td class="text-center">
                                             <div class="btn-group">
                                                 <button class="btn btn-xs btn-default" type="button"
@@ -185,7 +185,7 @@
                                 <h3 class="h5 m-b-xs">
                                     <a href="javascript:void(0)">发件人</a>
                                 </h3>
-                                <p id="showEmailTo">
+                                <p id="showEmailFrom">
                                 </p>
                             </div>
                         </div>
@@ -278,6 +278,7 @@
                 // document.getElementById("showEmailFrom").innerHTML = infoList[i].emailFrom;
                 // document.getElementById("showEmailSubject").innerHTML = infoList[i].emailSubject;
                 // document.getElementById("showSendTime").innerHTML = infoList[i].sendTime;
+                // time = datetime.strptime(infoList[i].sendTime, '%Y-%m-%d %H:%M:%S')
                 var str = "<tr><td class=\"text-center\">" + (i + 1) +
                     "</td><td class=\"text-center\">" + infoList[i].emailFrom +
                     "</td><td class=\"text-center hidden-xs\">" + infoList[i].emailSubject +
@@ -294,6 +295,7 @@
         
         function getForm(id) {
             emailId=id;
+            getEmail();
         }
         function getEmail() {
             $.ajax({
@@ -307,9 +309,10 @@
                 success: function (data) {
                     if (data.status == 200) {
                         alert("查看成功");
-                        $("#showEmailTo").text(data['emailTo'])
-                        $("#showEmailSubject").text(data['emailSubject'])
-                        $("#showEmailContext").text(data['emailContext'])
+                        alert(JSON.stringify(data));
+                        $("#showEmailFrom").text(data.info['fromAddr'])
+                        $("#showEmailSubject").text(data.info['emailSubject'])
+                        $("#showEmailContext").text(data.info['emailCont'])
                     }
                 }
             })
@@ -317,7 +320,7 @@
         $("#delEmail").click(function() {
             $.ajax({
                 type: 'POST',
-                url: '/DeleEmail/',
+                url: '/RcverDeleEmail/',
                 // async: false,
                 data: {
                     mailId: emailId,

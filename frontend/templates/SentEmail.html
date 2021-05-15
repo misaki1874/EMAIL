@@ -276,6 +276,7 @@
         };
         function getForm(id) {
             emailId=id;
+            getEmail();
         }
         function getEmail() {
             $.ajax({
@@ -289,21 +290,9 @@
                 success: function (data) {
                     if (data.status == 200) {
                         alert("查看成功");
-                        // var str="<div class=\"row\"><div class=\"col-md-12\"><h3 class=\"h5 m-b-xs\">"
-                        //             "<a href=\"javascript:void(0)\">收件人</a></h3>"
-                        //         "<p>"+data.emailTo+
-                        //         "</p></div></div>"
-                        //         "<div class=\"row\"><div class=\"col-md-12\"><h3 class=\"h5 m-b-xs\">
-                        //             "<a href=\"javascript:void(0)\">主题</a>\</h3>"
-                        //         "<p>"+data.emailSubject+
-                        //         "</p></div></div>"
-                        //         "<div class=\"row\"><div class=\"col-md-12\"><h3 class=\"h5 m-b-xs\">
-                        //             "<a href=\"javascript:void(0)\">内容</a>\</h3>"
-                        //         "<p>"+data.emailContext+
-                        //         "</p></div></div>"
-                        $("#showEmailTo").text(data['emailTo'])
-                        $("#showEmailSubject").text(data['emailSubject'])
-                        $("#showEmailContext").text(data['emailContext'])
+                        $("#showEmailTo").text(data.info['toAddr'])
+                        $("#showEmailSubject").text(data.info['emailSubject'])
+                        $("#showEmailContext").text(data.info['emailCont'])
                     }
                 }
             })
@@ -311,7 +300,7 @@
         $("#delEmail").click(function() {
             $.ajax({
                 type: 'POST',
-                url: '/DeleEmail/',
+                url: '/SenderDeleEmail/',
                 // async: false,
                 data: {
                     mailId: emailId,

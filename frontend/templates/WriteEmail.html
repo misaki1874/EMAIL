@@ -224,7 +224,6 @@
     <script>
         $("#receiver").keydown(function(event) {
             if(event.keyCode=="13") {
-                alert(111);
                 var e=document.getElementById("receiver").value;
                 document.getElementById("receiver").value+=";";
                 document.getElementById("receiver").style.fontStyle="italic"
@@ -239,19 +238,20 @@
             if (receiver == "" || subject == "" || text == "") alert("请将表单填写完整！")
             else {
                 var arr = receiver.split(";");
+                alert(arr[0])
                 $.ajax({
-                    type: 'GET',
-                    url: '/sendEmail/',
+                    type: 'POST',
+                    url: '/SendEmail/',
                     // async: false,
                     data: {
-                        receiver: arr,
+                        rcverNameList: receiver,
                         subject: subject,
-                        text: text,
+                        cont: text,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     success: function (data) {
                         alert(data.message);
-                        if (data.status == 200) window.location.href = "/";
+                        if (data.status == 200) window.location.href = "/WriteEmail";
                     }
                 })
             }
