@@ -39,12 +39,7 @@ urlpatterns = [
     path('AdminIndex/',views.AdminIndex),
 # 邮箱管理界面
     path('EmailManage/',views.EmailManage),
-# SMTP日志界面
-    path('SMTPLog/',views.SMTPLog),
-# pop3日志界面
-    path('POP3Log/',views.POP3Log),
-# 创建用户界面
-    path('CreateUser/',views.CreateUser),
+
 # 身份信息获取
     path('GetIdentity/', views.GetIdentity),
 # 登录认证
@@ -106,7 +101,10 @@ urlpatterns = [
     path('RcverDeleEmail/', views.RcverDeleEmail),
 # 用户主页数据
     path('IndexInfo/', views.IndexInfo),
-
+# 已删除列表
+    path('DeletedMailList/', views.DeletedMailList),
+# 恢复已删除邮件
+    path('RecoverDeletedMail/', views.RecoverDeletedMail),
 
 
 ]
