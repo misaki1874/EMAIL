@@ -77,8 +77,11 @@ urlpatterns = [
 
 
 
-# # 发邮件，含群发
-#     path('SendEmail/', views.SendEmail),
+# 发邮件，含群发
+    path('SendEmail/', views.SendEmail),
+# 具体邮件查看
+    path('CheckMail/', views.CheckMail),
+
 
 # 发件箱列表
     path('SendList/', views.SendList),
@@ -88,8 +91,6 @@ urlpatterns = [
     path('SenderDeleEmail/', views.SenderDeleEmail),
 # 普通用户收件箱删除邮件
     path('RcverDeleEmail/', views.RcverDeleEmail),
-# # 具体邮件查看
-#     path('CheckMail/', views.CheckMail),
 
 
 

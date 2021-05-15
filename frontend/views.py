@@ -278,14 +278,13 @@ def SetAsUser(request):
 # 邮件管理列表
 def EmailList(request):
     try:
-        emails = models.Email.objects.all()
+        emails = models.Email.objects.all().order_by("-send_time")
         infoList = []
         for email in emails:
             infoList.append({'emailId': email.email_id,
                              'fromAddr': email.email_from,
                              'toAddr': email.email_to,
                              'emailSubject': email.email_subject,
-                             'emailCont': email.email_cont,
                              'sendTime': email.send_time})
         return JsonResponse({
             "message": "返回数据成功",
@@ -369,8 +368,52 @@ def RcverDeleEmail(request):
 
 
 # 发邮件，含群发
-# def SendEmail(request):
-#
+# 参数：接收人用户名列表rcverNameList，主题subject，内容cont
+def SendEmail(request):
+    rcverNameList = request.POST.get('rcverNameList',None)
+    subject = request.POST.get('subject',None)
+    cont = request.POST.get('cont',None)
+    userId = request.session.get('userId')
+    try:
+        user = models.User.objects.get(user_id=userId)
+        for i in len(rcverNameList):
+            rcverEmail = models.User.objects.get(user_name=rcverNameList[i]).user_email
+            models.Email.objects.create(
+                email_from=user.user_email,
+                email_to=rcverEmail,
+                email_subject=subject,
+                email_cont=cont,
+                send_time=datetime.now()
+            )
+        return JsonResponse({"message": "邮件发送成功", "status": 2000})
+
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+# 具体邮件查看
+# 参数：mailId
+def CheckMail(request):
+    mailId = request.POST.get('mailId',None)
+    authorityNo = request.session.get('userAuthority',None)
+    try:
+        email = models.Email.objects.get(email_id=mailId)
+        if authorityNo == 0 and email.rcver_fr_flag == 0:  # 普通用户第一次读取该邮件
+            email.rcver_fr_flag = 1
+            email.pop_log = 1  # 加入pop日志
+            email.save()
+
+        info = {}
+        info['emailId'] = email.email_id
+        info['fromAddr'] = email.email_from
+        info['toAddr'] = email.email_to
+        info['emailSubject'] = email.email_subject
+        info['emailCont'] = email.email_cont
+        info['sendTime'] = email.send_time
+        return JsonResponse({"message": "返回数据成功", "status": 200, "info": info})
+
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
 
 
 
