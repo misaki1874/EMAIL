@@ -19,9 +19,6 @@ from frontend import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('GET_test/',views.GET_test),
-    path('POST_test/',views.POST_test),
-    path('POST/',views.POST),
 # 登录页面
     path('', views.Login),
 # 注册页面
@@ -82,6 +79,8 @@ urlpatterns = [
     path('DeleSMTPLog/', views.DeleSMTPLog),
 # POP日志清除
     path('DelePOPLog/', views.DelePOPLog),
+# 后台主页数据
+    path('AdminIndexInfo/', views.AdminIndexInfo),
 
 
 
@@ -100,7 +99,8 @@ urlpatterns = [
     path('SenderDeleEmail/', views.SenderDeleEmail),
 # 普通用户收件箱删除邮件
     path('RcverDeleEmail/', views.RcverDeleEmail),
-
+# 用户主页数据
+    path('IndexInfo/', views.IndexInfo),
 
 
 

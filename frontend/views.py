@@ -65,8 +65,8 @@ def GetIdentity(request):
 # 参数：用户名，密码
 def register(request):
     # 登录状态不允许注册
-    if request.session.get('isLogin', None):
-        return JsonResponse({"message": "登录状态，无法注册", "status": 404})
+    if request.session.get('isLogin', None) and request.session.get('userAuthority') == 0:
+        return JsonResponse({"message": "普通用户登录状态，无法注册", "status": 404})
 
     userName = request.POST.get('userName',None)
     password = request.POST.get('password',None)
@@ -323,7 +323,7 @@ def RcvList(request):
     try:
         user = models.User.objects.get(user_id=userId)
         if user.pop_state == 0:
-            return JsonResponse({"message": "无pop权限，无法发送邮件", "status": 404})
+            return JsonResponse({"message": "无pop权限，无法获取邮件", "status": 404})
 
         userEmail = user.user_email
         emails = models.Email.objects.filter(email_to=userEmail, rcver_del_flag=0).order_by("-send_time")
@@ -397,7 +397,8 @@ def SendEmail(request):
                 email_to=rcverEmail,
                 email_subject=subject,
                 email_cont=cont,
-                send_time=datetime.now()
+                send_time=datetime.now(),
+                email_size=len(cont)
             )
         return JsonResponse({"message": "邮件发送成功", "status": 200})
 
@@ -468,7 +469,7 @@ def POPLogList(request):
 def DeleSMTPLog(request):
     emailId = request.POST.get("mailId")
     try:
-        email = models.Email.objects.filter(email_id=emailId)
+        email = models.Email.objects.get(email_id=emailId)
         email.smtp_log = 0
         email.save()
         return JsonResponse({"message": "日志清除成功", "status": 200})
@@ -481,7 +482,7 @@ def DeleSMTPLog(request):
 def DelePOPLog(request):
     emailId = request.POST.get("mailId")
     try:
-        email = models.Email.objects.filter(email_id=emailId)
+        email = models.Email.objects.get(email_id=emailId)
         email.pop_log = 0
         email.save()
         return JsonResponse({"message": "日志清除成功", "status": 200})
@@ -490,22 +491,42 @@ def DelePOPLog(request):
         return JsonResponse({"message": "数据库出错", "status": 404})
 
 
+# 后台主页数据
+def AdminIndexInfo(request):
+    try:
+        smtpLogCnt = models.Email.objects.filter(smtp_log=1).count()
+        popLogCnt = models.Email.objects.filter(pop_log=1).count()
+        userCnt = models.User.objects.all().count()
+        emailCnt = models.Email.objects.all().count()
+        return JsonResponse({
+            "message": "返回数据成功",
+            "status": 200,
+            "smtpLogCnt": smtpLogCnt,
+            "popLogCnt": popLogCnt,
+            "userCnt": userCnt,
+            "emailCnt": emailCnt})
 
-def GET_test(request):
-    return render(request,'GET_test.html')
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
 
-def POST_test(request):
-    return render(request,'POST_test.html')
 
-def POST(request):
-    userName=request.POST['userName']
-    password=request.POST['password']
-    mail=request.POST['mail']
-    port=request.POST['port']
-    models.User.objects.create(user_name=userName,user_code=password,user_email=mail,smtp_state='1',pop_state='1',port=port)
-    return render(request,'result.html',context={'data':userName})
+# 用户主页数据
+def IndexInfo(request):
+    userId = request.session.get('userId')
+    try:
+        userEmail = models.User.objects.get(user_id=userId).user_email
+        rcvEmailCnt = models.Email.objects.filter(email_to=userEmail, rcver_del_flag=0).count()
+        sendEmailCnt = models.Email.objects.filter(email_from=userEmail, sender_del_flag=0).count()
+        return JsonResponse({
+            "message": "返回数据成功",
+            "status": 200,
+            "rcvEmailCnt": rcvEmailCnt,
+            "sendEmailCnt": sendEmailCnt,
+        })
 
-def GET_test(request):
-    data = models.User.objects.all()
-    # context必须是一个键值对
-    return render(request,'GET_test.html',context={'data':data})
+    except Exception as e:
+        return JsonResponse({"message": "数据库出错", "status": 404})
+
+
+
+
