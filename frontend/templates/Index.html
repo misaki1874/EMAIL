@@ -125,7 +125,7 @@
         <div class="container-fluid p-y-md">
             <!-- Stats -->
             <div class="row">
-                <div class="col-sm-8 col-lg-8" style="left: 17%;">
+                <div class="col-sm-6 col-lg-6">
                     <a class="card" href="javascript:void(0)">
                         <div class="card-block clearfix">
                             <div class="pull-right">
@@ -139,14 +139,12 @@
                         </div>
                     </a>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-8 col-lg-8"  style="left: 17%;">
+                <div class="col-sm-6 col-lg-6">
                     <a class="card bg-green bg-inverse" href="javascript:void(0)">
                         <div class="card-block clearfix">
                             <div class="pull-right">
-                                <p class="h6 text-muted m-t-0 m-b-xs">已发送</p>
-                                <p class="h3 m-t-sm m-b-0">80</p>
+                                <p class="h6 text-muted m-t-0 m-b-xs">未读邮件</p>
+                                <p class="h3 m-t-sm m-b-0" id="yetReadNum"></p>
                             </div>
                             <div class="pull-left m-r">
                                 <span class="img-avatar img-avatar-48 bg-gray-light-o"><i
@@ -157,16 +155,30 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-8 col-lg-8" style="left: 17%;">
+                <div class="col-sm-6 col-lg-6">
+                    <a class="card bg-green bg-inverse" href="javascript:void(0)">
+                        <div class="card-block clearfix">
+                            <div class="pull-right">
+                                <p class="h6 text-muted m-t-0 m-b-xs">已发送</p>
+                                <p class="h3 m-t-sm m-b-0" id="SentNum"></p>
+                            </div>
+                            <div class="pull-left m-r">
+                                <span class="img-avatar img-avatar-48 bg-gray-light-o"><i
+                                        class="fa fa-twitter fa-1-5x"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-lg-6">
                     <a class="card" href="javascript:void(0)">
                         <div class="card-block clearfix">
                             <div class="pull-right">
-                                <p class="h6 text-muted m-t-0 m-b-xs">未读邮件</p>
-                                <p class="h3 text-blue m-t-sm m-b-0">120</p>
+                                <p class="h6 text-muted m-t-0 m-b-xs">已删邮件</p>
+                                <p class="h3 text-blue m-t-sm m-b-0">150</p>
                             </div>
                             <div class="pull-left m-r">
                                 <span class="img-avatar img-avatar-48 bg-green bg-inverse"><i
-                                        class="ion-ios-bell fa-1-5x"></i></span>
+                                        class="fa fa-trash-o fa-1-5x"></i></span>
                             </div>
                         </div>
                     </a>
@@ -272,7 +284,7 @@
         $(document).ready(function () {
             $.ajax({
                 type: 'GET',
-                url: '/GetIdentity',
+                url: '/GetIdentity/',
                 // async: false,
                 dateType: "json",
                 success: function (data) {
@@ -282,18 +294,19 @@
                     }
                 }
             })
-            // $.ajax({
-            //     type: 'GET',
-            //     url: '/GetIdentity',
-            //     // async: false,
-            //     dateType: "json",
-            //     success: function (data) {
-            //         if (data.status == 200) {
-            //             var email = "<" + data.userName + "@skyfall.icu" + ">";
-            //             $('#userEmail').text(email)
-            //         }
-            //     }
-            // })
+            $.ajax({
+                type: 'GET',
+                url: '/IndexInfo/',
+                // async: false,
+                dateType: "json",
+                success: function (data) {
+                    if (data.status == 200) {
+                        $('#RsvNum').text(data.rcvEmailCnt);
+                        $('#SentNum').text(data.sendEmailCnt);
+                        $('#yetReadNum').text(data.yetReadCnt);
+                    }
+                }
+            })
         });
         $("#logout").click(function () {
             $.ajax({

@@ -132,6 +132,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center hidden-xs w-10">#</th>
+                                        <th class="text-center hidden-xs w-5">状态</th>
                                         <th class="text-center hidden-xs w-20">发件人</th>
                                         <th class="text-center hidden-xs w-35">主题</th>
                                         <th class="text-center hidden-xs w-20">时间</th>
@@ -141,6 +142,7 @@
                                 <tbody id="RcvEmail">
                                     <!-- <tr>
                                         <td class="text-center" id="showId">1</td>
+                                        <td class="text-center"><i class="ion-android-drafts"></i></td>
                                         <td class="text-center" id="showEmailFrom">12</td>
                                         <td class="text-center hidden-xs" id="showEmailSubject">12</td>
                                         <td class="text-center hidden-xs" id="showSendTime"></td>
@@ -294,7 +296,11 @@
                 // document.getElementById("showEmailSubject").innerHTML = infoList[i].emailSubject;
                 // document.getElementById("showSendTime").innerHTML = infoList[i].sendTime;
                 // time = datetime.strptime(infoList[i].sendTime, '%Y-%m-%d %H:%M:%S')
+                var state;
+                if(infoList[i].readState==0) state="mail";
+                else state="drafts"
                 var str = "<tr><td class=\"text-center\">" + (i + 1) +
+                    "</td><td class=\"text-center\">"+"<i class=\"ion-android-"+state+"\"></i>"+
                     "</td><td class=\"text-center\">" + infoList[i].emailFrom +
                     "</td><td class=\"text-center hidden-xs\">" + infoList[i].emailSubject +
                     "</td><td class=\"text-center hidden-xs\">" + infoList[i].sendTime +
