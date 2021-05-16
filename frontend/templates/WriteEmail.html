@@ -256,17 +256,16 @@
             var receiver = document.getElementById("receiver").value;
             var subject = document.getElementById("subject").value;
             var text = document.getElementById("text").value;
-            alert(receiver + subject + text);
             if (receiver == "" || subject == "" || text == "") alert("请将表单填写完整！")
             else {
                 var arr = receiver.split(";");
-                alert(arr[0])
+                alert(receiver);
                 $.ajax({
                     type: 'POST',
                     url: '/SendEmail/',
                     // async: false,
                     data: {
-                        rcverNameList: receiver,
+                        rcverEmailList: receiver,
                         subject: subject,
                         cont: text,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
