@@ -376,9 +376,10 @@ def RcverDeleEmail(request):
 # 发邮件，含群发
 # 参数：用"@skyfall.icu; "分隔的接收人邮箱字符串rcverEmailList，主题subject，内容cont
 def SendEmail(request):
-    rcverEmailList = request.POST.get('rcverEmailList',None)
-    rcverNameList = rcverEmailList.split('@skyfall.icu; ')
-    subject = request.POST.get('subject',None)
+    rcverEmailList = request.POST.get('rcverEmailList', None)
+    rcverEmailList = rcverEmailList.split('; ')
+    rcverEmailList.pop()
+    subject = request.POST.get("subject", None)
     cont = request.POST.get('cont',None)
     userId = request.session.get('userId')
     try:
@@ -386,16 +387,17 @@ def SendEmail(request):
         if user.smtp_state == 0:
             return JsonResponse({"message": "无smtp权限，无法发送邮件", "status": 404})
 
-        for i in range(len(rcverNameList)):
-            rcver = models.User.objects.filter(user_name=rcverNameList[i])
+        for i in range(len(rcverEmailList)):  # 检查收件人存在
+            rcver = models.User.objects.filter(user_email=rcverEmailList[i])
             if not rcver.exists():
                 return JsonResponse({"message": "有用户不存在，发送失败", "status": 404})
-            rcver = rcver.first()
-            rcverEmail = rcver.user_email
-            print(rcverEmail)
+
+        for i in range(len(rcverEmailList)):  # 发邮件
+            rcver = models.User.objects.get(user_email=rcverEmailList[i])
+            print(rcver.user_email)
             models.Email.objects.create(
                 email_from=user.user_email,
-                email_to=rcverEmail,
+                email_to=rcver.user_email,
                 email_subject=subject,
                 email_cont=cont,
                 send_time=datetime.now(),
@@ -415,6 +417,7 @@ def CheckMail(request):
         email = models.Email.objects.get(email_id=mailId)
         if authorityNo == 0 and email.rcver_fr_flag == 0:  # 普通用户第一次读取该邮件
             email.rcver_fr_flag = 1
+            email.rcver_fr_time = datetime.now()
             email.pop_log = 1  # 加入pop日志
             email.save()
 
